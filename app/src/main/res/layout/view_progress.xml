@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/progress_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.simon.dribbble.widget.loading.Loading
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/progress_width"
+            android:layout_height="@dimen/progress_width"/>
+
+        <TextView
+            android:id="@+id/progressTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="@string/loading"
+            android:textColor="#33475f"
+            android:textSize="12sp" />
+    </LinearLayout>
+</FrameLayout>

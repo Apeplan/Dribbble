@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- LoadingView -->
+    <attr name="gLoadingStyle" format="reference"/>
+    <declare-styleable name="Loading">
+        <attr name="gBackgroundLineSize" format="dimension"/>
+        <attr name="gForegroundLineSize" format="dimension"/>
+        <attr name="gBackgroundColor" format="reference|color"/>
+        <attr name="gForegroundColor" format="reference|color"/>
+        <attr name="gLineStyle">
+            <enum name="circle" value="1"/>
+            <enum name="line" value="2"/>
+        </attr>
+        <attr name="gAutoRun" format="boolean"/>
+        <attr name="gProgressFloat" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="ProgressWheel">
+        <attr name="matProg_progressIndeterminate" format="boolean" />
+        <attr name="matProg_barColor" format="color" />
+        <attr name="matProg_rimColor" format="color" />
+        <attr name="matProg_rimWidth" format="dimension" />
+        <attr name="matProg_spinSpeed" format="float" />
+        <attr name="matProg_barSpinCycleTime" format="integer" />
+        <attr name="matProg_circleRadius" format="dimension" />
+        <attr name="matProg_fillRadius" format="boolean" />
+        <attr name="matProg_barWidth" format="dimension" />
+        <attr name="matProg_linearProgress" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SmileyLoadingView">
+        <!-- animation duration -->
+        <attr name="duration" format="integer"/>
+        <!-- stroke width -->
+        <attr name="strokeWidth" format="dimension"/>
+        <!-- stroke color -->
+        <attr name="strokeColor" format="color|dimension"/>
+        <!-- animation repeat count -->
+        <attr name="animRepeatCount" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="StateLayout">
+        <attr name="errorDrawable" format="reference" />
+        <attr name="emptyDrawable" format="reference" />
+        <attr name="progressView" format="reference" />
+    </declare-styleable>
+
+</resources>

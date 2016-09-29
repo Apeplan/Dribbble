@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <!--<color name="colorPrimary">#00A9E4</color>-->
+    <!--<color name="colorPrimaryDark">#00AA9F</color>-->
+
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#FFF</color>
+    <color name="red">#FFFF0000</color>
+    <color name="green">#FF00FF00</color>
+    <color name="black">#f000</color>
+    <color name="blue">#f00f</color>
+    <color name="gray_main">#757575</color>
+
+
+
+    <color name="cyan_500">#00bcd4</color>
+    <color name="purple_500">#9c27b0</color>
+    <color name="blue_500">#5677fc</color>
+    <color name="orange_500">#ff9800</color>
+    <color name="pink_500">#e91e63</color>
+    <color name="grey_300">#e0e0e0</color>
+    <color name="g_default_loading_bg">#e0e0e0</color>
+
+    <array name="g_default_loading_fg">
+        <item>@color/cyan_500</item>
+        <item>@color/purple_500</item>
+        <item>@color/blue_500</item>
+        <item>@color/orange_500</item>
+        <item>@color/pink_500</item>
+    </array>
+
+    <color name="color_333333">#333333</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_888888">#888888</color>
+    <color name="color_999999">#999999</color>
+
+</resources>

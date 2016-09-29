@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.simon.dribbble.widget.statelayout.StateLayout
+        android:id="@+id/stateLayout_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/imv_avatar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/person_image_empty"/>
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:text="Simon Han"/>
+
+            <TextView
+                android:id="@+id/tv_user_bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:text="Simon Han"/>
+
+            <TextView
+                android:id="@+id/tv_user_loc"
+                style="@style/user_info_tv"
+                android:drawableLeft="@drawable/ic_person_location_gray_24dp"
+                android:text="Simon Han"/>
+
+            <TextView
+                android:id="@+id/tv_user_web"
+                style="@style/user_info_tv"
+                android:drawableLeft="@drawable/ic_web_gray_24dp"
+                android:text="Simon Han"/>
+
+            <TextView
+                android:id="@+id/tv_user_twitter"
+                style="@style/user_info_tv"
+                android:drawableLeft="@drawable/twitter"
+                android:paddingLeft="@dimen/px_2_dp_6"
+                android:text="Simon Han"/>
+
+            <TextView
+                android:id="@+id/tv_user_buckets"
+                style="@style/user_info_tv"
+                android:drawableLeft="@drawable/ic_drawer_shots__normal"
+                android:text="Simon Han"/>
+
+            <TextView
+                android:id="@+id/tv_user_followers"
+                style="@style/user_info_tv"
+                android:drawableLeft="@drawable/ic_person_gray_24dp"
+                android:text="Simon Han"/>
+
+            <TextView
+                android:id="@+id/tv_user_followings"
+                style="@style/user_info_tv"
+                android:drawableLeft="@drawable/ic_person_outline_gray_24dp"
+                android:text="Simon Han"/>
+
+            <TextView
+                android:id="@+id/tv_user_likes"
+                style="@style/user_info_tv"
+                android:drawableLeft="@drawable/ic_favorite_border_gray_24dp"
+                android:text="Simon Han"/>
+
+        </LinearLayout>
+    </com.simon.dribbble.widget.statelayout.StateLayout>
+</LinearLayout>

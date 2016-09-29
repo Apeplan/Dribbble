@@ -1,0 +1,36 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">185dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="progress_width">35dp</dimen>
+    <dimen name="progress_height">35dp</dimen>
+
+    <dimen name="g_loading_lineSize">2dp</dimen>
+    <dimen name="g_loading_minSize">28dp</dimen>
+
+    <dimen name="user_profile_spec">50dp</dimen>
+    <dimen name="drawable_size">76dp</dimen>
+
+    <dimen name="spot_size">6dp</dimen>
+    <dimen name="title_margin">10dp</dimen>
+    <dimen name="progress_margin">24dp</dimen>
+    <dimen name="progress_dig_width">250dp</dimen>
+
+    <dimen name="px_2_dp_4">2.0dp</dimen>
+    <dimen name="px_2_dp_6">3.0dp</dimen>
+    <dimen name="px_2_dp_8">4.0dp</dimen>
+    <dimen name="px_2_dp_10">5.0dp</dimen>
+    <dimen name="px_2_dp_16">8.0dp</dimen>
+    <dimen name="px_2_dp_20">10.0dp</dimen>
+    <dimen name="px_2_dp_21">10.5dp</dimen>
+    <dimen name="px_2_dp_26">13.0dp</dimen>
+    <dimen name="px_2_dp_28">14.0dp</dimen>
+    <dimen name="px_2_dp_30">15.0dp</dimen>
+    <dimen name="px_2_dp_40">20.0dp</dimen>
+    <dimen name="px_2_dp_80">40.0dp</dimen>
+</resources>

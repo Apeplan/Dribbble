@@ -1,0 +1,24 @@
+<com.simon.dribbble.widget.statelayout.StateLayout
+    android:id="@+id/progress_loading"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    android:layout_height="match_parent">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <net.quickrecyclerview.XRecyclerView
+            android:id="@+id/xrv_shots"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"/>
+
+    </LinearLayout>
+</com.simon.dribbble.widget.statelayout.StateLayout>

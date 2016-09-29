@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/px_2_dp_16"
+    android:layout_marginRight="@dimen/px_2_dp_16"
+    android:layout_marginTop="@dimen/px_2_dp_16">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/px_2_dp_10"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imv_avatar"
+            android:layout_width="@dimen/px_2_dp_80"
+            android:layout_height="@dimen/px_2_dp_80"
+            android:layout_marginRight="@dimen/px_2_dp_10"
+            android:src="@drawable/person_image_empty"
+            android:visibility="visible"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/px_2_dp_10">
+
+            <TextView
+                android:id="@+id/tv_buckets_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_333333"
+                tools:text="标题"/>
+
+            <TextView
+                android:id="@+id/tv_buckets_create_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_buckets_title"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp"
+                tools:text="Create at 2016-08-31"/>
+
+            <TextView
+                android:id="@+id/tv_shots_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_buckets_title"
+                android:layout_marginLeft="@dimen/px_2_dp_30"
+                android:layout_toRightOf="@id/tv_buckets_create_time"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp"
+                tools:text="1个作品"/>
+
+            <TextView
+                android:id="@+id/tv_buckets_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_buckets_create_time"
+                android:layout_marginTop="@dimen/px_2_dp_10"
+                android:maxLines="2"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp"
+                tools:text="描述"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

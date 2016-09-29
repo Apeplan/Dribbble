@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dribbble"
+            android:icon="@drawable/ic_drawer_dribbble_normal"
+            android:title="@string/dribbble"/>
+        <item
+            android:id="@+id/nav_following"
+            android:icon="@drawable/ic_drawer_following_normal"
+            android:title="@string/following"/>
+        <item
+            android:id="@+id/nav_shots"
+            android:icon="@drawable/ic_drawer_shots__normal"
+            android:title="@string/shots"/>
+        <item
+            android:id="@+id/nav_buckets"
+            android:icon="@drawable/ic_drawer_buckets_normal"
+            android:title="@string/buckets"/>
+
+        <item
+            android:id="@+id/nav_projects"
+            android:icon="@drawable/ic_drawer_projects_normal"
+            android:title="@string/projects"/>
+        <item
+            android:id="@+id/nav_team"
+            android:icon="@drawable/ic_drawer_team_normal"
+            android:title="@string/team"/>
+        <item
+            android:id="@+id/nav_favorite"
+            android:icon="@drawable/ic_drawer_favorite_normal"
+            android:title="@string/favorite"/>
+
+        <item
+            android:id="@+id/nav_dl"
+            android:icon="@drawable/ic_drawer_dl_normal"
+            android:title="@string/download_image"/>
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_drawer_settings_normal"
+            android:title="@string/action_settings"/>
+
+    </group>
+
+   <!-- <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="分享"/>
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="发送"/>
+        </menu>
+    </item>-->
+
+</menu>

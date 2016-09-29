@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="类型">
+        <menu>
+            <item
+                android:id="@+id/filter_debuts"
+                android:title="@string/limit_debuts"/>
+            <item
+                android:id="@+id/filter_playoffs"
+                android:title="@string/limit_playoffs"/>
+            <item
+                android:id="@+id/filter_rebounds"
+                android:title="@string/limit_rebounds"/>
+            <item
+                android:id="@+id/filter_animated"
+                android:title="@string/limit_animated"/>
+            <item
+                android:id="@+id/filter_attachments"
+                android:title="@string/limit_attachments"/>
+
+        </menu>
+    </item>
+
+    <item android:title="排序">
+        <menu>
+            <item
+                android:id="@+id/filter_hot"
+                android:title="@string/limit_hot"/>
+            <item
+                android:id="@+id/filter_recent"
+                android:title="@string/limit_recent"/>
+            <item
+                android:id="@+id/filter_views"
+                android:title="@string/limit_views"/>
+            <item
+                android:id="@+id/filter_comments"
+                android:title="@string/limit_comments"/>
+
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="NavigationTabBar">
+        <!--是否显示图标下的标题-->
+        <attr name="ntb_titled" format="boolean"/>
+        <!--是否显示小图章-->
+        <attr name="ntb_badged" format="boolean"/>
+        <!--切换时是否有缩放动画-->
+        <attr name="ntb_scaled" format="boolean"/>
+        <attr name="ntb_tinted" format="boolean"/>
+        <attr name="ntb_swiped" format="boolean"/>
+        <!--是否定制字体-->
+        <attr name="ntb_badge_use_typeface" format="boolean"/>
+        <!--标题大小-->
+        <attr name="ntb_title_size" format="dimension"/>
+        <!--标题模式：all 即显示图标有显示标题； activie 只显示图标不显示文字标题-->
+        <attr name="ntb_title_mode" format="enum">
+            <enum name="all" value="0"/>
+            <enum name="active" value="1"/>
+        </attr>
+        <!--小图章内文字的大小-->
+        <attr name="ntb_badge_size" format="dimension"/>
+        <!--小图章的位置-->
+        <attr name="ntb_badge_position" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="center" value="1"/>
+            <enum name="right" value="2"/>
+        </attr>
+        <attr name="ntb_badge_gravity" format="enum">
+            <enum name="top" value="0"/>
+            <enum name="bottom" value="1"/>
+        </attr>
+        <attr name="ntb_badge_bg_color" format="color|reference"/>
+        <!--导航栏字体颜色-->
+        <attr name="ntb_badge_title_color" format="color|reference"/>
+
+        <attr name="ntb_typeface" format="string"/>
+        <attr name="ntb_corners_radius" format="dimension"/>
+        <attr name="ntb_icon_size_fraction" format="float"/>
+        <attr name="ntb_animation_duration" format="integer"/>
+        <!--导航栏中图标未选中是的颜色-->
+        <attr name="ntb_inactive_color" format="color|reference"/>
+        <!--导航栏中图标选中时的颜色-->
+        <attr name="ntb_active_color" format="color|reference"/>
+        <!--导航栏背景颜色-->
+        <attr name="ntb_bg_color" format="color|reference"/>
+
+        <attr name="ntb_preview_colors" format="reference"/>
+    </declare-styleable>
+
+</resources>

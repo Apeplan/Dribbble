@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/px_2_dp_16"
+    android:layout_marginRight="@dimen/px_2_dp_16"
+    android:layout_marginTop="@dimen/px_2_dp_16">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/px_2_dp_10">
+
+        <ImageView
+            android:id="@+id/imv_avatar"
+            android:layout_width="@dimen/px_2_dp_80"
+            android:layout_height="@dimen/px_2_dp_80"
+            android:src="@drawable/person_image_empty"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:id="@+id/tv_project_na"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="Simon"
+                android:textColor="@color/color_333333"/>
+
+            <TextView
+                android:id="@+id/tv_project_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tv_project_na"
+                android:layout_marginLeft="@dimen/px_2_dp_20"
+                android:layout_toRightOf="@id/tv_project_na"
+                android:gravity="center"
+                tools:text="3 作品"/>
+
+            <TextView
+                android:id="@+id/tv_project_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_project_count"
+                android:layout_marginTop="@dimen/px_2_dp_6"
+                android:gravity="center"
+                tools:text="3 粉丝"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,136 @@
+<resources>
+    <string name="app_name">精美设计</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">设置</string>
+    <string name="loading">正在加载...</string>
+    <string name="try_again">重新加载</string>
+    <string name="not_data">暂无数据</string>
+
+    <string name="error">出错了</string>
+    <string name="retry">轻触屏幕重试</string>
+    <string name="empty">啥也没有</string>
+
+    <!-- <string name="dribbble">Dribbble</string>
+    <string name="following">Following</string>
+    <string name="shots">Shots</string>
+    <string name="buckets">Buckets</string>
+    <string name="projects">Projects</string>
+    <string name="team">Team</string>
+    <string name="favorite">Favorite</string>
+    <string name="download_image">DownloadImage</string>
+    <string name="about">About</string>-->
+
+    <string name="action_current">当前</string>
+    <string name="action_week">一周内</string>
+    <string name="action_month">一月内</string>
+    <string name="action_year">一年内</string>
+    <string name="action_ever">时间不限</string>
+    <string name="home">首页</string>
+    <string name="center">个人中心</string>
+
+    <string name="dribbble">首页</string>
+    <string name="following">关注</string>
+    <string name="shots">作品</string>
+    <string name="buckets">作品集</string>
+    <string name="projects">项目</string>
+    <string name="team">团队</string>
+    <string name="favorite">收藏</string>
+    <string name="download_image">下载的图片</string>
+    <string name="about">关于</string>
+    <string name="search">搜索</string>
+
+    <string name="limit_hot">最热</string>
+    <string name="limit_recent">最新</string>
+    <string name="limit_views">查看最多</string>
+    <string name="limit_comments">评论最多</string>
+
+    <string name="limit_shots">作品</string>
+    <string name="limit_teams">团队作品</string>
+    <string name="limit_debuts">首秀</string>
+    <string name="limit_playoffs">季度作品</string>
+    <string name="limit_rebounds">再创作</string>
+    <string name="limit_animated">GIF动画</string>
+    <string name="limit_attachments">带有附件</string>
+    <string name="double_click_exit">再次点击退出精美设计</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="prompt_comment">添加评论</string>
+    <!-- 共享过度动画 -->
+    <string name="transition_photos">transition_animation_news_photos</string>
+    <string name="share">分享</string>
+    <string name="save">保存</string>
+    <string name="toast_def_hint">我们的程序猿GG，正在披星戴月的实现...</string>
+    <string name="menu_filter">Filter</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="add_buckets">添加到作品集</string>
+
+    <array name="comm_option">
+        <item>编辑</item>
+        <item>删除</item>
+        <item>喜欢</item>
+        <item>取消喜欢</item>
+    </array>
+
+</resources>

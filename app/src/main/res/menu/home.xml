@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+     <item
+         android:id="@+id/menu_search"
+         android:title="@string/search"
+         android:icon="@drawable/ic_search"
+         app:showAsAction="always" />
+
+    <!--<item
+        android:id="@+id/menu_search"
+        android:icon="@drawable/ic_search"
+        android:imeOptions="actionSearch"
+        android:inputType="textCapWords"
+        android:title="search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"/>-->
+
+    <item
+        android:id="@+id/menu_filter"
+        android:icon="@drawable/ic_filter_list"
+        android:title="@string/menu_filter"
+        app:showAsAction="always"/>
+
+    <group
+        android:id="@+id/group_1"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/action_current"
+            android:checked="true"
+            android:orderInCategory="100"
+            android:title="@string/action_current"
+            app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/action_week"
+            android:orderInCategory="100"
+            android:title="@string/action_week"
+            app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/action_month"
+            android:orderInCategory="100"
+            android:title="@string/action_month"
+            app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/action_year"
+            android:orderInCategory="100"
+            android:title="@string/action_year"
+            app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/action_ever"
+            android:orderInCategory="100"
+            android:title="@string/action_ever"
+            app:showAsAction="never"/>
+
+    </group>
+
+</menu>
