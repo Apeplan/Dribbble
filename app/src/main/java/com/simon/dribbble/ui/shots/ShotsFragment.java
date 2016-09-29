@@ -66,8 +66,24 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mXRecyclerView.setLayoutManager(layoutManager);
         mXRecyclerView.setHasFixedSize(true);
-        mAdapter = new ShotsAdapter();
-        mXRecyclerView.setAdapter(mAdapter);
+        if (mAdapter == null) {
+            mAdapter = new ShotsAdapter();
+            mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+            mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter
+                    .OnRecyclerViewItemClickListener() {
+
+                @Override
+                public void onItemClick(View view, int position) {
+
+                    ShotEntity shots = mAdapter.getItem(position);
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("shotId", shots.getId());
+                    startIntent(ShotDetailActivity.class, bundle);
+                }
+            });
+
+            mXRecyclerView.setAdapter(mAdapter);
+        }
 
         mPresenter = new ShotsPresenter(this);
 
@@ -84,7 +100,6 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         item.setChecked(true);
-//        ToastHelper.shortToast(item.getTitle());
         mPageNo = 1;
         switch (item.getItemId()) {
             case R.id.action_current:
@@ -211,27 +226,9 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
             mLoadingDialog.dismiss();
         }
 
-        if (mAdapter == null) {
-            mAdapter = new ShotsAdapter();
-            mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-            mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter
-                    .OnRecyclerViewItemClickListener() {
+        mAdapter.removeAll();
+        mAdapter.addData(shotsList);
 
-                @Override
-                public void onItemClick(View view, int position) {
-
-                    ShotEntity shots = mAdapter.getItem(position);
-                    Bundle bundle = new Bundle();
-                    bundle.putLong("shotId", shots.getId());
-                    startIntent(ShotDetailActivity.class, bundle);
-                }
-            });
-
-            mXRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.removeAll();
-            mAdapter.addData(shotsList);
-        }
     }
 
     @Override

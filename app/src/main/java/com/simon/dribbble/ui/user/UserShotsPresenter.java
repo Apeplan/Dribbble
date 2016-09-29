@@ -1,10 +1,8 @@
 package com.simon.dribbble.ui.user;
 
-import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.util.schedulers.BaseSchedulerProvider;
-import com.simon.dribbble.util.schedulers.SchedulerProvider;
+import com.simon.dribbble.ui.BasePresenterImpl;
+import com.simon.dribbble.ui.baselist.BaseListContract;
 
 import net.quickrecyclerview.utils.log.LLog;
 
@@ -12,7 +10,6 @@ import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by: Simon
@@ -20,23 +17,16 @@ import rx.subscriptions.CompositeSubscription;
  * Created on: 2016/9/12 18:12
  */
 
-public class UserShotsPresenter implements UserShotsContract.Presenter {
+public class UserShotsPresenter extends BasePresenterImpl implements BaseListContract.Presenter {
 
-    private UserShotsContract.View mView;
-    private DribbbleDataManger mDataManger;
-    private BaseSchedulerProvider mSchedulerProvider;
-    private CompositeSubscription mSubscription;
+    private BaseListContract.View mView;
 
-    public UserShotsPresenter(UserShotsContract.View view) {
+    public UserShotsPresenter(BaseListContract.View view) {
         mView = view;
-        mDataManger = DribbbleDataManger.getInstance(DribbbleApi.Creator.dribbbleApi());
-        mSchedulerProvider = SchedulerProvider.getInstance();
-        mSubscription = new CompositeSubscription();
     }
 
     @Override
-    public void loadShots(int page) {
-        mSubscription.clear();
+    public void loadList(long id, String type, int page, int event) {
 
         Subscription subscription = mDataManger.getUserShots(page)
                 .observeOn(mSchedulerProvider.ui())
@@ -58,12 +48,12 @@ public class UserShotsPresenter implements UserShotsContract.Presenter {
                         if (shotEntities.isEmpty()) {
                             mView.onEmpty();
                         } else {
-                            mView.showShots(shotEntities);
+                            mView.showList(shotEntities);
                         }
                     }
                 });
 
-        mSubscription.add(subscription);
+        addSubscription(subscription);
     }
 
     @Override
@@ -71,8 +61,4 @@ public class UserShotsPresenter implements UserShotsContract.Presenter {
 
     }
 
-    @Override
-    public void unsubscribe() {
-        mSubscription.clear();
-    }
 }

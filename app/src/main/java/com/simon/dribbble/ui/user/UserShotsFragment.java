@@ -1,18 +1,15 @@
 package com.simon.dribbble.ui.user;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.simon.dribbble.R;
+import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.ui.BaseFragment;
+import com.simon.dribbble.ui.baselist.BaseListContract;
+import com.simon.dribbble.ui.baselist.BaseListFragment;
 import com.simon.dribbble.ui.shots.ShotsAdapter;
-import com.simon.dribbble.widget.statelayout.StateLayout;
 
-import net.quickrecyclerview.XRecyclerView;
-
-import java.util.List;
+import net.quickrecyclerview.show.BaseQuickAdapter;
 
 /**
  * Created by: Simon
@@ -20,11 +17,9 @@ import java.util.List;
  * Created on: 2016/9/12 18:10
  */
 
-public class UserShotsFragment extends BaseFragment<UserShotsContract.Presenter> implements
-        UserShotsContract.View {
+public class UserShotsFragment extends BaseListFragment<ShotEntity> {
 
-
-    private ShotsAdapter mAdapter;
+    private int mPage = 1;
 
     public static UserShotsFragment newInstance() {
         UserShotsFragment fragment = new UserShotsFragment();
@@ -33,62 +28,30 @@ public class UserShotsFragment extends BaseFragment<UserShotsContract.Presenter>
         return fragment;
     }
 
-    private StateLayout mStateLayout;
-    private XRecyclerView mXRecyclerView;
-
     @Override
-    protected int getLayout() {
-        return R.layout.fragment_shots;
-    }
-
-    @Override
-    protected UserShotsContract.Presenter getPresenter() {
+    protected BaseListContract.Presenter getPresenter() {
         return new UserShotsPresenter(this);
     }
 
     @Override
-    protected void initView(View view) {
-        mStateLayout = (StateLayout) view.findViewById(R.id.progress_loading);
-        mXRecyclerView = (XRecyclerView) view.findViewById(R.id.xrv_shots);
-        LinearLayoutManager rlm = new LinearLayoutManager(getActivity());
-        mXRecyclerView.setLayoutManager(rlm);
-        mXRecyclerView.setHasFixedSize(true);
-        mAdapter = new ShotsAdapter();
-        mXRecyclerView.setAdapter(mAdapter);
-    }
-
-    @Override
     protected void initEventAndData() {
-        mStateLayout.showProgressView();
-        mPresenter.loadShots(1);
+        super.initEventAndData();
+        mPresenter.loadList(0, "", mPage, Api.EVENT_BEGIN);
     }
 
     @Override
-    public void showShots(List<ShotEntity> shots) {
-        mStateLayout.showContentView();
-        if (null != mAdapter) {
-            mAdapter.removeAll();
-            mAdapter.addData(shots);
-        }
+    protected BaseQuickAdapter<ShotEntity> getListAdapter() {
+        return new ShotsAdapter();
     }
 
     @Override
-    public void onEmpty() {
-        mStateLayout.showEmptyView();
-    }
-
-    @Override
-    public void onFailed(int action, String msg) {
-        mStateLayout.showErrorView();
-    }
-
-    @Override
-    public void onCompleted() {
+    protected void itemClick(View view, int position) {
 
     }
 
+
     @Override
-    public void setPresenter(UserShotsContract.Presenter presenter) {
+    public void setPresenter(BaseListContract.Presenter presenter) {
 
     }
 }

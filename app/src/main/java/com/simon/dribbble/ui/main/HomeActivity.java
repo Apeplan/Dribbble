@@ -92,7 +92,7 @@ public class HomeActivity extends BaseActivity {
 
         String user_name = DribbblePrefs.getInstance().getUserName();
         String user_profile =DribbblePrefs.getInstance().getUserAvatar();
-        if ("".equals(user_name)) {
+        if (TextUtils.isEmpty(user_name)) {
             user_name = "Simon.han";
         }
         if (TextUtils.isEmpty(user_profile)) {
