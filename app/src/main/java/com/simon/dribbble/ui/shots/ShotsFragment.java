@@ -65,6 +65,9 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mXRecyclerView.setLayoutManager(layoutManager);
+        mXRecyclerView.setHasFixedSize(true);
+        mAdapter = new ShotsAdapter();
+        mXRecyclerView.setAdapter(mAdapter);
 
         mPresenter = new ShotsPresenter(this);
 
@@ -209,7 +212,7 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
         }
 
         if (mAdapter == null) {
-            mAdapter = new ShotsAdapter(shotsList);
+            mAdapter = new ShotsAdapter();
             mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
             mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter
                     .OnRecyclerViewItemClickListener() {

@@ -85,7 +85,7 @@
                             android:layout_alignTop="@id/imv_avatar"
                             android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:layout_toRightOf="@id/imv_avatar"
-                            android:singleLine="true"
+                            android:maxLines="1"
                             android:text="Simon"
                             android:textColor="@color/black"/>
 
@@ -228,7 +228,6 @@
                     android:hint="@string/prompt_comment"
                     android:imeOptions="actionUnspecified"
                     android:maxLines="1"
-                    android:singleLine="true"
                     android:textSize="13sp"/>
 
             </android.support.design.widget.TextInputLayout>

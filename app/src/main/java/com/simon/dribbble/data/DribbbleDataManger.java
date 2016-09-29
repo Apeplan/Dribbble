@@ -1,6 +1,5 @@
 package com.simon.dribbble.data;
 
-import com.simon.dribbble.DribbbleApp;
 import com.simon.dribbble.data.model.AttachmentEntity;
 import com.simon.dribbble.data.model.BucketEntity;
 import com.simon.dribbble.data.model.CommentEntity;
@@ -10,11 +9,13 @@ import com.simon.dribbble.data.model.ProjectEntity;
 import com.simon.dribbble.data.model.ShotEntity;
 import com.simon.dribbble.data.model.TeamEntity;
 import com.simon.dribbble.data.model.TokenEntity;
-import com.simon.dribbble.data.model.UserEntity;
+import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.data.model.UserLikeEntity;
 import com.simon.dribbble.data.remote.DribbbleApi;
+import com.simon.dribbble.util.DribbblePrefs;
 import com.simon.dribbble.util.UIUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -46,35 +47,35 @@ public class DribbbleDataManger {
      * @param code
      * @return
      */
-    public Observable<UserEntity> getTokenAndUser(String code) {
+    public Observable<User> getTokenAndUser(String code) {
 
         return DribbbleApi.Creator.signIn().getToken(Api.CLIENT_ID, Api.CLIENT_SECRET, code,
                 Api.CALLBACK_URL).concatMap(new Func1<TokenEntity, Observable<? extends
-                UserEntity>>() {
+                User>>() {
 
             @Override
-            public Observable<? extends UserEntity> call(TokenEntity tokenEntity) {
+            public Observable<? extends User> call(TokenEntity tokenEntity) {
 
                 if (null != tokenEntity) {
                     String access_token = tokenEntity.access_token;
-                    DribbbleApp.spHelper().put(Api.OAUTH_ACCESS_TOKEN, access_token);
+                    DribbblePrefs.getInstance().setAccessToken(access_token);
                 }
-                return mDribbbleApi.getUserInfo().concatMap(new Func1<UserEntity, Observable<?
-                        extends UserEntity>>() {
+                return mDribbbleApi.getUserInfo().concatMap(new Func1<User, Observable<?
+                        extends User>>() {
 
                     @Override
-                    public Observable<? extends UserEntity> call(final UserEntity userEntity) {
-                        return Observable.create(new Observable.OnSubscribe<UserEntity>() {
+                    public Observable<? extends User> call(final User user) {
+                        return Observable.create(new Observable.OnSubscribe<User>() {
                             @Override
-                            public void call(Subscriber<? super UserEntity> subscriber) {
+                            public void call(Subscriber<? super User> subscriber) {
                                 if (subscriber.isUnsubscribed()) return;
 
                                 try {
-                                    if (null == userEntity) {
+                                    if (null == user) {
                                         subscriber.onError(new NullPointerException("Request " +
                                                 "failed"));
                                     } else {
-                                        subscriber.onNext(userEntity);
+                                        subscriber.onNext(user);
                                         subscriber.onCompleted();
                                     }
                                 } catch (Exception e) {
@@ -276,31 +277,16 @@ public class DribbbleDataManger {
      *
      * @return
      */
-    public Observable<List<UserLikeEntity>> getUserLikes(int page) {
+    public Observable<List<ShotEntity>> getUserLikes(int page) {
         return mDribbbleApi.getUserLikes(page)
-                .concatMap(new Func1<List<UserLikeEntity>, Observable<? extends
-                        List<UserLikeEntity>>>() {
-
+                .map(new Func1<List<UserLikeEntity>, List<ShotEntity>>() {
                     @Override
-                    public Observable<? extends List<UserLikeEntity>> call(final
-                                                                           List<UserLikeEntity>
-                                                                                   userLikeEntities) {
-                        return Observable.create(new Observable.OnSubscribe<List<UserLikeEntity>>
-                                () {
-
-                            @Override
-                            public void call(Subscriber<? super List<UserLikeEntity>> subscriber) {
-                                if (subscriber.isUnsubscribed()) return;
-
-                                if (null != userLikeEntities) {
-                                    subscriber.onNext(userLikeEntities);
-                                } else {
-                                    subscriber.onError(new Exception("Request Failed"));
-                                }
-
-                                subscriber.onCompleted();
-                            }
-                        });
+                    public List<ShotEntity> call(List<UserLikeEntity> userLikeEntities) {
+                        List<ShotEntity> shots = new ArrayList<ShotEntity>();
+                        for (UserLikeEntity ue : userLikeEntities) {
+                            shots.add(ue.getShot());
+                        }
+                        return shots;
                     }
                 });
     }
@@ -516,18 +502,18 @@ public class DribbbleDataManger {
     }
 
 
-    public Observable<UserEntity> getUsersInfo(long userId) {
+    public Observable<User> getUsersInfo(long userId) {
         return mDribbbleApi.getUsers(userId)
-                .concatMap(new Func1<UserEntity, Observable<? extends UserEntity>>() {
+                .concatMap(new Func1<User, Observable<? extends User>>() {
                     @Override
-                    public Observable<? extends UserEntity> call(final UserEntity userEntity) {
-                        return Observable.create(new Observable.OnSubscribe<UserEntity>() {
+                    public Observable<? extends User> call(final User user) {
+                        return Observable.create(new Observable.OnSubscribe<User>() {
                             @Override
-                            public void call(Subscriber<? super UserEntity> subscriber) {
+                            public void call(Subscriber<? super User> subscriber) {
                                 if (subscriber.isUnsubscribed()) return;
 
-                                if (null != userEntity) {
-                                    subscriber.onNext(userEntity);
+                                if (null != user) {
+                                    subscriber.onNext(user);
                                 } else {
                                     subscriber.onError(new Exception("Request Failed"));
                                 }

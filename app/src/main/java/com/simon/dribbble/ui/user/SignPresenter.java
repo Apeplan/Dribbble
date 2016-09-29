@@ -1,10 +1,9 @@
 package com.simon.dribbble.ui.user;
 
-import com.simon.dribbble.DribbbleApp;
-import com.simon.dribbble.GlobalConstant;
 import com.simon.dribbble.data.DribbbleDataManger;
-import com.simon.dribbble.data.model.UserEntity;
+import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.data.remote.DribbbleApi;
+import com.simon.dribbble.util.DribbblePrefs;
 import com.simon.dribbble.util.schedulers.BaseSchedulerProvider;
 import com.simon.dribbble.util.schedulers.SchedulerProvider;
 
@@ -40,7 +39,7 @@ public class SignPresenter implements SignInContract.Presenter {
         Subscription subscription = mDataManger.getTokenAndUser(token)
                 .observeOn(mBaseSchedulerProvider.ui())
                 .subscribeOn(mBaseSchedulerProvider.io())
-                .subscribe(new Subscriber<UserEntity>() {
+                .subscribe(new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
                         LLog.d("Simon", "onCompleted: 请求用户信息执行完成");
@@ -53,14 +52,9 @@ public class SignPresenter implements SignInContract.Presenter {
                     }
 
                     @Override
-                    public void onNext(UserEntity userEntity) {
-                        if (null != userEntity) {
-                            DribbbleApp.context().setUserInfo(userEntity);
-                            DribbbleApp.spHelper().put(GlobalConstant.USER_NAME, userEntity
-                                    .username);
-                            DribbbleApp.spHelper().put(GlobalConstant.USER_ID, userEntity.id);
-                            DribbbleApp.spHelper().put(GlobalConstant.USER_PROFILE, userEntity
-                                    .avatar_url);
+                    public void onNext(User user) {
+                        if (null != user) {
+                            DribbblePrefs.getInstance().setLoggedInUser(user);
                             mSignView.signSuccess();
                         } else {
                             mSignView.onFailed(0, "");

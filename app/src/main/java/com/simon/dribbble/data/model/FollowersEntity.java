@@ -11,7 +11,7 @@ public class FollowersEntity {
     private long id;
     private String created_at;
 
-    private UserEntity follower;
+    private User follower;
 
     public long getId() {
         return id;
@@ -29,11 +29,11 @@ public class FollowersEntity {
         this.created_at = created_at;
     }
 
-    public UserEntity getFollower() {
+    public User getFollower() {
         return follower;
     }
 
-    public void setFollower(UserEntity follower) {
+    public void setFollower(User follower) {
         this.follower = follower;
     }
 

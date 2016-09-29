@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui.user;
 
 import com.simon.dribbble.data.Api;
-import com.simon.dribbble.data.model.UserLikeEntity;
+import com.simon.dribbble.data.model.ShotEntity;
 import com.simon.dribbble.ui.BasePresenterImpl;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 
@@ -38,7 +38,7 @@ public class LikeShotsPresenter extends BasePresenterImpl implements BaseListCon
         Subscription subscription = mDataManger.getUserLikes(page)
                 .observeOn(mSchedulerProvider.ui())
                 .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<List<UserLikeEntity>>() {
+                .subscribe(new Subscriber<List<ShotEntity>>() {
                     @Override
                     public void onCompleted() {
                         LLog.d("Simon", "onCompleted: Shots List 请求完成");
@@ -51,7 +51,7 @@ public class LikeShotsPresenter extends BasePresenterImpl implements BaseListCon
                     }
 
                     @Override
-                    public void onNext(List<UserLikeEntity> shotsEntities) {
+                    public void onNext(List<ShotEntity> shotsEntities) {
                         if (event == Api.EVENT_REFRESH) {
                             mShotsView.refreshComments(shotsEntities);
                         } else if (event == Api.EVENT_MORE) {

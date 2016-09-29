@@ -11,7 +11,7 @@ public class LikeEntity {
     private long id;
     private String created_at;
 
-    private UserEntity user;
+    private User user;
 
     public long getId() {
         return id;
@@ -29,11 +29,11 @@ public class LikeEntity {
         this.created_at = created_at;
     }
 
-    public UserEntity getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

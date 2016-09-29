@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.FollowersEntity;
-import com.simon.dribbble.data.model.UserEntity;
+import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.util.ColorPhrase;
 import com.simon.dribbble.util.ImgLoadHelper;
 
@@ -31,7 +31,7 @@ public class FollowersAdapter extends BaseQuickAdapter<FollowersEntity> {
     @Override
     protected void convert(BaseViewHolder helper, FollowersEntity followers) {
         if (null != followers) {
-            UserEntity follower = followers.getFollower();
+            User follower = followers.getFollower();
 
 
             String avatar_url = follower.avatar_url;

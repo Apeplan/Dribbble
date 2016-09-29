@@ -1,6 +1,6 @@
 package com.simon.dribbble.ui.user;
 
-import com.simon.dribbble.data.model.UserEntity;
+import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.ui.BasePresenterImpl;
 
 import net.quickrecyclerview.utils.log.LLog;
@@ -25,7 +25,7 @@ public class UserInfoPresenter extends BasePresenterImpl implements UserInfoCont
         Subscription subscription = mDataManger.getUsersInfo(userId)
                 .observeOn(mSchedulerProvider.ui())
                 .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<UserEntity>() {
+                .subscribe(new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
                         LLog.d("Simon", "onCompleted: 用户信息请求完成");
@@ -37,8 +37,8 @@ public class UserInfoPresenter extends BasePresenterImpl implements UserInfoCont
                     }
 
                     @Override
-                    public void onNext(UserEntity userEntity) {
-                        mView.showUserInfo(userEntity);
+                    public void onNext(User user) {
+                        mView.showUserInfo(user);
                     }
                 });
         addSubscription(subscription);

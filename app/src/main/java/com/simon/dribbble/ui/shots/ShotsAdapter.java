@@ -14,8 +14,6 @@ import com.simon.dribbble.util.StringUtil;
 import net.quickrecyclerview.show.BaseQuickAdapter;
 import net.quickrecyclerview.show.BaseViewHolder;
 
-import java.util.List;
-
 
 /**
  * Created by: Simon
@@ -26,8 +24,8 @@ import java.util.List;
 public class ShotsAdapter extends BaseQuickAdapter<ShotEntity> {
 
 
-    public ShotsAdapter(List<ShotEntity> shots) {
-        super(R.layout.item_shot, shots);
+    public ShotsAdapter() {
+        super(R.layout.item_shot);
     }
 
     @Override

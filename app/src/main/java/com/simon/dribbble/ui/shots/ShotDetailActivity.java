@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.data.model.UserEntity;
+import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.listener.TextWatcherImpl;
 import com.simon.dribbble.ui.BaseActivity;
 import com.simon.dribbble.ui.baselist.ListActivity;
@@ -202,7 +202,7 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
         String hdpi = shot.getImages().getHidpi();
         mImgUrl = StringUtil.isEmpty(hdpi) ? normal : hdpi;
 
-        UserEntity user = shot.getUser();
+        User user = shot.getUser();
         ImgLoadHelper.loadAvatar(user.avatar_url, mImv_avatar);
         mTv_author.setText(user.name);
         String created_at = shot.getCreated_at();

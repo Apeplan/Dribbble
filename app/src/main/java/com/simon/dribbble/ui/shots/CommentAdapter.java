@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.CommentEntity;
-import com.simon.dribbble.data.model.UserEntity;
+import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.util.DateTimeUtil;
 import com.simon.dribbble.util.ImgLoadHelper;
 import com.simon.dribbble.util.StringUtil;
@@ -28,7 +28,7 @@ public class CommentAdapter extends BaseQuickAdapter<CommentEntity> {
     @Override
     protected void convert(BaseViewHolder helper, CommentEntity item) {
         if (null != item) {
-            UserEntity user = item.getUser();
+            User user = item.getUser();
             String avatar_url = user.avatar_url;
             ImgLoadHelper.loadAvatar(avatar_url, (ImageView) helper.getView(R.id.imv_avatar));
             helper.setText(R.id.tv_author, user.name);

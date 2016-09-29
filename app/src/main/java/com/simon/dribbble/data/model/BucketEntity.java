@@ -15,7 +15,7 @@ public class BucketEntity {
     private String created_at;
     private String updated_at;
 
-    private UserEntity user;
+    private User user;
 
     public int getId() {
         return id;
@@ -65,11 +65,11 @@ public class BucketEntity {
         this.updated_at = updated_at;
     }
 
-    public UserEntity getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

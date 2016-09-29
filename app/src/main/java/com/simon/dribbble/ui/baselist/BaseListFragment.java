@@ -24,7 +24,6 @@ public abstract class BaseListFragment<T> extends BaseFragment<BaseListContract.
     private StateLayout mStateLayout;
     private XRecyclerView mXRecyclerView;
     protected BaseQuickAdapter<T> mAdapter;
-    private int mPage = 1;
 
     @Override
     protected int getLayout() {
@@ -38,6 +37,9 @@ public abstract class BaseListFragment<T> extends BaseFragment<BaseListContract.
         LinearLayoutManager rlm = new LinearLayoutManager(getActivity());
         mXRecyclerView.setLayoutManager(rlm);
         mXRecyclerView.setLoadingListener(this);
+        mXRecyclerView.setRefreshing(isRefreshing());
+        mXRecyclerView.setPullRefreshEnabled(isRefreshEnabled());
+        mXRecyclerView.setLoadingMoreEnabled(isLoadMoreEnabled());
 
         if (mAdapter == null) {
             mAdapter = getListAdapter();
@@ -106,6 +108,33 @@ public abstract class BaseListFragment<T> extends BaseFragment<BaseListContract.
     @Override
     public void onCompleted() {
 
+    }
+
+    /**
+     * 是否支持自动加载更多，默认不支持，子类可以重写此方法进行更改
+     *
+     * @return
+     */
+    protected boolean isLoadMoreEnabled() {
+        return false;
+    }
+
+    /**
+     * 是否支持下拉刷新，默认不支持，子类可以重写此方法进行更改
+     *
+     * @return
+     */
+    protected boolean isRefreshEnabled() {
+        return false;
+    }
+
+    /**
+     * 一进入页面是否刷新，默认不刷新，子类可以重写此方法进行更改
+     *
+     * @return
+     */
+    protected boolean isRefreshing() {
+        return false;
     }
 
     @Override

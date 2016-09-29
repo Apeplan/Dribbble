@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.simon.dribbble.DribbbleApp;
 import com.simon.dribbble.GlobalConstant;
 import com.simon.dribbble.R;
 import com.simon.dribbble.ui.BaseActivity;
@@ -30,6 +29,7 @@ import com.simon.dribbble.ui.user.FollowersFragment;
 import com.simon.dribbble.ui.user.SettingsActivity;
 import com.simon.dribbble.ui.user.UserLikesFragment;
 import com.simon.dribbble.ui.user.UserShotsFragment;
+import com.simon.dribbble.util.DribbblePrefs;
 import com.simon.dribbble.util.ImgLoadHelper;
 
 /**
@@ -90,15 +90,13 @@ public class HomeActivity extends BaseActivity {
                 mShotsFragment).commit();
 
 
-        String user_name = DribbbleApp.spHelper().getString(GlobalConstant.USER_NAME);
-        String user_profile = DribbbleApp.spHelper().getString(GlobalConstant.USER_PROFILE);
+        String user_name = DribbblePrefs.getInstance().getUserName();
+        String user_profile =DribbblePrefs.getInstance().getUserAvatar();
         if ("".equals(user_name)) {
             user_name = "Simon.han";
-            DribbbleApp.spHelper().put(GlobalConstant.USER_NAME, user_name);
         }
         if (TextUtils.isEmpty(user_profile)) {
             user_profile = GlobalConstant.profile_url;
-            DribbbleApp.spHelper().put(GlobalConstant.USER_PROFILE, user_profile);
         }
 
         mUserName.setText(user_name);

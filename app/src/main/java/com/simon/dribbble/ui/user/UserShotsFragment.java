@@ -24,6 +24,8 @@ public class UserShotsFragment extends BaseFragment<UserShotsContract.Presenter>
         UserShotsContract.View {
 
 
+    private ShotsAdapter mAdapter;
+
     public static UserShotsFragment newInstance() {
         UserShotsFragment fragment = new UserShotsFragment();
         Bundle args = new Bundle();
@@ -50,6 +52,9 @@ public class UserShotsFragment extends BaseFragment<UserShotsContract.Presenter>
         mXRecyclerView = (XRecyclerView) view.findViewById(R.id.xrv_shots);
         LinearLayoutManager rlm = new LinearLayoutManager(getActivity());
         mXRecyclerView.setLayoutManager(rlm);
+        mXRecyclerView.setHasFixedSize(true);
+        mAdapter = new ShotsAdapter();
+        mXRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -61,8 +66,10 @@ public class UserShotsFragment extends BaseFragment<UserShotsContract.Presenter>
     @Override
     public void showShots(List<ShotEntity> shots) {
         mStateLayout.showContentView();
-        ShotsAdapter adapter = new ShotsAdapter(shots);
-        mXRecyclerView.setAdapter(adapter);
+        if (null != mAdapter) {
+            mAdapter.removeAll();
+            mAdapter.addData(shots);
+        }
     }
 
     @Override

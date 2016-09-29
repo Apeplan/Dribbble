@@ -11,7 +11,7 @@ import com.simon.dribbble.data.model.ProjectEntity;
 import com.simon.dribbble.data.model.ShotEntity;
 import com.simon.dribbble.data.model.TeamEntity;
 import com.simon.dribbble.data.model.TokenEntity;
-import com.simon.dribbble.data.model.UserEntity;
+import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.data.model.UserLikeEntity;
 
 import net.quickrecyclerview.utils.log.LLog;
@@ -64,7 +64,7 @@ public interface DribbbleApi {
      * 获取登陆用户信息
      */
     @GET("user")
-    Observable<UserEntity> getUserInfo();
+    Observable<User> getUserInfo();
 
     /**
      * 返回 Shots 列表
@@ -176,7 +176,7 @@ public interface DribbbleApi {
      * @return
      */
     @GET("users/{usersId}")
-    Observable<UserEntity> getUsers(@Path("usersId") long id);
+    Observable<User> getUsers(@Path("usersId") long id);
 
 
     /**

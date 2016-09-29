@@ -56,7 +56,7 @@ public class ShotEntity {
     private boolean animated;
 
 
-    private UserEntity user;
+    private User user;
     private TeamEntity team;
     private String[] tags;
 
@@ -148,7 +148,7 @@ public class ShotEntity {
         this.animated = animated;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -248,7 +248,7 @@ public class ShotEntity {
         return animated;
     }
 
-    public UserEntity getUser() {
+    public User getUser() {
         return user;
     }
 

@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.simon.dribbble.data.Api;
-import com.simon.dribbble.data.model.UserLikeEntity;
+import com.simon.dribbble.data.model.ShotEntity;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 import com.simon.dribbble.ui.baselist.BaseListFragment;
+import com.simon.dribbble.ui.shots.ShotsAdapter;
 import com.simon.dribbble.util.ToastHelper;
 
 import net.quickrecyclerview.show.BaseQuickAdapter;
@@ -17,7 +18,7 @@ import net.quickrecyclerview.show.BaseQuickAdapter;
  * Created on: 2016/9/14 13:52
  */
 
-public class UserLikesFragment extends BaseListFragment<UserLikeEntity> {
+public class UserLikesFragment extends BaseListFragment<ShotEntity> {
 
     public static UserLikesFragment newInstance() {
         UserLikesFragment fragment = new UserLikesFragment();
@@ -29,8 +30,8 @@ public class UserLikesFragment extends BaseListFragment<UserLikeEntity> {
     private int mPage = 1;
 
     @Override
-    protected BaseQuickAdapter<UserLikeEntity> getListAdapter() {
-        return new LikeShotsAdapter();
+    protected BaseQuickAdapter<ShotEntity> getListAdapter() {
+        return new ShotsAdapter();
     }
 
     @Override
@@ -42,6 +43,16 @@ public class UserLikesFragment extends BaseListFragment<UserLikeEntity> {
     @Override
     protected void itemClick(View view, int position) {
         ToastHelper.shortToast("点击事件  " + position);
+    }
+
+    @Override
+    protected boolean isLoadMoreEnabled() {
+        return true;
+    }
+
+    @Override
+    protected boolean isRefreshEnabled() {
+        return true;
     }
 
     @Override

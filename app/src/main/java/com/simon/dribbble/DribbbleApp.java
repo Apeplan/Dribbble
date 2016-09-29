@@ -2,7 +2,7 @@ package com.simon.dribbble;
 
 import android.app.Application;
 
-import com.simon.dribbble.data.model.UserEntity;
+import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.util.PreferencesHelper;
 
 /**
@@ -12,7 +12,7 @@ import com.simon.dribbble.util.PreferencesHelper;
 public class DribbbleApp extends Application {
     private static DribbbleApp mInstance;
     public static PreferencesHelper mPreferencesHelper;
-    private UserEntity mUserInfo;
+    private User mUserInfo;
 
     @Override
     public void onCreate() {
@@ -29,11 +29,11 @@ public class DribbbleApp extends Application {
         return mPreferencesHelper;
     }
 
-    public UserEntity getUserInfo() {
+    public User getUserInfo() {
         return mUserInfo;
     }
 
-    public void setUserInfo(UserEntity mUserInfo) {
+    public void setUserInfo(User mUserInfo) {
         this.mUserInfo = mUserInfo;
     }
 }

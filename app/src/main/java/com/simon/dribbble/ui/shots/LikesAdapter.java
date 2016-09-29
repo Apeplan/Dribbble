@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.LikeEntity;
-import com.simon.dribbble.data.model.UserEntity;
+import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.util.ColorPhrase;
 import com.simon.dribbble.util.ImgLoadHelper;
 
@@ -28,7 +28,7 @@ public class LikesAdapter extends BaseQuickAdapter<LikeEntity> {
     @Override
     protected void convert(BaseViewHolder helper, LikeEntity item) {
         if (null != item) {
-            UserEntity follower = item.getUser();
+            User follower = item.getUser();
 
             String avatar_url = follower.avatar_url;
             ImageView avatar = helper.getView(R.id.imv_avatar);

@@ -4,7 +4,7 @@ import android.widget.ImageView;
 
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.BucketEntity;
-import com.simon.dribbble.data.model.UserEntity;
+import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.util.ColorPhrase;
 import com.simon.dribbble.util.DateTimeUtil;
 import com.simon.dribbble.util.ImgLoadHelper;
@@ -28,7 +28,7 @@ public class UserBucketsAdapter extends BaseQuickAdapter<BucketEntity> {
     @Override
     protected void convert(BaseViewHolder helper, BucketEntity item) {
         if (null != item) {
-            UserEntity user = item.getUser();
+            User user = item.getUser();
             if (null != user) {
                 helper.setVisible(R.id.imv_avatar, true);
                 ImgLoadHelper.loadAvatar(user.avatar_url, (ImageView) helper.getView(R.id

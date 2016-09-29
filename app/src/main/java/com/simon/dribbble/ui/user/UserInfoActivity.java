@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.simon.dribbble.R;
-import com.simon.dribbble.data.model.UserEntity;
+import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.ui.BaseActivity;
 import com.simon.dribbble.util.ImgLoadHelper;
 import com.simon.dribbble.widget.statelayout.StateLayout;
@@ -71,7 +71,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     }
 
     @Override
-    public void showUserInfo(UserEntity user) {
+    public void showUserInfo(User user) {
         mStateLayout.showContentView();
 
         ImgLoadHelper.loadAvatar(user.avatar_url, mImv_avatar);
