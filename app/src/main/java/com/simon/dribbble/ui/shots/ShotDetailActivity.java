@@ -1,10 +1,11 @@
 package com.simon.dribbble.ui.shots;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
@@ -71,6 +72,7 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
     private int mLike_count;
     private int mAttach_count;
     private int mBuckets_count;
+    private ShotEntity mShot;
 
 
     @Override
@@ -195,6 +197,7 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
 
     @Override
     public void showShot(ShotEntity shot) {
+        mShot = shot;
         mStateLayout.showContentView();
         mTitle = shot.getTitle();
         mCollapsingToolbarLayout.setTitle(mTitle);
@@ -314,21 +317,37 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
      * @param imgPath       图片路径，不分享图片则传null
      */
     public void shareMsg(String activityTitle, String msgTitle, String msgText, String imgPath) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        if (imgPath == null || imgPath.equals("")) {
-            intent.setType("text/plain"); // 纯文本
-        } else {
-            File f = new File(imgPath);
-            if (f != null && f.exists() && f.isFile()) {
-                intent.setType("image/jpg");
-                Uri u = Uri.fromFile(f);
-                intent.putExtra(Intent.EXTRA_STREAM, u);
-            }
+
+        String fileName = mTitle;
+//        fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+        File renamed = new File(imgPath, fileName);
+        Uri uri = Uri.fromFile(renamed);
+        ShareCompat.IntentBuilder.from(this)
+                .setText(getShareText())
+                .setType(getImageMimeType(fileName))
+                .setSubject(mTitle)
+                .setStream(uri)
+                .startChooser();
+    }
+
+    private String getShareText() {
+        return new StringBuilder()
+                .append("“")
+                .append(mShot.getTitle())
+                .append("” by ")
+                .append(mShot.getUser().name)
+                .append("\n")
+                .append(mShot.getImages().getNormal())
+                .toString();
+    }
+
+    private String getImageMimeType(@NonNull String fileName) {
+        if (fileName.endsWith(".png")) {
+            return "image/png";
+        } else if (fileName.endsWith(".gif")) {
+            return "image/gif";
         }
-        intent.putExtra(Intent.EXTRA_SUBJECT, msgTitle);
-        intent.putExtra(Intent.EXTRA_TEXT, msgText);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(Intent.createChooser(intent, activityTitle));
+        return "image/jpeg";
     }
 
     @Override
