@@ -2,6 +2,7 @@ package com.simon.dribbble.data.remote;
 
 import android.support.annotation.StringDef;
 
+import com.simon.dribbble.data.SearchConverter;
 import com.simon.dribbble.data.model.ApiResponse;
 import com.simon.dribbble.data.model.AttachmentEntity;
 import com.simon.dribbble.data.model.BucketEntity;
@@ -50,9 +51,9 @@ public interface DribbbleApi {
     String SIGNIN_URL = "https://dribbble.com/";
     String DRIBBBLE_BASE_URL = "https://api.dribbble.com/v1/";
 
-    String CLIENT_ID ="f8918c16dc8db1eb74f1377271ad291c876d3a4edc90c473590a9e2f6df1fa5f";
-    String CLIENT_SECRET ="6c7ae68e0c2fbcdf7634d24f04d6ff7998ce1da1536157f2cb4e94ccdf5efb22";
-    String ACCESS_TOKEN ="d78228e73c647fd3d24009e19ebe33c5da909a0039ef0722fcf3fc96f654862e";
+    String CLIENT_ID = "f8918c16dc8db1eb74f1377271ad291c876d3a4edc90c473590a9e2f6df1fa5f";
+    String CLIENT_SECRET = "6c7ae68e0c2fbcdf7634d24f04d6ff7998ce1da1536157f2cb4e94ccdf5efb22";
+    String ACCESS_TOKEN = "d78228e73c647fd3d24009e19ebe33c5da909a0039ef0722fcf3fc96f654862e";
 
     long USER_ID = 1057621;
 
@@ -113,9 +114,11 @@ public interface DribbbleApi {
      * @return
      */
     @GET("shots")
-    Observable<List<ShotEntity>> getShots(@Query("page") int page, @Query("list") @ShotType String list,
-                                          @Query("timeframe") @ShotTimeframe String timeframe, @Query("sort")
-                                                 @ShotSort String sort);
+    Observable<List<ShotEntity>> getShots(@Query("page") int page, @Query("list") @ShotType
+            String list,
+                                          @Query("timeframe") @ShotTimeframe String timeframe,
+                                          @Query("sort")
+                                          @ShotSort String sort);
 
     /**
      * 返回单个 Shot 信息
@@ -225,10 +228,6 @@ public interface DribbbleApi {
     @FormUrlEncoded
     Observable<LikeEntity> addLike(@Path("id") long shotId, @Field("empty") Long em);
 
-    @GET("search")
-    Observable<Object> search(@Query("q") String key);
-
-
     @GET("shots/{id}/likes")
     Observable<List<LikeEntity>> getShotLikes(@Path("id") long shotId, @Query("page") int page);
 
@@ -239,6 +238,12 @@ public interface DribbbleApi {
     @GET("{type}/{id}/buckets")
     Observable<List<BucketEntity>> getBuckets(@Path("type") String type, @Path("id") long
             shotId, @Query("page") int page);
+
+    @GET("search")
+    Observable<List<ShotEntity>> search(@Query("q") String query,
+                                  @Query("page") Integer page,
+                                  @Query("per_page") Integer pageSize,
+                                  @Query("s") @SortOrder String sort);
 
 
      /* Magic Constants */
@@ -258,6 +263,9 @@ public interface DribbbleApi {
     String SHOT_SORT_RECENT = "recent";
     String SHOT_SORT_VIEWS = "views";
     String SHOT_SORT_POPULARITY = "popularity";
+
+    String SORT_POPULAR = "";
+    String SORT_RECENT = "latest";
 
     // Shot Type
     @Retention(RetentionPolicy.SOURCE)
@@ -281,7 +289,8 @@ public interface DribbbleApi {
             SHOT_TIMEFRAME_YEAR,
             SHOT_TIMEFRAME_EVER
     })
-    @interface ShotTimeframe {}
+    @interface ShotTimeframe {
+    }
 
     // Short sort order
     @Retention(RetentionPolicy.SOURCE)
@@ -291,7 +300,20 @@ public interface DribbbleApi {
             SHOT_SORT_VIEWS,
             SHOT_SORT_POPULARITY
     })
-    @interface ShotSort {}
+    @interface ShotSort {
+    }
+
+    /**
+     * magic constants
+     **/
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            SORT_POPULAR,
+            SORT_RECENT
+    })
+    @interface SortOrder {
+    }
 
     /**
      * 设置一个新服务
@@ -349,5 +371,15 @@ public interface DribbbleApi {
             return retrofit.create(DribbbleApi.class);
         }
 
+        public static DribbbleApi searchApi() {
+            return new Retrofit.Builder()
+                    .baseUrl(DribbbleApi.SIGNIN_URL)
+                    .addConverterFactory(new SearchConverter.Factory())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .build()
+                    .create((DribbbleApi.class));
+        }
+
     }
+
 }

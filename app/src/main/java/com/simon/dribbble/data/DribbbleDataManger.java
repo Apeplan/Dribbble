@@ -15,6 +15,8 @@ import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.util.DribbblePrefs;
 import com.simon.dribbble.util.UIUtils;
 
+import net.quickrecyclerview.utils.log.LLog;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +54,7 @@ public class DribbbleDataManger {
         return DribbbleApi.Creator.signIn().getToken(DribbbleApi.CLIENT_ID, DribbbleApi
                 .CLIENT_SECRET, code, DribbbleApi.CALLBACK_URL).concatMap(new Func1<TokenEntity,
                 Observable<? extends
-                User>>() {
+                        User>>() {
 
             @Override
             public Observable<? extends User> call(TokenEntity tokenEntity) {
@@ -404,29 +406,6 @@ public class DribbbleDataManger {
                 });
     }
 
-    public Observable<Object> search(String key) {
-        return DribbbleApi.Creator.signIn().search(key)
-                .concatMap(new Func1<Object, Observable<?>>() {
-                    @Override
-                    public Observable<?> call(final Object o) {
-                        return Observable.create(new Observable.OnSubscribe<Object>() {
-                            @Override
-                            public void call(Subscriber<? super Object> subscriber) {
-                                if (subscriber.isUnsubscribed()) return;
-
-                                if (null != o) {
-                                    subscriber.onNext(o);
-                                } else {
-                                    subscriber.onError(new Exception("ddddd"));
-                                }
-
-                                subscriber.onCompleted();
-                            }
-                        });
-                    }
-                });
-    }
-
     public Observable<List<LikeEntity>> getShotLikes(long id, int page) {
         return mDribbbleApi.getShotLikes(id, page)
                 .concatMap(new Func1<List<LikeEntity>, Observable<? extends List<LikeEntity>>>() {
@@ -518,6 +497,34 @@ public class DribbbleDataManger {
                                     subscriber.onNext(user);
                                 } else {
                                     subscriber.onError(new Exception("Request Failed"));
+                                }
+
+                                subscriber.onCompleted();
+                            }
+                        });
+                    }
+                });
+    }
+
+    public Observable<List<ShotEntity>> search(String key, int resultPage, @DribbbleApi.SortOrder
+            String sort) {
+        return DribbbleApi.Creator.searchApi().search(key, resultPage, 12, sort)
+                .concatMap(new Func1<List<ShotEntity>, Observable<? extends List<ShotEntity>>>() {
+                    @Override
+                    public Observable<? extends List<ShotEntity>> call(final List<ShotEntity>
+                                                                               shotEntities) {
+                        return Observable.create(new Observable.OnSubscribe<List<ShotEntity>>() {
+                            @Override
+                            public void call(Subscriber<? super List<ShotEntity>> subscriber) {
+                                if (subscriber.isUnsubscribed()) return;
+
+                                if (null != shotEntities) {
+                                    subscriber.onNext(shotEntities);
+                                    LLog.d("Simon Han", "call: shots size=  " + shotEntities.size
+                                            ());
+                                } else {
+                                    subscriber.onError(new Exception("Request Failed"));
+                                    LLog.d("Simon Han", "call: shots = null");
                                 }
 
                                 subscriber.onCompleted();

@@ -1,16 +1,15 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.dribbble.data.DribbbleDataManger;
+import com.simon.dribbble.data.model.ShotEntity;
 import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.user.SignInContract;
-import com.simon.dribbble.util.schedulers.BaseSchedulerProvider;
-import com.simon.dribbble.util.schedulers.SchedulerProvider;
+import com.simon.dribbble.ui.BasePresenterImpl;
 
 import net.quickrecyclerview.utils.log.LLog;
 
+import java.util.List;
+
 import rx.Subscriber;
 import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by: Simon
@@ -18,19 +17,12 @@ import rx.subscriptions.CompositeSubscription;
  * Created on: 2016/9/12 11:48
  */
 
-public class SearchPresenter implements SearchContract.Presenter {
+public class SearchPresenter extends BasePresenterImpl implements SearchContract.Presenter {
 
-    private SignInContract.View mSignView;
-    private DribbbleDataManger mDataManger;
-    private BaseSchedulerProvider mBaseSchedulerProvider;
-    private CompositeSubscription mSubscription;
+    private SearchContract.View mSearchView;
 
-
-    public SearchPresenter(SignInContract.View view) {
-        mSignView = view;
-        mDataManger = DribbbleDataManger.getInstance(DribbbleApi.Creator.dribbbleApi());
-        mBaseSchedulerProvider = SchedulerProvider.getInstance();
-        mSubscription = new CompositeSubscription();
+    public SearchPresenter(SearchContract.View view) {
+        mSearchView = view;
     }
 
     @Override
@@ -38,33 +30,30 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     }
 
-
-    public void load() {
-        Subscription subscription = mDataManger.search("app")
-                .observeOn(mBaseSchedulerProvider.ui())
-                .subscribeOn(mBaseSchedulerProvider.io())
-                .subscribe(new Subscriber<Object>() {
+    @Override
+    public void searchShot(String key, int page, @DribbbleApi.SortOrder String sort) {
+        Subscription subscription = mDataManger.search(key, page,sort)
+                .observeOn(mSchedulerProvider.ui())
+                .subscribeOn(mSchedulerProvider.io())
+                .subscribe(new Subscriber<List<ShotEntity>>() {
                     @Override
                     public void onCompleted() {
-                        LLog.d("Simon", "onCompleted: ");
+                        LLog.d("Simon Han", "onCompleted: ");
+                        mSearchView.onCompleted();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        LLog.d("Simon", "onError: ");
+                        LLog.d("Simon Han", "onError: " + e.getMessage());
+                        mSearchView.onFailed(0,e.getMessage());
                     }
 
                     @Override
-                    public void onNext(Object o) {
-                        LLog.d("Simon", "onNext: ");
+                    public void onNext(List<ShotEntity> shotEntities) {
+                        LLog.d("Simon Han", "onNext: " + shotEntities.size());
+                        mSearchView.showSearch(shotEntities);
                     }
                 });
-
-        mSubscription.add(subscription);
-    }
-
-    @Override
-    public void unsubscribe() {
-        mSubscription.clear();
+        addSubscription(subscription);
     }
 }
