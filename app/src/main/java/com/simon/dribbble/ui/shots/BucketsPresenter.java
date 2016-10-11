@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.BucketEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.BasePresenterImpl;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 
@@ -45,13 +45,13 @@ public class BucketsPresenter extends BasePresenterImpl implements BaseListContr
 
                     @Override
                     public void onNext(List<BucketEntity> buckets) {
-                        if (event == Api.EVENT_BEGIN) {
+                        if (event == DribbbleApi.EVENT_BEGIN) {
                             if (buckets.isEmpty()) {
                                 mView.onEmpty();
                             } else {
                                 mView.showList(buckets);
                             }
-                        } else if (event == Api.EVENT_REFRESH) {
+                        } else if (event == DribbbleApi.EVENT_REFRESH) {
                             mView.refreshComments(buckets);
                         } else {
                             mView.moreComments(buckets);

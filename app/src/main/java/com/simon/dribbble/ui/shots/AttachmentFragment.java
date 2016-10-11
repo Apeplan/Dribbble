@@ -3,8 +3,8 @@ package com.simon.dribbble.ui.shots;
 import android.os.Bundle;
 import android.view.View;
 
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.AttachmentEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 import com.simon.dribbble.ui.baselist.BaseListFragment;
 
@@ -38,7 +38,7 @@ public class AttachmentFragment extends BaseListFragment<AttachmentEntity> {
         Bundle args = getArguments();
         if (null != args) {
             mShotId = args.getLong("shotId");
-            mPresenter.loadList(mShotId, "", 1, Api.EVENT_BEGIN);
+            mPresenter.loadList(mShotId, "", 1, DribbbleApi.EVENT_BEGIN);
         } else {
             onEmpty();
         }

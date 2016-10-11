@@ -5,10 +5,10 @@ import android.widget.ImageView;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.BucketEntity;
 import com.simon.dribbble.data.model.User;
+import com.simon.dribbble.util.CheckHelper;
 import com.simon.dribbble.util.ColorPhrase;
 import com.simon.dribbble.util.DateTimeUtil;
 import com.simon.dribbble.util.ImgLoadHelper;
-import com.simon.dribbble.util.StringUtil;
 
 import net.quickrecyclerview.show.BaseQuickAdapter;
 import net.quickrecyclerview.show.BaseViewHolder;
@@ -57,7 +57,7 @@ public class UserBucketsAdapter extends BaseQuickAdapter<BucketEntity> {
 
             helper.setText(R.id.tv_shots_count, format);
 
-            if (StringUtil.isEmpty(description)) {
+            if (CheckHelper.isEmpty(description)) {
                 helper.setVisible(R.id.tv_buckets_desc, false);
             } else {
                 helper.setVisible(R.id.tv_buckets_desc, true);

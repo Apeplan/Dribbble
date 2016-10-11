@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.simon.dribbble.R;
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.CommentEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.listener.TextWatcherImpl;
 import com.simon.dribbble.ui.BaseActivity;
 import com.simon.dribbble.util.DialogHelp;
@@ -105,7 +105,7 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
         if (null != bundle) {
             mShotId = bundle.getLong("shotId");
             mStateLayout.showProgressView();
-            mPresenter.loadComments(mShotId, "comments", mPageNo, Api.EVENT_BEGIN);
+            mPresenter.loadComments(mShotId, "comments", mPageNo, DribbbleApi.EVENT_BEGIN);
         }
     }
 
@@ -175,13 +175,13 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
     @Override
     public void onRefresh() {
         mPageNo = 1;
-        mPresenter.loadComments(mShotId, "comments", mPageNo, Api.EVENT_REFRESH);
+        mPresenter.loadComments(mShotId, "comments", mPageNo, DribbbleApi.EVENT_REFRESH);
     }
 
     @Override
     public void onLoadMore() {
         mPageNo++;
-        mPresenter.loadComments(mShotId, "comments", mPageNo, Api.EVENT_MORE);
+        mPresenter.loadComments(mShotId, "comments", mPageNo, DribbbleApi.EVENT_MORE);
     }
 
     @Override

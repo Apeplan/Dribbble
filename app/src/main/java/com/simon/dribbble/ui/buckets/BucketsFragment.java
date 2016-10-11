@@ -4,8 +4,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.BucketEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 import com.simon.dribbble.ui.baselist.BaseListFragment;
 import com.simon.dribbble.util.DialogHelp;
@@ -38,7 +38,7 @@ public class BucketsFragment extends BaseListFragment<BucketEntity> {
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mPresenter.loadList( Api.USER_ID,"", 1,Api.EVENT_BEGIN);
+        mPresenter.loadList( DribbbleApi.USER_ID,"", 1,DribbbleApi.EVENT_BEGIN);
         LLog.d("Simon", "initEventAndData: ");
     }
 

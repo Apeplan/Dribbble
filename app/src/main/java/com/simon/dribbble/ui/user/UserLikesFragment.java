@@ -3,8 +3,8 @@ package com.simon.dribbble.ui.user;
 import android.os.Bundle;
 import android.view.View;
 
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.ShotEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 import com.simon.dribbble.ui.baselist.BaseListFragment;
 import com.simon.dribbble.ui.shots.ShotsAdapter;
@@ -37,7 +37,7 @@ public class UserLikesFragment extends BaseListFragment<ShotEntity> {
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mPresenter.loadList(0, "", mPage, Api.EVENT_BEGIN);
+        mPresenter.loadList(0, "", mPage, DribbbleApi.EVENT_BEGIN);
     }
 
     @Override
@@ -58,13 +58,13 @@ public class UserLikesFragment extends BaseListFragment<ShotEntity> {
     @Override
     public void onRefresh() {
         mPage = 1;
-        mPresenter.loadList(0, "", mPage, Api.EVENT_REFRESH);
+        mPresenter.loadList(0, "", mPage, DribbbleApi.EVENT_REFRESH);
     }
 
     @Override
     public void onLoadMore() {
         mPage++;
-        mPresenter.loadList(0, "", mPage, Api.EVENT_MORE);
+        mPresenter.loadList(0, "", mPage, DribbbleApi.EVENT_MORE);
     }
 
     @Override

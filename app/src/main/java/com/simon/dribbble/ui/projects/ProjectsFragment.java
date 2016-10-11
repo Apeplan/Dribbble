@@ -3,8 +3,8 @@ package com.simon.dribbble.ui.projects;
 import android.os.Bundle;
 import android.view.View;
 
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.ProjectEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 import com.simon.dribbble.ui.baselist.BaseListFragment;
 
@@ -33,7 +33,7 @@ public class ProjectsFragment extends BaseListFragment<ProjectEntity> {
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mPresenter.loadList(0,"", 1, Api.EVENT_BEGIN);
+        mPresenter.loadList(0,"", 1, DribbbleApi.EVENT_BEGIN);
     }
 
     @Override

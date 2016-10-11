@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.Locale;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -24,25 +23,6 @@ import java.util.regex.PatternSyntaxException;
  * 字符串操作工具包
  */
 public class StringUtil {
-    /**
-     * 判断给定字符串是否空白串。 空白串是指由空格、制表符、回车符、换行符组成的字符串
-     * 若输入字符串为null或空字符串，返回true
-     *
-     * @param input
-     * @return boolean
-     */
-    public static boolean isEmpty(String input) {
-        if (input == null || "".equals(input))
-            return true;
-
-        for (int i = 0; i < input.length(); i++) {
-            char c = input.charAt(i);
-            if (c != ' ' && c != '\t' && c != '\r' && c != '\n') {
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * 字符串转整数
@@ -244,21 +224,6 @@ public class StringUtil {
     }
 
     /**
-     * 字符串是不是数字
-     *
-     * @param charSequence
-     * @return
-     */
-    public static boolean isNumber(CharSequence charSequence) {
-        try {
-            Integer.parseInt(charSequence.toString());
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    /**
      * 过滤字符串中的特殊字符
      *
      * @param str
@@ -355,38 +320,6 @@ public class StringUtil {
         CharacterStyle span = new ForegroundColorSpan(color);
         spannable.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
-    }
-
-    /**
-     * 判断多个字符串是否相等，如果其中有一个为空字符串或者null，则返回false，只有全相等才返回true
-     *
-     * @param agrs
-     * @return
-     */
-    public static boolean isEquals(String... agrs) {
-        String last = null;
-        for (int i = 0; i < agrs.length; i++) {
-            String str = agrs[i];
-            if (isEmpty(str)) {
-                return false;
-            }
-            if (last != null && !str.equalsIgnoreCase(last)) {
-                return false;
-            }
-            last = str;
-        }
-        return true;
-    }
-
-    /**
-     * 获取UUID
-     *
-     * @return 32UUID小写字符串
-     */
-    public static String gainUUID() {
-        String strUUID = UUID.randomUUID().toString();
-        strUUID = strUUID.replaceAll("-", "").toLowerCase();
-        return strUUID;
     }
 
     /**

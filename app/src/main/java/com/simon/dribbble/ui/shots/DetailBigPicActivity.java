@@ -14,8 +14,8 @@ import android.view.animation.DecelerateInterpolator;
 import com.simon.dribbble.R;
 import com.simon.dribbble.ui.BaseActivity;
 import com.simon.dribbble.ui.BasePresenter;
+import com.simon.dribbble.util.CheckHelper;
 import com.simon.dribbble.util.ImgLoadHelper;
-import com.simon.dribbble.util.StringUtil;
 import com.simon.dribbble.util.ToastHelper;
 import com.simon.dribbble.util.UIUtils;
 import com.simon.dribbble.widget.PullBackLayout;
@@ -116,7 +116,7 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
             String shotImg = bundle.getString("shotImg");
             String title = bundle.getString("title");
             mToolbar.setTitle(title);
-            if (!StringUtil.isEmpty(shotImg)) {
+            if (!CheckHelper.isEmpty(shotImg)) {
                 ImgLoadHelper.loadImage(shotImg, mPhotoView);
             }
         }

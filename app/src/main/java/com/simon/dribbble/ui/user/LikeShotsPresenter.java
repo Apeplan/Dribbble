@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui.user;
 
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.ShotEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.BasePresenterImpl;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 
@@ -52,9 +52,9 @@ public class LikeShotsPresenter extends BasePresenterImpl implements BaseListCon
 
                     @Override
                     public void onNext(List<ShotEntity> shotsEntities) {
-                        if (event == Api.EVENT_REFRESH) {
+                        if (event == DribbbleApi.EVENT_REFRESH) {
                             mShotsView.refreshComments(shotsEntities);
-                        } else if (event == Api.EVENT_MORE) {
+                        } else if (event == DribbbleApi.EVENT_MORE) {
                             mShotsView.moreComments(shotsEntities);
                         } else {
                             mShotsView.showList(shotsEntities);

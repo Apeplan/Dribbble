@@ -134,6 +134,7 @@
     </array>
 
     <!-- content authorities -->
-    <string name="share_authority" translatable="false">com.simon.dribbble.ui.shots.shareprovider</string>
+    <string name="share_authority" translatable="false">com.simon.dribbble.ui.shots.shareprovider
+    </string>
 
 </resources>

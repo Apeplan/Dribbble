@@ -9,8 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.simon.dribbble.R;
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.ShotEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.BaseFragment;
 import com.simon.dribbble.util.DialogHelp;
 import com.simon.dribbble.util.ToastHelper;
@@ -32,9 +32,9 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
     private ShotsAdapter mAdapter;
     private ShotsPresenter mPresenter;
     //    String list,String timeframe, String sort
-    private String list = "";
-    private String timeframe = "";
-    private String sort = "";
+    private @DribbbleApi.ShotType String list = "";
+    private @DribbbleApi.ShotTimeframe String timeframe = "";
+    private @DribbbleApi.ShotSort String sort = "";
     private SpotsDialog mLoadingDialog;
     //    private ProgressDialog mWaitDialog;
 
@@ -94,7 +94,7 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
     protected void initEventAndData() {
         mStateLayout.showProgressView();
         mPageNo = 1;
-        request(Api.EVENT_BEGIN, false);
+        request(DribbbleApi.EVENT_BEGIN, false);
     }
 
     @Override
@@ -103,24 +103,24 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
         mPageNo = 1;
         switch (item.getItemId()) {
             case R.id.action_current:
-                timeframe = Api.TIMEFRAME_NOW;
-                request(Api.EVENT_BEGIN, true);
+                timeframe = DribbbleApi.SHOT_TIMEFRAME_NOW;
+                request(DribbbleApi.EVENT_BEGIN, true);
                 break;
             case R.id.action_week:
-                timeframe = Api.TIMEFRAME_WEEK;
-                request(Api.EVENT_BEGIN, true);
+                timeframe = DribbbleApi.SHOT_TIMEFRAME_WEEK;
+                request(DribbbleApi.EVENT_BEGIN, true);
                 break;
             case R.id.action_month:
-                timeframe = Api.TIMEFRAME_MONTH;
-                request(Api.EVENT_BEGIN, true);
+                timeframe = DribbbleApi.SHOT_TIMEFRAME_MONTH;
+                request(DribbbleApi.EVENT_BEGIN, true);
                 break;
             case R.id.action_year:
-                timeframe = Api.TIMEFRAME_YEAR;
-                request(Api.EVENT_BEGIN, true);
+                timeframe = DribbbleApi.SHOT_TIMEFRAME_YEAR;
+                request(DribbbleApi.EVENT_BEGIN, true);
                 break;
             case R.id.action_ever:
-                timeframe = Api.TIMEFRAME_EVER;
-                request(Api.EVENT_BEGIN, true);
+                timeframe = DribbbleApi.SHOT_TIMEFRAME_EVER;
+                request(DribbbleApi.EVENT_BEGIN, true);
                 break;
             case R.id.menu_search:
                 ToastHelper.shortToast(item.getTitle());
@@ -143,40 +143,40 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
                 mPageNo = 1;
                 switch (item.getItemId()) {
                     case R.id.filter_debuts:
-                        list = Api.LIST_DEBUTS;
-                        request(Api.EVENT_BEGIN, true);
+                        list = DribbbleApi.SHOT_TYPE_DEBUTS;
+                        request(DribbbleApi.EVENT_BEGIN, true);
                         break;
                     case R.id.filter_playoffs:
-                        list = Api.LIST_PLAYOFFS;
-                        request(Api.EVENT_BEGIN, true);
+                        list =DribbbleApi.SHOT_TYPE_PLAYOFFS;
+                        request(DribbbleApi.EVENT_BEGIN, true);
                         break;
                     case R.id.filter_rebounds:
-                        list = Api.LIST_REBOUNDS;
-                        request(Api.EVENT_BEGIN, true);
+                        list = DribbbleApi.SHOT_TYPE_REBOUNDS;
+                        request(DribbbleApi.EVENT_BEGIN, true);
                         break;
                     case R.id.filter_animated:
-                        list = Api.LIST_ANIMATED;
-                        request(Api.EVENT_BEGIN, true);
+                        list = DribbbleApi.SHOT_TYPE_ANIMATED;
+                        request(DribbbleApi.EVENT_BEGIN, true);
                         break;
                     case R.id.filter_attachments:
-                        list = Api.LIST_ATTACHMENTS;
-                        request(Api.EVENT_BEGIN, true);
+                        list = DribbbleApi.SHOT_TYPE_ATTACHMENTS;
+                        request(DribbbleApi.EVENT_BEGIN, true);
                         break;
                     case R.id.filter_hot:
-                        sort = Api.SORT_POPULARITY;
-                        request(Api.EVENT_BEGIN, true);
+                        sort = DribbbleApi.SHOT_SORT_POPULARITY;
+                        request(DribbbleApi.EVENT_BEGIN, true);
                         break;
                     case R.id.filter_recent:
-                        sort = Api.SORT_RECENT;
-                        request(Api.EVENT_BEGIN, true);
+                        sort = DribbbleApi.SHOT_SORT_RECENT;
+                        request(DribbbleApi.EVENT_BEGIN, true);
                         break;
                     case R.id.filter_views:
-                        sort = Api.SORT_VIEWS;
-                        request(Api.EVENT_BEGIN, true);
+                        sort = DribbbleApi.SHOT_SORT_VIEWS;
+                        request(DribbbleApi.EVENT_BEGIN, true);
                         break;
                     case R.id.filter_comments:
-                        sort = Api.SORT_COMMENTS;
-                        request(Api.EVENT_BEGIN, true);
+                        sort = DribbbleApi.SHOT_SORT_COMMENTS;
+                        request(DribbbleApi.EVENT_BEGIN, true);
                         break;
 
                     default:
@@ -209,13 +209,13 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
     @Override
     public void onRefresh() {
         mPageNo = 1;
-        request(Api.EVENT_REFRESH, false);
+        request(DribbbleApi.EVENT_REFRESH, false);
     }
 
     @Override
     public void onLoadMore() {
         mPageNo++;
-        request(Api.EVENT_MORE, false);
+        request(DribbbleApi.EVENT_MORE, false);
     }
 
     @Override

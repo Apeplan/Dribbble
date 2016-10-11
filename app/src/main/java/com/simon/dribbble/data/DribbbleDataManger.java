@@ -49,8 +49,9 @@ public class DribbbleDataManger {
      */
     public Observable<User> getTokenAndUser(String code) {
 
-        return DribbbleApi.Creator.signIn().getToken(Api.CLIENT_ID, Api.CLIENT_SECRET, code,
-                Api.CALLBACK_URL).concatMap(new Func1<TokenEntity, Observable<? extends
+        return DribbbleApi.Creator.signIn().getToken(DribbbleApi.CLIENT_ID, DribbbleApi
+                .CLIENT_SECRET, code, DribbbleApi.CALLBACK_URL).concatMap(new Func1<TokenEntity,
+                Observable<? extends
                 User>>() {
 
             @Override
@@ -98,7 +99,8 @@ public class DribbbleDataManger {
      * @param sort      排序：comments、recent、views
      * @return
      */
-    public Observable<List<ShotEntity>> getShotsList(int page, String list, String timeframe,
+    public Observable<List<ShotEntity>> getShotsList(int page, @DribbbleApi.ShotType String list,
+                                                     String timeframe,
                                                      String sort) {
         return mDribbbleApi.getShots(page, list, timeframe, sort).
                 concatMap(new Func1<List<ShotEntity>, Observable<? extends List<ShotEntity>>>() {

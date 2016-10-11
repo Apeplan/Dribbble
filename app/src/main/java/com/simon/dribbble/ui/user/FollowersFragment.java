@@ -3,8 +3,8 @@ package com.simon.dribbble.ui.user;
 import android.os.Bundle;
 import android.view.View;
 
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.FollowersEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 import com.simon.dribbble.ui.baselist.BaseListFragment;
 
@@ -31,7 +31,7 @@ public class FollowersFragment extends BaseListFragment<FollowersEntity> {
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mPresenter.loadList(0, "",1, Api.EVENT_BEGIN);
+        mPresenter.loadList(0, "",1, DribbbleApi.EVENT_BEGIN);
     }
 
     @Override

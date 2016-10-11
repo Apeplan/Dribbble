@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.CommentEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.BasePresenterImpl;
 
 import net.quickrecyclerview.utils.log.LLog;
@@ -48,13 +48,13 @@ public class CommentPresenter extends BasePresenterImpl implements CommentContra
                         LLog.d("Simon", "onCompleted: 获取评论成功");
                         if (null != commentEntities) {
 
-                            if (event == Api.EVENT_BEGIN) {
+                            if (event == DribbbleApi.EVENT_BEGIN) {
                                 if (commentEntities.isEmpty()) {
                                     mCommentView.onEmpty();
                                 } else {
                                     mCommentView.showComments(commentEntities);
                                 }
-                            } else if (event == Api.EVENT_REFRESH) {
+                            } else if (event == DribbbleApi.EVENT_REFRESH) {
                                 mCommentView.refreshComments(commentEntities);
                             } else {
                                 mCommentView.moreComments(commentEntities);

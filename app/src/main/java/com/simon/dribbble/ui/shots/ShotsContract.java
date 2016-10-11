@@ -1,6 +1,7 @@
 package com.simon.dribbble.ui.shots;
 
 import com.simon.dribbble.data.model.ShotEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.BasePresenter;
 import com.simon.dribbble.ui.BaseView;
 
@@ -25,7 +26,8 @@ public interface ShotsContract {
     }
 
     interface Presenter extends BasePresenter {
-        void loadShotsList(int page, String list, String timeframe, String sort, int event);
+        void loadShotsList(int page, @DribbbleApi.ShotType String list, @DribbbleApi
+                .ShotTimeframe String timeframe, @DribbbleApi.ShotSort String sort, int event);
     }
 
 }

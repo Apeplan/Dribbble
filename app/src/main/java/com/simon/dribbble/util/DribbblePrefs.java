@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.simon.dribbble.DribbbleApp;
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.User;
+import com.simon.dribbble.data.remote.DribbbleApi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -124,7 +124,7 @@ public class DribbblePrefs {
 
     private String getAccessToken() {
         return !TextUtils.isEmpty(accessToken) ? accessToken
-                : Api.ACCESS_TOKEN;
+                : DribbbleApi.ACCESS_TOKEN;
     }
 
     public boolean userCanPost() {

@@ -11,7 +11,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
 import com.simon.dribbble.R;
-import com.simon.dribbble.data.Api;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.BaseActivity;
 import com.simon.dribbble.ui.main.HomeActivity;
 import com.simon.dribbble.util.ToastHelper;
@@ -36,7 +36,7 @@ public class SignInActivity extends BaseActivity<SignPresenter> implements SignI
         mWebView.getSettings().setJavaScriptEnabled(true);//支持javascript
         mWebView.setWebViewClient(new OAuthWebViewClient());
 
-        mWebView.loadUrl(String.format(Api.AUTHORIZE_URL, Api.CLIENT_ID));
+        mWebView.loadUrl(String.format(DribbbleApi.AUTHORIZE_URL, DribbbleApi.CLIENT_ID));
     }
 
     @Override
@@ -105,9 +105,9 @@ public class SignInActivity extends BaseActivity<SignPresenter> implements SignI
     }
 
     private void interceptUrlCompat(WebView view, String url) {
-        if (isRedirectUriFound(url, Api.CALLBACK_URL)) {
+        if (isRedirectUriFound(url, DribbbleApi.CALLBACK_URL)) {
             Uri uri = Uri.parse(url);
-            String tokenCode = uri.getQueryParameter(Api.PARAM_CODE);
+            String tokenCode = uri.getQueryParameter(DribbbleApi.PARAM_CODE);
             if (TextUtils.isEmpty(tokenCode)) {
                 Log.e("sqsong", "TokenCode is null");
                 return;

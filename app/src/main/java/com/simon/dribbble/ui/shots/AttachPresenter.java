@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.AttachmentEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.BasePresenterImpl;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 
@@ -48,13 +48,13 @@ public class AttachPresenter extends BasePresenterImpl implements
                         LLog.d("Simon", "onCompleted: 获取评论成功");
                         if (null != likes) {
 
-                            if (event == Api.EVENT_BEGIN) {
+                            if (event == DribbbleApi.EVENT_BEGIN) {
                                 if (likes.isEmpty()) {
                                     mView.onEmpty();
                                 } else {
                                     mView.showList(likes);
                                 }
-                            } else if (event == Api.EVENT_REFRESH) {
+                            } else if (event == DribbbleApi.EVENT_REFRESH) {
                                 mView.refreshComments(likes);
                             } else {
                                 mView.moreComments(likes);

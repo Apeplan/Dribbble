@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.LikeEntity;
+import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.BasePresenterImpl;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 
@@ -52,13 +52,13 @@ public class LikesPresenter extends BasePresenterImpl implements BaseListContrac
                     public void onNext(List<LikeEntity> likes) {
                         LLog.d("Simon", "onCompleted: 获取评论成功");
 
-                        if (event == Api.EVENT_BEGIN) {
+                        if (event == DribbbleApi.EVENT_BEGIN) {
                             if (likes.isEmpty()) {
                                 mCommentView.onEmpty();
                             } else {
                                 mCommentView.showList(likes);
                             }
-                        } else if (event == Api.EVENT_REFRESH) {
+                        } else if (event == DribbbleApi.EVENT_REFRESH) {
                             mCommentView.refreshComments(likes);
                         } else {
                             mCommentView.moreComments(likes);
