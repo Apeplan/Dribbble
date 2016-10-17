@@ -2,14 +2,18 @@ package com.simon.dribbble.ui.shots;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.ShotEntity;
 import com.simon.dribbble.data.remote.DribbbleApi;
 import com.simon.dribbble.ui.BaseActivity;
 import com.simon.dribbble.widget.statelayout.StateLayout;
+
+import net.quickrecyclerview.utils.log.LLog;
 
 import java.util.List;
 
@@ -23,6 +27,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     private ShotsAdapter mShotsAdapter;
     private StateLayout mStateLayout;
+    private SearchView mSearchView;
 
     @Override
     protected int getLayout() {
@@ -36,14 +41,17 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     protected void initView() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setCommonBackToolBack(toolbar, "搜索");
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         mStateLayout = (StateLayout) findViewById(R.id.progress_loading);
-        Button button = (Button) findViewById(R.id.btn_search);
+        mSearchView = (SearchView) findViewById(R.id.search_view);
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rlv_search);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-
-        button.setOnClickListener(this);
 
         mShotsAdapter = new ShotsAdapter();
         recyclerView.setAdapter(mShotsAdapter);
@@ -52,17 +60,33 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     protected void initEventAndData() {
 
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                LLog.d("Simon Han", "onQueryTextSubmit: " + query);
+                if (!TextUtils.isEmpty(query)) {
+                    mStateLayout.showProgressView();
+                    search(query);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                LLog.d("Simon Han", "onQueryTextChange: " + newText);
+                return false;
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        mStateLayout.showProgressView();
-        btn_test();
     }
 
-    public void btn_test() {
-        mPresenter.searchShot("1", 1, DribbbleApi.SORT_POPULAR);
+    public void search(String query) {
+        mSearchView.clearFocus();
+        mPresenter.searchShot(query, 1, DribbbleApi.SORT_POPULAR);
     }
 
     @Override

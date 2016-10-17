@@ -32,9 +32,15 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
     private ShotsAdapter mAdapter;
     private ShotsPresenter mPresenter;
     //    String list,String timeframe, String sort
-    private @DribbbleApi.ShotType String list = "";
-    private @DribbbleApi.ShotTimeframe String timeframe = "";
-    private @DribbbleApi.ShotSort String sort = "";
+    private
+    @DribbbleApi.ShotType
+    String list = "";
+    private
+    @DribbbleApi.ShotTimeframe
+    String timeframe = "";
+    private
+    @DribbbleApi.ShotSort
+    String sort = "";
     private SpotsDialog mLoadingDialog;
     //    private ProgressDialog mWaitDialog;
 
@@ -123,7 +129,6 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
                 request(DribbbleApi.EVENT_BEGIN, true);
                 break;
             case R.id.menu_search:
-                ToastHelper.shortToast(item.getTitle());
                 startIntent(SearchActivity.class);
                 break;
             case R.id.menu_filter:
@@ -147,7 +152,7 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
                         request(DribbbleApi.EVENT_BEGIN, true);
                         break;
                     case R.id.filter_playoffs:
-                        list =DribbbleApi.SHOT_TYPE_PLAYOFFS;
+                        list = DribbbleApi.SHOT_TYPE_PLAYOFFS;
                         request(DribbbleApi.EVENT_BEGIN, true);
                         break;
                     case R.id.filter_rebounds:

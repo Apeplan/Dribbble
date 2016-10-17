@@ -22,7 +22,7 @@ import com.simon.dribbble.ui.BaseActivity;
 import com.simon.dribbble.ui.BasePresenter;
 import com.simon.dribbble.ui.buckets.BucketsFragment;
 import com.simon.dribbble.ui.projects.ProjectsFragment;
-import com.simon.dribbble.ui.sample.SampleActivity;
+import com.simon.dribbble.ui.shots.CreateShotActivity;
 import com.simon.dribbble.ui.shots.ShotsFragment;
 import com.simon.dribbble.ui.team.TeamFragment;
 import com.simon.dribbble.ui.user.FollowersFragment;
@@ -109,8 +109,8 @@ public class HomeActivity extends BaseActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                Intent intent = new Intent(HomeActivity.this, SampleActivity.class);
-//                Intent intent = new Intent(HomeActivity.this, CreateShotActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, SampleActivity.class);
+                Intent intent = new Intent(HomeActivity.this, CreateShotActivity.class);
                 startActivity(intent);
 
                /* Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
