@@ -46,7 +46,7 @@ public class ImgLoadHelper {
      * @param imageView 显示图片的容器
      */
     public static void loadImage(String url, ImageView imageView) {
-        loadImage(url, R.drawable.placeholder, R.drawable.placeholder, imageView);
+        loadImage(url, R.drawable.placeholderr, R.drawable.placeholderr, imageView);
     }
 
     /**
