@@ -32,7 +32,7 @@ public class SearchPresenter extends BasePresenterImpl implements SearchContract
 
     @Override
     public void searchShot(String key, int page, @DribbbleApi.SortOrder String sort) {
-        Subscription subscription = mDataManger.search(key, page,sort)
+        Subscription subscription = mDataManger.search(key, page, sort)
                 .observeOn(mSchedulerProvider.ui())
                 .subscribeOn(mSchedulerProvider.io())
                 .subscribe(new Subscriber<List<ShotEntity>>() {
@@ -45,13 +45,17 @@ public class SearchPresenter extends BasePresenterImpl implements SearchContract
                     @Override
                     public void onError(Throwable e) {
                         LLog.d("Simon Han", "onError: " + e.getMessage());
-                        mSearchView.onFailed(0,e.getMessage());
+                        mSearchView.onFailed(0, e.getMessage());
                     }
 
                     @Override
                     public void onNext(List<ShotEntity> shotEntities) {
                         LLog.d("Simon Han", "onNext: " + shotEntities.size());
-                        mSearchView.showSearch(shotEntities);
+                        if (shotEntities.isEmpty()) {
+                            mSearchView.onEmpty();
+                        } else {
+                            mSearchView.showSearch(shotEntities);
+                        }
                     }
                 });
         addSubscription(subscription);

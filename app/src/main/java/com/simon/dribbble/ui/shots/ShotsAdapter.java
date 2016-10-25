@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.simon.dribbble.DribbbleApp;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.util.CheckHelper;
+import com.simon.dribbble.util.RegexHelper;
 import com.simon.dribbble.util.ColorPhrase;
 import com.simon.dribbble.util.ImgLoadHelper;
 
@@ -42,7 +42,7 @@ public class ShotsAdapter extends BaseQuickAdapter<ShotEntity> {
             ImageView imageView = helper.getView(R.id.imv_shot_pic);
             ImageView avatar = helper.getView(R.id.imv_avatar);
 
-            ImgLoadHelper.loadImage(CheckHelper.isEmpty(hidpi) ? normal : hidpi, imageView);
+            ImgLoadHelper.loadImage(RegexHelper.isEmpty(hidpi) ? normal : hidpi, imageView);
             ImgLoadHelper.loadAvatar(avatar_url, avatar);
 
             helper.setVisible(R.id.tv_type, animated);

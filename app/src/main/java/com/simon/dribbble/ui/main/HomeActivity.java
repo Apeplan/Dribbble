@@ -91,7 +91,7 @@ public class HomeActivity extends BaseActivity {
 
 
         String user_name = DribbblePrefs.getInstance().getUserName();
-        String user_profile =DribbblePrefs.getInstance().getUserAvatar();
+        String user_profile = DribbblePrefs.getInstance().getUserAvatar();
         if (TextUtils.isEmpty(user_name)) {
             user_name = "Simon.han";
         }
@@ -169,6 +169,12 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+            return;
+        }
+
         // 双击退出
         long curTime = SystemClock.uptimeMillis();
         if ((curTime - mBackPressedTime) < (3 * 1000)) {

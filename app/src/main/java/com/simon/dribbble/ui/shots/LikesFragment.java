@@ -60,6 +60,11 @@ public class LikesFragment extends BaseListFragment<LikeEntity> {
     }
 
     @Override
+    protected boolean isLoadMoreEnabled() {
+        return true;
+    }
+
+    @Override
     public void onRefresh() {
         mPage = 1;
         mPresenter.loadList(mShotId, "", mPage, DribbbleApi.EVENT_REFRESH);

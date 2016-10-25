@@ -24,7 +24,7 @@ import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.listener.TextWatcherImpl;
 import com.simon.dribbble.ui.BaseActivity;
 import com.simon.dribbble.ui.baselist.ListActivity;
-import com.simon.dribbble.util.CheckHelper;
+import com.simon.dribbble.util.RegexHelper;
 import com.simon.dribbble.util.DateTimeUtil;
 import com.simon.dribbble.util.DialogHelp;
 import com.simon.dribbble.util.ImgLoadHelper;
@@ -203,7 +203,7 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
         mCollapsingToolbarLayout.setTitle(mTitle);
         String normal = shot.getImages().getNormal();
         String hdpi = shot.getImages().getHidpi();
-        mImgUrl = CheckHelper.isEmpty(hdpi) ? normal : hdpi;
+        mImgUrl = RegexHelper.isEmpty(hdpi) ? normal : hdpi;
 
         User user = shot.getUser();
         ImgLoadHelper.loadAvatar(user.avatar_url, mImv_avatar);
@@ -233,7 +233,7 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
 
         mTv_shot_title.setText(shot.getTitle());
         String description = shot.getDescription();
-        if (!CheckHelper.isEmpty(description)) {
+        if (!RegexHelper.isEmpty(description)) {
             mTv_shot_desc.setText(Html.fromHtml(description));
         }
         String[] tags = shot.getTags();

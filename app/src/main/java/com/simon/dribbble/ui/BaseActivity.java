@@ -64,7 +64,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.colorPrimary);
+            tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
         }
     }
 

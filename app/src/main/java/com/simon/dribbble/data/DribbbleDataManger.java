@@ -519,12 +519,12 @@ public class DribbbleDataManger {
                                 if (subscriber.isUnsubscribed()) return;
 
                                 if (null != shotEntities) {
-                                    subscriber.onNext(shotEntities);
                                     LLog.d("Simon Han", "call: shots size=  " + shotEntities.size
                                             ());
+                                    subscriber.onNext(shotEntities);
                                 } else {
-                                    subscriber.onError(new Exception("Request Failed"));
                                     LLog.d("Simon Han", "call: shots = null");
+                                    subscriber.onError(new Exception("Request Failed"));
                                 }
 
                                 subscriber.onCompleted();
