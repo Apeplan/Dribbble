@@ -23,7 +23,9 @@ public interface RemoteApi {
     @GET("cook/list")
     Observable<ApiResponse> getCooks();
 
-    /******* Helper class that sets up a new services ******/
+    /*******
+     * Helper class that sets up a new services
+     ******/
     class Creator {
 
         public static RemoteApi newDataService() {

@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.simon.dribbble.DribbbleApp;
+import com.squareup.leakcanary.RefWatcher;
+
 
 /**
  * Created by: Simon
@@ -87,12 +90,13 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onDestroy() {
         super.onDestroy();
+        // 监听Fragment 内存泄漏
+        RefWatcher refWatcher = DribbbleApp.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+
         if (null != mPresenter) {
             mPresenter.unsubscribe();
         }
-        // 监听Fragment 内存泄漏
-        //  RefWatcher refWatcher = XcgooApplication.getRefWatcher(getActivity());
-        //  refWatcher.watch(this);
     }
 
     protected void startIntent(Class aClass) {

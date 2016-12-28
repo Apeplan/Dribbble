@@ -916,9 +916,7 @@ public class TagGroup extends ViewGroup {
             // Make the checked mark drawing region.
             setPadding(horizontalPadding,
                     verticalPadding,
-                    isChecked ? (int) (horizontalPadding + getHeight() / 2.5f +
-                            CHECKED_MARKER_OFFSET)
-                            : horizontalPadding,
+                    isChecked ? (int) (horizontalPadding + getHeight() / 2.5f + CHECKED_MARKER_OFFSET) : horizontalPadding,
                     verticalPadding);
             invalidatePaint();
         }

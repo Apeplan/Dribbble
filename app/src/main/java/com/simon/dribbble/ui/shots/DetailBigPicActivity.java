@@ -14,8 +14,8 @@ import android.view.animation.DecelerateInterpolator;
 import com.simon.dribbble.R;
 import com.simon.dribbble.ui.BaseActivity;
 import com.simon.dribbble.ui.BasePresenter;
-import com.simon.dribbble.util.RegexHelper;
 import com.simon.dribbble.util.ImgLoadHelper;
+import com.simon.dribbble.util.StringUtil;
 import com.simon.dribbble.util.ToastHelper;
 import com.simon.dribbble.util.UIUtils;
 import com.simon.dribbble.widget.PullBackLayout;
@@ -116,7 +116,7 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
             String shotImg = bundle.getString("shotImg");
             String title = bundle.getString("title");
             mToolbar.setTitle(title);
-            if (!RegexHelper.isEmpty(shotImg)) {
+            if (!StringUtil.isEmpty(shotImg)) {
                 ImgLoadHelper.loadImage(shotImg, mPhotoView);
             }
         }
@@ -146,6 +146,7 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
         switch (item.getItemId()) {
             case R.id.action_share:
                 ToastHelper.shortToast(getString(R.string.toast_def_hint));
+//                startAsyncTask();
                 return true;
             case R.id.action_save:
                 ToastHelper.shortToast(getString(R.string.toast_def_hint));
@@ -153,6 +154,19 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
         }
         return super.onOptionsItemSelected(item);
     }
+
+   /* void startAsyncTask() {
+        // This async task is an anonymous class and therefore has a hidden reference to the outer
+        // class MainActivity. If the activity gets destroyed before the task finishes (e.g. rotation),
+        // the activity instance will leak.
+        new AsyncTask<Void, Void, Void>() {
+            @Override protected Void doInBackground(Void... params) {
+                // Do some slow work in background
+                SystemClock.sleep(20000);
+                return null;
+            }
+        }.execute();
+    }*/
 
     @Override
     public void onPullStart() {

@@ -47,7 +47,6 @@ public class HomeActivity extends BaseActivity {
     private ImageView mImv_profile;
     private TextView mUserName;
     private TextView mTv_email;
-    private ShotsFragment mShotsFragment;
 
     @Override
     protected int getLayout() {
@@ -83,11 +82,9 @@ public class HomeActivity extends BaseActivity {
 
         setNavigationSwitchContent(navigationView);
 
-        if (null == mShotsFragment) {
-            mShotsFragment = ShotsFragment.newInstance();
-        }
+        ShotsFragment shotsFragment = ShotsFragment.newInstance();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content,
-                mShotsFragment).commit();
+                shotsFragment).commit();
 
 
         String user_name = DribbblePrefs.getInstance().getUserName();

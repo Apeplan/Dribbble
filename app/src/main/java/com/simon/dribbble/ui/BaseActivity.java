@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.simon.dribbble.DribbbleApp;
 import com.simon.dribbble.R;
 import com.simon.dribbble.ui.shots.DetailBigPicActivity;
+import com.squareup.leakcanary.RefWatcher;
 
 /**
  * Created by Simon Han on 2016/8/20.
@@ -148,6 +150,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        RefWatcher refWatcher = DribbbleApp.getRefWatcher(this);
+        refWatcher.watch(this);
+
         if (null != mPresenter) {
             mPresenter.unsubscribe();
         }

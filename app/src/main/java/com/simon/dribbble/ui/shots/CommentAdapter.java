@@ -6,9 +6,9 @@ import android.widget.ImageView;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.CommentEntity;
 import com.simon.dribbble.data.model.User;
-import com.simon.dribbble.util.RegexHelper;
 import com.simon.dribbble.util.DateTimeUtil;
 import com.simon.dribbble.util.ImgLoadHelper;
+import com.simon.dribbble.util.StringUtil;
 
 import net.quickrecyclerview.show.BaseQuickAdapter;
 import net.quickrecyclerview.show.BaseViewHolder;
@@ -37,7 +37,7 @@ public class CommentAdapter extends BaseQuickAdapter<CommentEntity> {
             String formatUTC = DateTimeUtil.formatUTC(created_at);
             String friendly_time = DateTimeUtil.friendly_time(formatUTC);
 
-            if (!RegexHelper.isEmpty(body)) {
+            if (!StringUtil.isEmpty(body)) {
                 if (body.contains("<p>")) {
                     body = body.replace("<p>", "");
                 }
