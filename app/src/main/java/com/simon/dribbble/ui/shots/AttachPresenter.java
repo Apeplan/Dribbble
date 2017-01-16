@@ -1,16 +1,16 @@
 package com.simon.dribbble.ui.shots;
 
+import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.ResultSubscriber;
+import com.simon.agiledevelop.log.LLog;
+import com.simon.dribbble.data.Api;
+import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.AttachmentEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.BasePresenterImpl;
 import com.simon.dribbble.ui.baselist.BaseListContract;
-
-import net.quickrecyclerview.utils.log.LLog;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.Subscription;
+import rx.Observable;
 
 /**
  * Created by: Simon
@@ -18,58 +18,58 @@ import rx.Subscription;
  * Created on: 2016/9/14 16:20
  */
 
-public class AttachPresenter extends BasePresenterImpl implements
-        BaseListContract.Presenter {
-
-    private BaseListContract.View mView;
+public class AttachPresenter extends MvpRxPresenter<BaseListContract.View, List<AttachmentEntity>> {
 
     public AttachPresenter(BaseListContract.View view) {
-        mView = view;
+        attachView(view);
+        view.setPresenter(this);
     }
 
-    @Override
-    public void loadList(long id, String type, int page, final int event) {
-        Subscription subscription = mDataManger.getShotAttach(id, page)
-                .observeOn(mSchedulerProvider.ui())
-                .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<List<AttachmentEntity>>() {
-                    @Override
-                    public void onCompleted() {
-                        LLog.d("Simon", "onCompleted: 获取评论");
-                    }
+    public void loadList(long id,int page, final int action) {
 
-                    @Override
-                    public void onError(Throwable e) {
-                        LLog.d("Simon", "onCompleted: 获取评论失败\t" + e.getMessage());
-                    }
+        Observable<List<AttachmentEntity>> shotAttach = DribbbleDataManger.getInstance()
+                .getShotAttach(id, page);
 
-                    @Override
-                    public void onNext(List<AttachmentEntity> likes) {
-                        LLog.d("Simon", "onCompleted: 获取评论成功");
-                        if (null != likes) {
+        subscribe(shotAttach, new ResultSubscriber<List<AttachmentEntity>>() {
+            @Override
+            public void onStartRequest() {
+                getView().showLoading(action, "");
+            }
 
-                            if (event == DribbbleApi.EVENT_BEGIN) {
-                                if (likes.isEmpty()) {
-                                    mView.onEmpty();
-                                } else {
-                                    mView.showList(likes);
-                                }
-                            } else if (event == DribbbleApi.EVENT_REFRESH) {
-                                mView.refreshComments(likes);
-                            } else {
-                                mView.moreComments(likes);
-                            }
+            @Override
+            public void onEndRequest() {
+                LLog.d("onCompleted: 获取评论");
+                getView().onCompleted(action);
+            }
 
+            @Override
+            public void onFailed(Throwable e) {
+                LLog.d("onCompleted: 获取评论失败\t" + e.getMessage());
+                getView().onFailed(action, e.getMessage());
+            }
+
+            @Override
+            public void onResult(List<AttachmentEntity> attachmentEntities) {
+                LLog.d("onCompleted: 获取评论成功");
+                if (null != attachmentEntities) {
+
+                    if (action == Api.EVENT_BEGIN) {
+                        if (attachmentEntities.isEmpty()) {
+                            getView().onEmpty("");
                         } else {
-                            mView.onFailed(0, "获取数据失败");
+                            getView().showList(attachmentEntities);
                         }
+                    } else if (action == Api.EVENT_REFRESH) {
+                        getView().refreshComments(attachmentEntities);
+                    } else {
+                        getView().moreComments(attachmentEntities);
                     }
-                });
-        addSubscription(subscription);
+
+                } else {
+                    getView().onFailed(0, "获取数据失败");
+                }
+            }
+        });
     }
 
-    @Override
-    public void subscribe() {
-
-    }
 }

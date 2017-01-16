@@ -3,13 +3,10 @@ package com.simon.dribbble.ui.shots;
 import android.os.Bundle;
 import android.view.View;
 
-import com.simon.dribbble.data.model.BucketEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.baselist.BaseListContract;
-import com.simon.dribbble.ui.baselist.BaseListFragment;
+import com.simon.dribbble.data.Api;
+import com.simon.dribbble.ui.CommListFragment;
+import com.simon.dribbble.ui.CommListPresenter;
 import com.simon.dribbble.ui.buckets.UserBucketsAdapter;
-
-import net.quickrecyclerview.show.BaseQuickAdapter;
 
 /**
  * Created by: Simon
@@ -17,7 +14,10 @@ import net.quickrecyclerview.show.BaseQuickAdapter;
  * Created on: 2016/9/14 17:29
  */
 
-public class BucketsFragment extends BaseListFragment<BucketEntity> {
+public class BucketsFragment extends CommListFragment<BucketsPresenter,UserBucketsAdapter> {
+
+    private int mPage = 1;
+    private long mShotId;
 
     public static BucketsFragment newInstance() {
         BucketsFragment fragment = new BucketsFragment();
@@ -26,37 +26,47 @@ public class BucketsFragment extends BaseListFragment<BucketEntity> {
         return fragment;
     }
 
-    private long mShotId;
-
     @Override
-    protected BaseQuickAdapter<BucketEntity> getListAdapter() {
-        return new UserBucketsAdapter();
+    protected BucketsPresenter getPresenter() {
+        return new BucketsPresenter(this);
     }
 
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
+
         Bundle args = getArguments();
         if (null != args) {
             mShotId = args.getLong("shotId");
-            mPresenter.loadList(mShotId, "shots", 1, DribbbleApi.EVENT_BEGIN);
+            mPresenter.loadList(Api.EVENT_BEGIN, mShotId, "shots", 1);
         } else {
-            onEmpty();
+            onEmpty("");
         }
     }
 
     @Override
+    protected UserBucketsAdapter getListAdapter() {
+        return new UserBucketsAdapter();
+    }
+
     protected void itemClick(View view, int position) {
 
     }
 
     @Override
-    protected BaseListContract.Presenter getPresenter() {
-        return new BucketsPresenter(this);
+    public void refreshData() {
+        mPage = 1;
+        mPresenter.loadList(Api.EVENT_REFRESH, mShotId, "shots", mPage);
     }
 
     @Override
-    public void setPresenter(BaseListContract.Presenter presenter) {
+    public void moreData() {
+        mPage++;
+        mPresenter.loadList(Api.EVENT_MORE, mShotId, "shots", mPage);
+    }
+
+    @Override
+    public void setPresenter(CommListPresenter presenter) {
 
     }
 }

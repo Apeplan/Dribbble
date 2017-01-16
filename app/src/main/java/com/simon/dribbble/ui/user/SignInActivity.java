@@ -10,11 +10,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
+import com.simon.agiledevelop.BaseActivity;
+import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.dribbble.R;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.BaseActivity;
+import com.simon.dribbble.data.Api;
 import com.simon.dribbble.ui.main.HomeActivity;
-import com.simon.dribbble.util.ToastHelper;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -36,7 +38,7 @@ public class SignInActivity extends BaseActivity<SignPresenter> implements SignI
         mWebView.getSettings().setJavaScriptEnabled(true);//支持javascript
         mWebView.setWebViewClient(new OAuthWebViewClient());
 
-        mWebView.loadUrl(String.format(DribbbleApi.AUTHORIZE_URL, DribbbleApi.CLIENT_ID));
+        mWebView.loadUrl(String.format(Api.AUTHORIZE_URL, Api.CLIENT_ID));
     }
 
     @Override
@@ -45,7 +47,7 @@ public class SignInActivity extends BaseActivity<SignPresenter> implements SignI
     }
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.activity_sign_dribbble;
     }
 
@@ -55,33 +57,44 @@ public class SignInActivity extends BaseActivity<SignPresenter> implements SignI
     }
 
     @Override
+    protected View getLoadingView() {
+        return null;
+    }
+
+    @Override
     public void signSuccess() {
-        ToastHelper.longToast("登录成功");
+        ToastHelper.showLongToast(App.INSTANCE,"登录成功");
         mLoading.setVisibility(View.GONE);
         setResult(RESULT_OK, new Intent(SignInActivity.this, HomeActivity.class));
         finish();
     }
 
     @Override
-    public void onEmpty() {
+    public void onEmpty(String msg) {
+
+    }
+
+    @Override
+    public void showLoading(int action, String msg) {
 
     }
 
     @Override
     public void onFailed(int action, String msg) {
-        ToastHelper.longToast("登录失败");
+        ToastHelper.showLongToast(App.INSTANCE,"登录失败");
         mLoading.setVisibility(View.GONE);
     }
 
     @Override
-    public void onCompleted() {
+    public void onCompleted(int action) {
 
     }
 
     @Override
-    public void setPresenter(SignInContract.Presenter presenter) {
+    public void setPresenter(MvpRxPresenter presenter) {
 
     }
+
 
     class OAuthWebViewClient extends WebViewClient {
         @Override
@@ -105,9 +118,9 @@ public class SignInActivity extends BaseActivity<SignPresenter> implements SignI
     }
 
     private void interceptUrlCompat(WebView view, String url) {
-        if (isRedirectUriFound(url, DribbbleApi.CALLBACK_URL)) {
+        if (isRedirectUriFound(url, Api.CALLBACK_URL)) {
             Uri uri = Uri.parse(url);
-            String tokenCode = uri.getQueryParameter(DribbbleApi.PARAM_CODE);
+            String tokenCode = uri.getQueryParameter(Api.PARAM_CODE);
             if (TextUtils.isEmpty(tokenCode)) {
                 Log.e("sqsong", "TokenCode is null");
                 return;

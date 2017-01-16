@@ -4,15 +4,14 @@ import android.content.res.ColorStateList;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.simon.agiledevelop.log.LLog;
+import com.simon.agiledevelop.recycler.RapidViewHolder;
+import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.LikeEntity;
 import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.util.ColorPhrase;
-import com.simon.dribbble.util.ImgLoadHelper;
-
-import net.quickrecyclerview.show.BaseQuickAdapter;
-import net.quickrecyclerview.show.BaseViewHolder;
-import net.quickrecyclerview.utils.log.LLog;
 
 /**
  * Created by: Simon
@@ -20,13 +19,13 @@ import net.quickrecyclerview.utils.log.LLog;
  * Created on: 2016/9/14 15:15
  */
 
-public class LikesAdapter extends BaseQuickAdapter<LikeEntity> {
+public class LikesAdapter extends RapidAdapter<LikeEntity,RapidViewHolder> {
     public LikesAdapter() {
         super(R.layout.item_user);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, LikeEntity item) {
+    protected void convert(RapidViewHolder helper, LikeEntity item) {
         if (null != item) {
             User follower = item.getUser();
 
@@ -41,18 +40,18 @@ public class LikesAdapter extends BaseQuickAdapter<LikeEntity> {
             CharSequence shot_count = ColorPhrase.from(follower.shots_count + "  <作品>")
                     .withSeparator("<>")
                     .innerColor(0xFF808080)
-                    .outerColor(0xFF0000FF)
+                    .outerColor(0xFF333333)
                     .format();
 
             CharSequence follower_count = ColorPhrase.from(follower.followers_count + "  <粉丝>")
                     .withSeparator("<>")
                     .innerColor(0xFF808080)
-                    .outerColor(0xFF0000FF)
+                    .outerColor(0xFF333333)
                     .format();
 
             TextView view = helper.getView(R.id.tv_location);
             ColorStateList textColors = view.getTextColors();
-            LLog.d("Simon", "convert: " + textColors.toString());
+            LLog.d("convert: " + textColors.toString());
 
             helper.setText(R.id.tv_shots_count, shot_count);
             helper.setText(R.id.tv_follower_count, follower_count);

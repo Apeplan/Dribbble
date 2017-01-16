@@ -32,10 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.sample.SampleActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ui.user.SignInActivity"
             android:launchMode="singleTop"

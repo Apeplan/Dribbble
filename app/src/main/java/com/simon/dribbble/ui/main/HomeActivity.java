@@ -16,11 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.simon.agiledevelop.BaseActivity;
+import com.simon.agiledevelop.MvpPresenter;
+import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.GlobalConstant;
 import com.simon.dribbble.R;
-import com.simon.dribbble.ui.BaseActivity;
-import com.simon.dribbble.ui.BasePresenter;
-import com.simon.dribbble.ui.buckets.BucketsFragment;
+import com.simon.dribbble.ui.buckets.UserBucketsFragment;
 import com.simon.dribbble.ui.projects.ProjectsFragment;
 import com.simon.dribbble.ui.shots.CreateShotActivity;
 import com.simon.dribbble.ui.shots.ShotsFragment;
@@ -30,7 +31,6 @@ import com.simon.dribbble.ui.user.SettingsActivity;
 import com.simon.dribbble.ui.user.UserLikesFragment;
 import com.simon.dribbble.ui.user.UserShotsFragment;
 import com.simon.dribbble.util.DribbblePrefs;
-import com.simon.dribbble.util.ImgLoadHelper;
 
 /**
  * Created by: Simon
@@ -49,12 +49,17 @@ public class HomeActivity extends BaseActivity {
     private TextView mTv_email;
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.activity_home;
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected MvpPresenter getPresenter() {
+        return null;
+    }
+
+    @Override
+    protected View getLoadingView() {
         return null;
     }
 
@@ -85,7 +90,6 @@ public class HomeActivity extends BaseActivity {
         ShotsFragment shotsFragment = ShotsFragment.newInstance();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content,
                 shotsFragment).commit();
-
 
         String user_name = DribbblePrefs.getInstance().getUserName();
         String user_profile = DribbblePrefs.getInstance().getUserAvatar();
@@ -123,7 +127,6 @@ public class HomeActivity extends BaseActivity {
                 .OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-//                mMainPresenterImpl.switchNavigation(item.getItemId());
                 int itemId = item.getItemId();
                 item.setChecked(true);
                 Fragment fragment = null;
@@ -138,7 +141,7 @@ public class HomeActivity extends BaseActivity {
                     fragment = UserShotsFragment.newInstance();
                 } else if (itemId == R.id.nav_buckets) {
                     mToolbar.setTitle("我的" + item.getTitle());
-                    fragment = BucketsFragment.newInstance();
+                    fragment = UserBucketsFragment.newInstance();
                 } else if (itemId == R.id.nav_projects) {
                     mToolbar.setTitle("我的" + item.getTitle());
                     fragment = ProjectsFragment.newInstance();

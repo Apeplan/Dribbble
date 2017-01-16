@@ -3,12 +3,9 @@ package com.simon.dribbble.ui.team;
 import android.os.Bundle;
 import android.view.View;
 
-import com.simon.dribbble.data.model.TeamEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.baselist.BaseListContract;
-import com.simon.dribbble.ui.baselist.BaseListFragment;
-
-import net.quickrecyclerview.show.BaseQuickAdapter;
+import com.simon.dribbble.data.Api;
+import com.simon.dribbble.ui.CommListFragment;
+import com.simon.dribbble.ui.CommListPresenter;
 
 /**
  * Created by: Simon
@@ -16,7 +13,8 @@ import net.quickrecyclerview.show.BaseQuickAdapter;
  * Created on: 2016/8/31 12:29
  */
 
-public class TeamFragment extends BaseListFragment<TeamEntity> {
+public class TeamFragment extends CommListFragment<TeamPresenter, TeamAdapter> {
+    private int mPageNo = 1;
 
     public static TeamFragment newInstance() {
         TeamFragment fragment = new TeamFragment();
@@ -25,29 +23,39 @@ public class TeamFragment extends BaseListFragment<TeamEntity> {
         return fragment;
     }
 
-    @Override
-    protected BaseListContract.Presenter getPresenter() {
+    protected TeamPresenter getPresenter() {
         return new TeamPresenter(this);
     }
 
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mPresenter.loadList(0,"", 1, DribbbleApi.EVENT_BEGIN);
+        mPresenter.loadList(Api.EVENT_BEGIN, 0, "", mPageNo);
     }
 
-    @Override
-    protected BaseQuickAdapter<TeamEntity> getListAdapter() {
-        return new TeamAdapter();
-    }
-
-    @Override
     protected void itemClick(View view, int position) {
 
     }
 
     @Override
-    public void setPresenter(BaseListContract.Presenter presenter) {
+    public void setPresenter(CommListPresenter presenter) {
 
+    }
+
+    @Override
+    protected TeamAdapter getListAdapter() {
+        return new TeamAdapter();
+    }
+
+    @Override
+    public void refreshData() {
+        mPageNo = 1;
+        mPresenter.loadList(Api.EVENT_REFRESH, 0, "", mPageNo);
+    }
+
+    @Override
+    public void moreData() {
+        mPageNo++;
+        mPresenter.loadList(Api.EVENT_MORE, 0, "", mPageNo);
     }
 }

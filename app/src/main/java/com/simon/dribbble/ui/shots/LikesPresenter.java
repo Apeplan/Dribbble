@@ -1,16 +1,16 @@
 package com.simon.dribbble.ui.shots;
 
+import com.simon.agiledevelop.ResultSubscriber;
+import com.simon.agiledevelop.log.LLog;
+import com.simon.dribbble.data.Api;
+import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.LikeEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.BasePresenterImpl;
-import com.simon.dribbble.ui.baselist.BaseListContract;
-
-import net.quickrecyclerview.utils.log.LLog;
+import com.simon.dribbble.ui.CommListContract;
+import com.simon.dribbble.ui.CommListPresenter;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.Subscription;
+import rx.Observable;
 
 /**
  * Created by: Simon
@@ -18,54 +18,53 @@ import rx.Subscription;
  * Created on: 2016/9/1 17:12
  */
 
-public class LikesPresenter extends BasePresenterImpl implements BaseListContract.Presenter {
+public class LikesPresenter extends CommListPresenter<CommListContract.View, List<LikeEntity>> {
 
-    private BaseListContract.View mCommentView;
-
-    public LikesPresenter(BaseListContract.View shotsView) {
-        mCommentView = shotsView;
-        mCommentView.setPresenter(this);
+    public LikesPresenter(CommListContract.View shotsView) {
+        attachView(shotsView);
+        shotsView.setPresenter(this);
     }
 
     @Override
-    public void subscribe() {
+    public void loadList(final int action, long id, String type, int page) {
+        Observable<List<LikeEntity>> shotLikes = DribbbleDataManger.getInstance().getShotLikes
+                (id, page);
+        subscribe(shotLikes, new ResultSubscriber<List<LikeEntity>>() {
+            @Override
+            public void onStartRequest() {
+                getView().showLoading(action, "");
+            }
+
+            @Override
+            public void onEndRequest() {
+                LLog.d("onCompleted: 获取评论");
+                getView().onCompleted(action);
+            }
+
+            @Override
+            public void onFailed(Throwable e) {
+                LLog.d("onCompleted: 获取评论失败\t" + e.getMessage());
+                getView().onFailed(action, e.getMessage());
+            }
+
+            @Override
+            public void onResult(List<LikeEntity> likeEntities) {
+                LLog.d("onCompleted: 获取评论成功");
+
+                if (action == Api.EVENT_BEGIN) {
+                    if (likeEntities.isEmpty()) {
+                        getView().onEmpty("");
+                    } else {
+                        getView().showList(likeEntities);
+                    }
+                } else if (action == Api.EVENT_REFRESH) {
+                    getView().refreshComments(likeEntities);
+                } else {
+                    getView().moreComments(likeEntities);
+                }
+            }
+        });
 
     }
 
-    @Override
-    public void loadList(long id, String type, int page, final int event) {
-        Subscription subscription = mDataManger.getShotLikes(id, page)
-                .observeOn(mSchedulerProvider.ui())
-                .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<List<LikeEntity>>() {
-                    @Override
-                    public void onCompleted() {
-                        LLog.d("Simon", "onCompleted: 获取评论");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        LLog.d("Simon", "onCompleted: 获取评论失败\t" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(List<LikeEntity> likes) {
-                        LLog.d("Simon", "onCompleted: 获取评论成功");
-
-                        if (event == DribbbleApi.EVENT_BEGIN) {
-                            if (likes.isEmpty()) {
-                                mCommentView.onEmpty();
-                            } else {
-                                mCommentView.showList(likes);
-                            }
-                        } else if (event == DribbbleApi.EVENT_REFRESH) {
-                            mCommentView.refreshComments(likes);
-                        } else {
-                            mCommentView.moreComments(likes);
-                        }
-
-                    }
-                });
-        addSubscription(subscription);
-    }
 }

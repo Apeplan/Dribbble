@@ -1,16 +1,16 @@
 package com.simon.dribbble.ui.user;
 
+import com.simon.agiledevelop.ResultSubscriber;
+import com.simon.agiledevelop.log.LLog;
+import com.simon.dribbble.data.Api;
+import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.BasePresenterImpl;
-import com.simon.dribbble.ui.baselist.BaseListContract;
-
-import net.quickrecyclerview.utils.log.LLog;
+import com.simon.dribbble.ui.CommListContract;
+import com.simon.dribbble.ui.CommListPresenter;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.Subscription;
+import rx.Observable;
 
 /**
  * Created by: Simon
@@ -18,51 +18,48 @@ import rx.Subscription;
  * Created on: 2016/8/29 16:54
  */
 
-public class LikeShotsPresenter extends BasePresenterImpl implements BaseListContract.Presenter {
+public class LikeShotsPresenter extends CommListPresenter<CommListContract.View, List<ShotEntity>> {
 
-    private BaseListContract.View mShotsView;
-
-    public LikeShotsPresenter(BaseListContract.View shotsView) {
-        mShotsView = shotsView;
-        mShotsView.setPresenter(this);
+    public LikeShotsPresenter(CommListContract.View shotsView) {
+        attachView(shotsView);
+        shotsView.setPresenter(this);
     }
 
     @Override
-    public void subscribe() {
+    public void loadList(final int action, long id, String type, int page) {
 
-    }
+        Observable<List<ShotEntity>> userLikes = DribbbleDataManger.getInstance().getUserLikes
+                (page);
+        subscribe(userLikes, new ResultSubscriber<List<ShotEntity>>() {
+            @Override
+            public void onStartRequest() {
+                getView().showLoading(action, "");
+            }
 
-    @Override
-    public void loadList(long id, String type, int page, final int event) {
+            @Override
+            public void onEndRequest() {
+                LLog.d("onCompleted: Shots List 请求完成");
+                getView().onCompleted(action);
+            }
 
-        Subscription subscription = mDataManger.getUserLikes(page)
-                .observeOn(mSchedulerProvider.ui())
-                .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<List<ShotEntity>>() {
-                    @Override
-                    public void onCompleted() {
-                        LLog.d("Simon", "onCompleted: Shots List 请求完成");
-                    }
+            @Override
+            public void onFailed(Throwable e) {
+                LLog.d("onCompleted: Shots List 请求失败" + e.getMessage());
+                getView().onFailed(action, e.getMessage());
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        LLog.d("Simon", "onCompleted: Shots List 请求失败" + e.getMessage());
-                        mShotsView.onFailed(event, e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(List<ShotEntity> shotsEntities) {
-                        if (event == DribbbleApi.EVENT_REFRESH) {
-                            mShotsView.refreshComments(shotsEntities);
-                        } else if (event == DribbbleApi.EVENT_MORE) {
-                            mShotsView.moreComments(shotsEntities);
-                        } else {
-                            mShotsView.showList(shotsEntities);
-                        }
-                        LLog.d("Simon", "onNext: Shots List 请求成功" + shotsEntities.size());
-                    }
-                });
-        addSubscription(subscription);
+            @Override
+            public void onResult(List<ShotEntity> shotEntities) {
+                if (action == Api.EVENT_REFRESH) {
+                    getView().refreshComments(shotEntities);
+                } else if (action == Api.EVENT_MORE) {
+                    getView().moreComments(shotEntities);
+                } else {
+                    getView().showList(shotEntities);
+                }
+                LLog.d("onNext: Shots List 请求成功" + shotEntities.size());
+            }
+        });
     }
 
 }

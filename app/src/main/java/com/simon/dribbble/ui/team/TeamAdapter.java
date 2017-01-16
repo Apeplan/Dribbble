@@ -2,13 +2,12 @@ package com.simon.dribbble.ui.team;
 
 import android.widget.ImageView;
 
+import com.simon.agiledevelop.recycler.RapidViewHolder;
+import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.TeamEntity;
 import com.simon.dribbble.util.ColorPhrase;
-import com.simon.dribbble.util.ImgLoadHelper;
-
-import net.quickrecyclerview.show.BaseQuickAdapter;
-import net.quickrecyclerview.show.BaseViewHolder;
 
 /**
  * Created by: Simon
@@ -16,13 +15,13 @@ import net.quickrecyclerview.show.BaseViewHolder;
  * Created on: 2016/9/13 10:51
  */
 
-public class TeamAdapter extends BaseQuickAdapter<TeamEntity> {
+public class TeamAdapter extends RapidAdapter<TeamEntity,RapidViewHolder> {
     public TeamAdapter() {
         super(R.layout.item_team);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, TeamEntity item) {
+    protected void convert(RapidViewHolder helper, TeamEntity item) {
         if (null != item) {
             String avatar_url = item.getAvatar_url();
             ImgLoadHelper.loadAvatar(avatar_url, (ImageView) helper.getView(R.id.imv_avatar));

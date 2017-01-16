@@ -1,15 +1,15 @@
 package com.simon.dribbble.ui.projects;
 
+import com.simon.agiledevelop.ResultSubscriber;
+import com.simon.agiledevelop.log.LLog;
+import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.ProjectEntity;
-import com.simon.dribbble.ui.BasePresenterImpl;
-import com.simon.dribbble.ui.baselist.BaseListContract;
-
-import net.quickrecyclerview.utils.log.LLog;
+import com.simon.dribbble.ui.CommListContract;
+import com.simon.dribbble.ui.CommListPresenter;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.Subscription;
+import rx.Observable;
 
 /**
  * Created by: Simon
@@ -17,47 +17,46 @@ import rx.Subscription;
  * Created on: 2016/9/12 18:31
  */
 
-public class ProjectPresenter extends BasePresenterImpl implements BaseListContract.Presenter {
+public class ProjectPresenter extends CommListPresenter<CommListContract.View,
+        List<ProjectEntity>> {
 
-    private BaseListContract.View mView;
-
-    public ProjectPresenter(BaseListContract.View view) {
-        mView = view;
+    public ProjectPresenter(CommListContract.View view) {
+        attachView(view);
+        view.setPresenter(this);
     }
 
     @Override
-    public void loadList(long id, String type, int page, int event) {
+    public void loadList(final int action, long id, String type, int page) {
 
-        Subscription subscription = mDataManger.getUserProjects()
-                .observeOn(mSchedulerProvider.ui())
-                .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<List<ProjectEntity>>() {
-                    @Override
-                    public void onCompleted() {
-                        LLog.d("Simon", "onCompleted: Project 请求成功");
-                        mView.onCompleted();
-                    }
+        Observable<List<ProjectEntity>> userProjects = DribbbleDataManger.getInstance()
+                .getUserProjects();
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.onFailed(0, e.getMessage());
-                    }
+        subscribe(userProjects, new ResultSubscriber<List<ProjectEntity>>() {
+            @Override
+            public void onStartRequest() {
+                getView().showLoading(action, "");
+            }
 
-                    @Override
-                    public void onNext(List<ProjectEntity> projects) {
-                        if (projects.isEmpty()) {
-                            mView.onEmpty();
-                        } else {
-                            mView.showList(projects);
-                        }
-                    }
-                });
-        addSubscription(subscription);
+            @Override
+            public void onEndRequest() {
+                LLog.d("onCompleted: Project 请求成功");
+                getView().onCompleted(action);
+            }
+
+            @Override
+            public void onFailed(Throwable e) {
+                getView().onFailed(action, e.getMessage());
+            }
+
+            @Override
+            public void onResult(List<ProjectEntity> projectEntities) {
+                if (projectEntities.isEmpty()) {
+                    getView().onEmpty("");
+                } else {
+                    getView().showList(projectEntities);
+                }
+            }
+        });
+
     }
-
-    @Override
-    public void subscribe() {
-
-    }
-
 }

@@ -2,16 +2,15 @@ package com.simon.dribbble.ui.buckets;
 
 import android.widget.ImageView;
 
+import com.simon.agiledevelop.recycler.RapidViewHolder;
+import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.BucketEntity;
 import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.util.ColorPhrase;
 import com.simon.dribbble.util.DateTimeUtil;
-import com.simon.dribbble.util.ImgLoadHelper;
 import com.simon.dribbble.util.StringUtil;
-
-import net.quickrecyclerview.show.BaseQuickAdapter;
-import net.quickrecyclerview.show.BaseViewHolder;
 
 /**
  * Created by: Simon
@@ -19,14 +18,14 @@ import net.quickrecyclerview.show.BaseViewHolder;
  * Created on: 2016/9/2 15:57
  */
 
-public class UserBucketsAdapter extends BaseQuickAdapter<BucketEntity> {
+public class UserBucketsAdapter extends RapidAdapter<BucketEntity,RapidViewHolder> {
 
     public UserBucketsAdapter() {
         super(R.layout.item_user_buckets);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, BucketEntity item) {
+    protected void convert(RapidViewHolder helper, BucketEntity item) {
         if (null != item) {
             User user = item.getUser();
             if (null != user) {

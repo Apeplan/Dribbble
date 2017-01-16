@@ -3,10 +3,11 @@ package com.simon.dribbble.ui.user;
 
 import android.preference.PreferenceActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
+import com.simon.agiledevelop.BaseActivity;
+import com.simon.agiledevelop.MvpPresenter;
 import com.simon.dribbble.R;
-import com.simon.dribbble.ui.BaseActivity;
-import com.simon.dribbble.ui.BasePresenter;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -22,12 +23,17 @@ import com.simon.dribbble.ui.BasePresenter;
 public class SettingsActivity extends BaseActivity {
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.activity_settings;
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected MvpPresenter getPresenter() {
+        return null;
+    }
+
+    @Override
+    protected View getLoadingView() {
         return null;
     }
 

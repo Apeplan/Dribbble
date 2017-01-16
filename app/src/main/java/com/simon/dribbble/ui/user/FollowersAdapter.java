@@ -4,15 +4,14 @@ import android.content.res.ColorStateList;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.simon.agiledevelop.log.LLog;
+import com.simon.agiledevelop.recycler.RapidViewHolder;
+import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.FollowersEntity;
 import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.util.ColorPhrase;
-import com.simon.dribbble.util.ImgLoadHelper;
-
-import net.quickrecyclerview.show.BaseQuickAdapter;
-import net.quickrecyclerview.show.BaseViewHolder;
-import net.quickrecyclerview.utils.log.LLog;
 
 
 /**
@@ -21,7 +20,7 @@ import net.quickrecyclerview.utils.log.LLog;
  * Created on: 2016/2/25 15:50
  */
 
-public class FollowersAdapter extends BaseQuickAdapter<FollowersEntity> {
+public class FollowersAdapter extends RapidAdapter<FollowersEntity,RapidViewHolder> {
 
 
     public FollowersAdapter() {
@@ -29,7 +28,7 @@ public class FollowersAdapter extends BaseQuickAdapter<FollowersEntity> {
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, FollowersEntity followers) {
+    protected void convert(RapidViewHolder helper, FollowersEntity followers) {
         if (null != followers) {
             User follower = followers.getFollower();
 
@@ -56,13 +55,12 @@ public class FollowersAdapter extends BaseQuickAdapter<FollowersEntity> {
 
             TextView view = helper.getView(R.id.tv_location);
             ColorStateList textColors = view.getTextColors();
-            LLog.d("Simon", "convert: " + textColors.toString());
+            LLog.d("convert: " + textColors.toString());
 
             helper.setText(R.id.tv_shots_count, shot_count);
             helper.setText(R.id.tv_follower_count, follower_count);
 
         }
     }
-
 }
 

@@ -78,12 +78,30 @@
         <item name="DialogSpotCount">5</item>
     </style>
 
+
+
     <style name="user_info_tv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>
-        <item name="android:drawablePadding">@dimen/activity_horizontal_margin</item>
+        <!--<item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>-->
+        <!--<item name="android:drawablePadding">@dimen/activity_horizontal_margin</item>-->
+        <!--<item name="android:drawablePadding">@dimen/px_2_dp_10</item>-->
         <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_666666</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="user_count_tv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/shape_gray_line_r</item>
+        <item name="android:textColor">@color/color_666666</item>
+        <item name="android:singleLine">true</item>
+        <!--<item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>-->
+        <!--<item name="android:drawablePadding">@dimen/activity_horizontal_margin</item>-->
+        <!--<item name="android:drawablePadding">@dimen/px_2_dp_10</item>-->
     </style>
 
 </resources>

@@ -1,9 +1,8 @@
 package com.simon.dribbble.ui.shots;
 
+import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.MvpView;
 import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.BasePresenter;
-import com.simon.dribbble.ui.BaseView;
 
 import java.util.List;
 
@@ -15,11 +14,7 @@ import java.util.List;
 
 public interface SearchContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View extends MvpView<MvpRxPresenter> {
         void showSearch(List<ShotEntity> shots);
-    }
-
-    interface Presenter extends BasePresenter {
-        void searchShot(String key, int page, @DribbbleApi.SortOrder String sort);
     }
 }

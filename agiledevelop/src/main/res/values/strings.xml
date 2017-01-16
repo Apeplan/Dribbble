@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">AgileDevelop</string>
+
+    <string name="cube_ptr_pull_down">下拉</string>
+    <string name="cube_ptr_pull_down_to_refresh">下拉刷新</string>
+    <string name="cube_ptr_release_to_refresh">释放刷新</string>
+    <string name="cube_ptr_refreshing">加载中...</string>
+    <string name="cube_ptr_refresh_complete">更新完成.</string>
+
+    <string name="cube_ptr_last_update">上次更新:&#160;</string>
+    <string name="cube_ptr_seconds_ago">&#160;秒之前</string>
+    <string name="cube_ptr_minutes_ago">&#160;分钟之前</string>
+    <string name="cube_ptr_hours_ago">&#160;小时之前</string>
+
+    <string name="state_loading_message">正在加载...</string>
+    <string name="state_error_msg">啊呜~网络不给力啊,\n刷新下试试吧</string>
+    <string name="state_empty_msg">没有更多内容了</string>
+    <string name="state_network_exception">啊呜~请求出错了,\n刷新下试试吧</string>
+    <string name="state_again">重新加载</string>
+
+    <!--公共-->
+    <string name="comm_footer_more">加载更多</string>
+    <string name="comm_footer_pagingend">全部加载完了</string>
+    <string name="comm_reload_hint">刷新看看</string>
+    <string name="comm_content_empty">数据为空</string>
+    <string name="comm_hint_copied">已经复制 %s</string>
+
+    <string name="loading">正在加载中...</string>
+    <string name="load_failed">加载失败，请点我重试</string>
+
+    <string name="behavior_bottom">com.simon.agiledevelop.widget.behavior.BottomBehavior</string>
+    <string name="behavior_title">com.simon.agiledevelop.widget.behavior.TitleBehavior</string>
+</resources>

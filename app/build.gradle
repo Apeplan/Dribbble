@@ -29,23 +29,16 @@ dependencies {
     //    compile 'com.android.support:recyclerview-v7:23.4.0'
     //    为"单Activity ＋ 多Fragment","多模块Activity + 多Fragment"架构而生，帮你大大简化使用过程，轻松解决各种复杂嵌套等问题，修复了官方Fragment库中存在的一些BUG。
     //    compile 'me.yokeyword:fragmentation:0.7.9'
-    compile project(':quickrecyclerview')
     //    compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.android.support:cardview-v7:24.2.1'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'io.reactivex:rxjava:1.1.9'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
     compile 'org.jsoup:jsoup:1.9.2'
-
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-//    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    //    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    compile project(':agiledevelop')
 }

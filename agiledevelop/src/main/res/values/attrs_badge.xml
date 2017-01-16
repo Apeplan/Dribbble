@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <declare-styleable name="BadgeTextView">
+        <attr name="btv_backgroundColor" format="color" />
+        <attr name="btv_border_width" format="dimension" />
+        <attr name="btv_border_color" format="color" />
+        <attr name="btv_border_alpha" format="float" />
+        <attr name="btv_type" format="enum">
+            <enum name="shadow_gradual" value="1"/>
+            <enum name="shadow_alpha" value="2"/>
+        </attr>
+    </declare-styleable>
+
+</resources>

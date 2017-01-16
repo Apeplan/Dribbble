@@ -1,8 +1,8 @@
 package com.simon.dribbble.ui.shots;
 
+import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.MvpView;
 import com.simon.dribbble.data.model.CommentEntity;
-import com.simon.dribbble.ui.BasePresenter;
-import com.simon.dribbble.ui.BaseView;
 
 import java.util.List;
 
@@ -14,15 +14,11 @@ import java.util.List;
 
 public interface CommentContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View extends MvpView<MvpRxPresenter> {
         void showComments(List<CommentEntity> comments);
 
         void refreshComments(List<CommentEntity> comments);
 
         void moreComments(List<CommentEntity> comments);
-    }
-
-    interface Presenter extends BasePresenter {
-        void loadComments(long shotId, String type, int page, int event);
     }
 }

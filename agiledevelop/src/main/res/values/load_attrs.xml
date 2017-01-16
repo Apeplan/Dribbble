@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- LoadingView -->
+    <attr name="gLoadingStyle" format="reference"/>
+    <declare-styleable name="Loading">
+        <attr name="gBackgroundLineSize" format="dimension"/>
+        <attr name="gForegroundLineSize" format="dimension"/>
+        <attr name="gBackgroundColor" format="reference|color"/>
+        <attr name="gForegroundColor" format="reference|color"/>
+        <attr name="gLineStyle">
+            <enum name="circle" value="1"/>
+            <enum name="line" value="2"/>
+        </attr>
+        <attr name="gAutoRun" format="boolean"/>
+        <attr name="gProgressFloat" format="float"/>
+    </declare-styleable>
+
+</resources>

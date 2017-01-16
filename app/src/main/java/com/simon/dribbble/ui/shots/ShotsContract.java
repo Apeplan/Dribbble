@@ -1,9 +1,7 @@
 package com.simon.dribbble.ui.shots;
 
+import com.simon.agiledevelop.MvpView;
 import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.BasePresenter;
-import com.simon.dribbble.ui.BaseView;
 
 import java.util.List;
 
@@ -15,7 +13,7 @@ import java.util.List;
 
 public interface ShotsContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View extends MvpView<ShotsPresenter> {
 
         void renderShotsList(List<ShotEntity> shotsList);
 
@@ -23,11 +21,6 @@ public interface ShotsContract {
 
         void renderRefrshShotsList(List<ShotEntity> shotsList);
 
-    }
-
-    interface Presenter extends BasePresenter {
-        void loadShotsList(int page, @DribbbleApi.ShotType String list, @DribbbleApi
-                .ShotTimeframe String timeframe, @DribbbleApi.ShotSort String sort, int event);
     }
 
 }

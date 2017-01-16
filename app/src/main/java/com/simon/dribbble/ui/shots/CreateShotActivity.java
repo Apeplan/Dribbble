@@ -13,15 +13,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.simon.agiledevelop.BaseActivity;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.crop.Crop;
 import com.simon.dribbble.R;
-import com.simon.dribbble.ui.BaseActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,9 +41,12 @@ public class CreateShotActivity extends BaseActivity<CreatePresenter> {
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
     private static final int REQUEST_SELECT_PICTURE = 0x01;
     private ImageView mImageView;
+    private EditText mEt_title;
+    private EditText mEt_desc;
+    private EditText mEt_tags;
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.activity_create_shot;
     }
 
@@ -49,9 +56,19 @@ public class CreateShotActivity extends BaseActivity<CreatePresenter> {
     }
 
     @Override
+    protected View getLoadingView() {
+        return null;
+    }
+
+    @Override
     protected void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setCommonBackToolBack(toolbar, "创建作品");
+
+        mEt_title = (EditText) findViewById(R.id.et_create_title);
+        mEt_desc = (EditText) findViewById(R.id.et_create_desc);
+        mEt_tags = (EditText) findViewById(R.id.et_create_tags);
+
         mImageView = (ImageView) findViewById(R.id.imv_crop_pic);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +122,22 @@ public class CreateShotActivity extends BaseActivity<CreatePresenter> {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_share) {
+            String title = mEt_title.getText().toString().trim();
+            String desc = mEt_desc.getText().toString().trim();
+            String tags = mEt_tags.getText().toString().trim();
+
+            if (TextUtils.isEmpty(title) || TextUtils.isEmpty(desc) || TextUtils.isEmpty(tags)) {
+                ToastHelper.showLongToast(App.INSTANCE, "信息尚未填写完整");
+            }
+
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+
     }
 
   /*  @Override

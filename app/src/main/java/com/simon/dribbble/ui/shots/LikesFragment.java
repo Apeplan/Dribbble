@@ -3,13 +3,11 @@ package com.simon.dribbble.ui.shots;
 import android.os.Bundle;
 import android.view.View;
 
+import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.LikeEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.baselist.BaseListContract;
-import com.simon.dribbble.ui.baselist.BaseListFragment;
+import com.simon.dribbble.ui.CommListFragment;
+import com.simon.dribbble.ui.CommListPresenter;
 import com.simon.dribbble.ui.user.UserInfoActivity;
-
-import net.quickrecyclerview.show.BaseQuickAdapter;
 
 /**
  * Created by: Simon
@@ -17,7 +15,7 @@ import net.quickrecyclerview.show.BaseQuickAdapter;
  * Created on: 2016/9/14 13:52
  */
 
-public class LikesFragment extends BaseListFragment<LikeEntity> {
+public class LikesFragment extends CommListFragment<LikesPresenter,LikesAdapter> {
 
     private long mShotId;
 
@@ -31,25 +29,24 @@ public class LikesFragment extends BaseListFragment<LikeEntity> {
     private int mPage = 1;
 
     @Override
-    protected BaseQuickAdapter<LikeEntity> getListAdapter() {
-        return new LikesAdapter();
-    }
-
-    @Override
     protected void initEventAndData() {
         super.initEventAndData();
         Bundle args = getArguments();
         if (null != args) {
             mShotId = args.getLong("shotId");
-            mPresenter.loadList(mShotId, "", mPage, DribbbleApi.EVENT_BEGIN);
+            mPresenter.loadList(Api.EVENT_BEGIN, mShotId, "", mPage);
         } else {
-            onEmpty();
+            onEmpty("");
         }
     }
 
     @Override
+    protected LikesAdapter getListAdapter() {
+        return new LikesAdapter();
+    }
+
+    @Override
     protected void itemClick(View view, int position) {
-//        ToastHelper.shortToast("点击事件  " + position);
         LikeEntity item = mAdapter.getItem(position);
         long id = item.getUser().id;
         String name = item.getUser().name;
@@ -60,30 +57,25 @@ public class LikesFragment extends BaseListFragment<LikeEntity> {
     }
 
     @Override
-    protected boolean isLoadMoreEnabled() {
-        return true;
-    }
-
-    @Override
-    public void onRefresh() {
-        mPage = 1;
-        mPresenter.loadList(mShotId, "", mPage, DribbbleApi.EVENT_REFRESH);
-    }
-
-    @Override
-    public void onLoadMore() {
-        mPage++;
-        mPresenter.loadList(mShotId, "", mPage, DribbbleApi.EVENT_MORE);
-    }
-
-    @Override
-    protected BaseListContract.Presenter getPresenter() {
+    protected LikesPresenter getPresenter() {
         return new LikesPresenter(this);
     }
 
     @Override
-    public void setPresenter(BaseListContract.Presenter presenter) {
-
+    public void refreshData() {
+        mPage = 1;
+        mPresenter.loadList(Api.EVENT_REFRESH, mShotId, "", mPage);
     }
 
+    @Override
+    public void moreData() {
+        mPage++;
+        mPresenter.loadList(Api.EVENT_MORE, mShotId, "", mPage);
+    }
+
+
+    @Override
+    public void setPresenter(CommListPresenter presenter) {
+
+    }
 }

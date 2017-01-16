@@ -21,6 +21,7 @@
     <dimen name="progress_margin">24dp</dimen>
     <dimen name="progress_dig_width">250dp</dimen>
 
+    <dimen name="px_2_dp_2">1.0dp</dimen>
     <dimen name="px_2_dp_4">2.0dp</dimen>
     <dimen name="px_2_dp_6">3.0dp</dimen>
     <dimen name="px_2_dp_8">4.0dp</dimen>

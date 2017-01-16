@@ -1,8 +1,7 @@
 package com.simon.dribbble.ui.shots;
 
+import com.simon.agiledevelop.MvpView;
 import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.ui.BasePresenter;
-import com.simon.dribbble.ui.BaseView;
 
 /**
  * Created by: Simon
@@ -12,15 +11,7 @@ import com.simon.dribbble.ui.BaseView;
 
 public interface ShotDetailContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View extends MvpView<ShotDetailPresenter> {
         void showShot(ShotEntity shotsEntity);
-
-        void hintMsg(String msg);
-
-        void showLoadDia();
-    }
-
-    interface Presenter extends BasePresenter {
-        void loadShot(long id);
     }
 }

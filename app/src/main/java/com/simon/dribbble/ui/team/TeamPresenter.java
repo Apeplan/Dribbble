@@ -1,15 +1,15 @@
 package com.simon.dribbble.ui.team;
 
+import com.simon.agiledevelop.ResultSubscriber;
+import com.simon.agiledevelop.log.LLog;
+import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.TeamEntity;
-import com.simon.dribbble.ui.BasePresenterImpl;
-import com.simon.dribbble.ui.baselist.BaseListContract;
-
-import net.quickrecyclerview.utils.log.LLog;
+import com.simon.dribbble.ui.CommListContract;
+import com.simon.dribbble.ui.CommListPresenter;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.Subscription;
+import rx.Observable;
 
 /**
  * Created by: Simon
@@ -17,48 +17,42 @@ import rx.Subscription;
  * Created on: 2016/9/13 9:36
  */
 
-public class TeamPresenter extends BasePresenterImpl implements BaseListContract.Presenter {
+public class TeamPresenter extends CommListPresenter<CommListContract.View, List<TeamEntity>> {
 
-    private BaseListContract.View mView;
-
-    public TeamPresenter(BaseListContract.View view) {
-        mView = view;
+    public TeamPresenter(CommListContract.View view) {
+        attachView(view);
+        view.setPresenter(this);
     }
 
     @Override
-    public void loadList(long id, String type, int page, int event) {
+    public void loadList(final int action, long id, String type, int page) {
+        Observable<List<TeamEntity>> userTeams = DribbbleDataManger.getInstance().getUserTeams();
+        subscribe(userTeams, new ResultSubscriber<List<TeamEntity>>() {
+            @Override
+            public void onStartRequest() {
+                getView().showLoading(action, "");
+            }
 
-        Subscription subscription = mDataManger.getUserTeams()
-                .observeOn(mSchedulerProvider.ui())
-                .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<List<TeamEntity>>() {
-                    @Override
-                    public void onCompleted() {
-                        mView.onCompleted();
-                        LLog.d("Simon", "onCompleted: 用户Team 请求完成");
-                    }
+            @Override
+            public void onEndRequest() {
+                getView().onCompleted(action);
+                LLog.d("onCompleted: 用户Team 请求完成");
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.onFailed(0, e.getMessage());
-                    }
+            @Override
+            public void onFailed(Throwable e) {
+                getView().onFailed(action, e.getMessage());
+            }
 
-                    @Override
-                    public void onNext(List<TeamEntity> teams) {
-                        if (teams.isEmpty()) {
-                            mView.onEmpty();
-                        } else {
-                            mView.showList(teams);
-                        }
-                    }
-                });
-
-        addSubscription(subscription);
-    }
-
-    @Override
-    public void subscribe() {
+            @Override
+            public void onResult(List<TeamEntity> teamEntities) {
+                if (teamEntities.isEmpty()) {
+                    getView().onEmpty("");
+                } else {
+                    getView().showList(teamEntities);
+                }
+            }
+        });
 
     }
-
 }

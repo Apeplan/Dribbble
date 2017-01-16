@@ -11,12 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
+import com.simon.agiledevelop.BaseActivity;
+import com.simon.agiledevelop.MvpPresenter;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.ImgLoadHelper;
+import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.dribbble.R;
-import com.simon.dribbble.ui.BaseActivity;
-import com.simon.dribbble.ui.BasePresenter;
-import com.simon.dribbble.util.ImgLoadHelper;
 import com.simon.dribbble.util.StringUtil;
-import com.simon.dribbble.util.ToastHelper;
 import com.simon.dribbble.util.UIUtils;
 import com.simon.dribbble.widget.PullBackLayout;
 
@@ -40,12 +41,17 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
     private boolean mIsStatusBarHidden;
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.activity_detai_bigpic;
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected MvpPresenter getPresenter() {
+        return null;
+    }
+
+    @Override
+    protected View getLoadingView() {
         return null;
     }
 
@@ -91,7 +97,7 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
 
     private void showToolBarAndPhotoTouchView() {
         toolBarFadeIn();
-        ImgLoadHelper.loadImage(getBundle().getString("shotImg"), mPhotoView);
+        ImgLoadHelper.image(getBundle().getString("shotImg"), mPhotoView);
     }
 
     @Override
@@ -117,7 +123,7 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
             String title = bundle.getString("title");
             mToolbar.setTitle(title);
             if (!StringUtil.isEmpty(shotImg)) {
-                ImgLoadHelper.loadImage(shotImg, mPhotoView);
+                ImgLoadHelper.image(shotImg, mPhotoView);
             }
         }
     }
@@ -145,11 +151,11 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
-                ToastHelper.shortToast(getString(R.string.toast_def_hint));
+                ToastHelper.showLongToast(App.INSTANCE,getString(R.string.toast_def_hint));
 //                startAsyncTask();
                 return true;
             case R.id.action_save:
-                ToastHelper.shortToast(getString(R.string.toast_def_hint));
+                ToastHelper.showLongToast(App.INSTANCE,getString(R.string.toast_def_hint));
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -3,15 +3,33 @@ package com.simon.dribbble;
 import android.app.Application;
 import android.content.Context;
 
+import com.simon.agiledevelop.utils.PreferencesHelper;
 import com.simon.dribbble.data.model.User;
-import com.simon.dribbble.util.PreferencesHelper;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 /**
+ * .       .---.
+ * .      (_,/\ \
+ * .     (`a a(  )
+ * .     ) \=  ) (
+ * .    (.--' '--.)
+ * .    / (_\_/_) \
+ * .   | / \   / \ |
+ * .    \\ / . \ //
+ * .     \/\___/\/
+ * .     |  \_/  |
+ * .      \  /  /
+ * .       \/  /
+ * .        ( (
+ * .        |\ \
+ * .        | \ \
+ * .        | |\ \
+ * .        | | \ \
+ * .       /__Y /__Y
+ * <p>
  * Created by Simon Han on 2016/8/20.
  */
-
 public class DribbbleApp extends Application {
     private static DribbbleApp mInstance;
     public static PreferencesHelper mPreferencesHelper;

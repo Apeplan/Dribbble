@@ -28,70 +28,119 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin">
+            android:background="@color/grey_main"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imv_avatar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/person_image_empty"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_horizontal_margin">
+
+                <ImageView
+                    android:id="@+id/imv_avatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="@dimen/px_dp_30"
+                    android:src="@drawable/person_image_empty"/>
+
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="@dimen/px_2_dp_10"
+                    android:layout_toEndOf="@+id/imv_avatar"
+                    android:layout_toRightOf="@+id/imv_avatar"
+                    android:paddingLeft="@dimen/px_2_dp_6"
+                    android:text="Simon Han"
+                    android:textColor="@color/pink_500"/>
+
+                <TextView
+                    android:id="@+id/tv_usertype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/tv_username"
+                    android:layout_below="@id/tv_username"
+                    android:paddingLeft="@dimen/px_2_dp_6"
+                    android:text="Prospect"
+                    android:textSize="@dimen/px_dp_24"/>
+
+                <TextView
+                    android:id="@+id/tv_user_loc"
+                    style="@style/user_info_tv"
+                    android:layout_alignLeft="@id/tv_usertype"
+                    android:layout_below="@id/tv_usertype"
+                    android:layout_marginTop="@dimen/px_2_dp_16"
+                    android:drawableLeft="@drawable/location"
+                    android:text="Simon Han"/>
+
+                <TextView
+                    android:id="@+id/tv_user_web"
+                    style="@style/user_info_tv"
+                    android:layout_alignLeft="@id/tv_user_loc"
+                    android:layout_below="@id/tv_user_loc"
+                    android:layout_marginTop="@dimen/px_2_dp_10"
+                    android:drawableLeft="@drawable/web"
+                    android:text="Simon Han"/>
+
+                <TextView
+                    android:id="@+id/tv_user_twitter"
+                    style="@style/user_info_tv"
+                    android:layout_alignLeft="@id/tv_user_web"
+                    android:layout_below="@id/tv_user_web"
+                    android:drawableLeft="@drawable/twitter"
+                    android:paddingLeft="@dimen/px_2_dp_6"
+                    android:text="Simon Han"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_user_followers"
+                    style="@style/user_count_tv"
+                    android:text="Simon Han"/>
+
+                <TextView
+                    android:id="@+id/tv_user_followings"
+                    style="@style/user_count_tv"
+                    android:text="Simon Han"/>
+
+                <TextView
+                    android:id="@+id/tv_user_likes"
+                    style="@style/user_count_tv"
+                    android:text="Simon Han"/>
+
+                <TextView
+                    android:id="@+id/tv_user_buckets"
+                    style="@style/user_count_tv"
+                    android:background="@color/grey_main"
+                    android:text="Simon Han"/>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_username"
+                android:id="@+id/tv_bio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:text="Simon Han"/>
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="简介："
+                android:textColor="@color/color_333333"/>
 
             <TextView
                 android:id="@+id/tv_user_bio"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/px_2_dp_10"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:text="Simon Han"/>
-
-            <TextView
-                android:id="@+id/tv_user_loc"
-                style="@style/user_info_tv"
-                android:drawableLeft="@drawable/ic_person_location_gray_24dp"
-                android:text="Simon Han"/>
-
-            <TextView
-                android:id="@+id/tv_user_web"
-                style="@style/user_info_tv"
-                android:drawableLeft="@drawable/ic_web_gray_24dp"
-                android:text="Simon Han"/>
-
-            <TextView
-                android:id="@+id/tv_user_twitter"
-                style="@style/user_info_tv"
-                android:drawableLeft="@drawable/twitter"
-                android:paddingLeft="@dimen/px_2_dp_6"
-                android:text="Simon Han"/>
-
-            <TextView
-                android:id="@+id/tv_user_buckets"
-                style="@style/user_info_tv"
-                android:drawableLeft="@drawable/ic_drawer_shots__normal"
-                android:text="Simon Han"/>
-
-            <TextView
-                android:id="@+id/tv_user_followers"
-                style="@style/user_info_tv"
-                android:drawableLeft="@drawable/ic_person_gray_24dp"
-                android:text="Simon Han"/>
-
-            <TextView
-                android:id="@+id/tv_user_followings"
-                style="@style/user_info_tv"
-                android:drawableLeft="@drawable/ic_person_outline_gray_24dp"
-                android:text="Simon Han"/>
-
-            <TextView
-                android:id="@+id/tv_user_likes"
-                style="@style/user_info_tv"
-                android:drawableLeft="@drawable/ic_favorite_border_gray_24dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="Simon Han"/>
 
         </LinearLayout>

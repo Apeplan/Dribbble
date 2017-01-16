@@ -1,15 +1,16 @@
 package com.simon.dribbble.ui.user;
 
+import com.simon.agiledevelop.ResultSubscriber;
+import com.simon.agiledevelop.log.LLog;
+import com.simon.dribbble.data.Api;
+import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.FollowersEntity;
-import com.simon.dribbble.ui.BasePresenterImpl;
-import com.simon.dribbble.ui.baselist.BaseListContract;
-
-import net.quickrecyclerview.utils.log.LLog;
+import com.simon.dribbble.ui.CommListContract;
+import com.simon.dribbble.ui.CommListPresenter;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.Subscription;
+import rx.Observable;
 
 /**
  * Created by: Simon
@@ -17,45 +18,53 @@ import rx.Subscription;
  * Created on: 2016/9/12 15:58
  */
 
-public class FollowersPresenter extends BasePresenterImpl implements BaseListContract.Presenter {
+public class FollowersPresenter extends CommListPresenter<CommListContract.View,
+        List<FollowersEntity>> {
 
-    private BaseListContract.View mView;
-
-    public FollowersPresenter(BaseListContract.View view) {
-        mView = view;
+    public FollowersPresenter(CommListContract.View view) {
+        attachView(view);
+        view.setPresenter(this);
     }
 
     @Override
-    public void loadList(long id, String type, int page,int event) {
+    public void loadList(final int action,long id, String type, int page) {
 
-        Subscription subscription = mDataManger.getUserFollowers(page)
-                .observeOn(mSchedulerProvider.ui())
-                .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<List<FollowersEntity>>() {
-                    @Override
-                    public void onCompleted() {
-                        LLog.d("Simon", "onCompleted: 用户 Followers 请求完成");
+        Observable<List<FollowersEntity>> userFollowers = DribbbleDataManger.getInstance()
+                .getUserFollowers(page);
+        subscribe(userFollowers, new ResultSubscriber<List<FollowersEntity>>() {
+            @Override
+            public void onStartRequest() {
+                getView().showLoading(action, "");
+            }
+
+            @Override
+            public void onEndRequest() {
+                LLog.d("onCompleted: 用户 Followers 请求完成");
+                getView().onCompleted(action);
+            }
+
+            @Override
+            public void onFailed(Throwable e) {
+                getView().onFailed(action, e.getMessage());
+            }
+
+            @Override
+            public void onResult(List<FollowersEntity> followersEntities) {
+                if (followersEntities.isEmpty()) {
+                    getView().onEmpty("");
+                } else {
+                    if (action == Api.EVENT_BEGIN) {
+                        getView().showList(followersEntities);
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.onFailed(0, e.getMessage());
+                    if (action == Api.EVENT_REFRESH) {
+                        getView().refreshComments(followersEntities);
                     }
-
-                    @Override
-                    public void onNext(List<FollowersEntity> followersEntities) {
-                        if (followersEntities.isEmpty()) {
-                            mView.onEmpty();
-                        } else {
-                            mView.showList(followersEntities);
-                        }
+                    if (action == Api.EVENT_MORE) {
+                        getView().moreComments(followersEntities);
                     }
-                });
-        addSubscription(subscription);
-    }
-
-    @Override
-    public void subscribe() {
+                }
+            }
+        });
 
     }
 }

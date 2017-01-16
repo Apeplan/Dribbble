@@ -13,11 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.simon.dribbble.R;
-import com.simon.dribbble.widget.loading.Loading;
 
-/**
- * Created by lcc_luffy on 2016/1/30.
- */
 public class StateLayout extends FrameLayout {
     private View contentView;
 
@@ -38,7 +34,6 @@ public class StateLayout extends FrameLayout {
     private ImageView emptyImageView;
 
     private View currentShowingView;
-    private Loading mLoading;
 
 
     public StateLayout(Context context) {
@@ -71,7 +66,8 @@ public class StateLayout extends FrameLayout {
     private void parseAttrs(Context context, AttributeSet attrs) {
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.StateLayout, 0, 0);
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.StateLayout,
+                0, 0);
         int progressViewId;
         Drawable errorDrawable;
         Drawable emptyDrawable;
@@ -90,7 +86,6 @@ public class StateLayout extends FrameLayout {
         } else {
             progressView = inflater.inflate(R.layout.view_progress, this, false);
             progressTextView = (TextView) progressView.findViewById(R.id.progressTextView);
-            mLoading = (Loading) progressView.findViewById(R.id.progress_bar);
             progressContentView = progressView.findViewById(R.id.progress_content);
         }
 
@@ -159,16 +154,14 @@ public class StateLayout extends FrameLayout {
             return;
 
         if (viewSwitchAnimProvider != null) {
-            viewSwitchAnimProvider.onHideAndShow(toBeHided,toBeShown);
+            viewSwitchAnimProvider.onHideAndShow(toBeHided, toBeShown);
             currentShowingView = toBeShown;
         } else {
             if (toBeHided != null) {
-                if (toBeShown == progressView) mLoading.stop();
                 toBeHided.setVisibility(GONE);
             }
             if (toBeShown != null) {
                 currentShowingView = toBeShown;
-                if (toBeShown == progressView) mLoading.start();
                 toBeShown.setVisibility(VISIBLE);
             }
         }
@@ -291,7 +284,8 @@ public class StateLayout extends FrameLayout {
     }
 
     @Override
-    protected boolean addViewInLayout(View child, int index, ViewGroup.LayoutParams params, boolean preventRequestLayout) {
+    protected boolean addViewInLayout(View child, int index, ViewGroup.LayoutParams params,
+                                      boolean preventRequestLayout) {
         checkIsContentView(child);
         return super.addViewInLayout(child, index, params, preventRequestLayout);
     }

@@ -1,15 +1,15 @@
 package com.simon.dribbble.ui.shots;
 
+import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.ResultSubscriber;
+import com.simon.agiledevelop.log.LLog;
+import com.simon.dribbble.data.Api;
+import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.CommentEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.BasePresenterImpl;
-
-import net.quickrecyclerview.utils.log.LLog;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.Subscription;
+import rx.Observable;
 
 /**
  * Created by: Simon
@@ -17,59 +17,58 @@ import rx.Subscription;
  * Created on: 2016/9/1 17:12
  */
 
-public class CommentPresenter extends BasePresenterImpl implements CommentContract.Presenter {
-
-    private CommentContract.View mCommentView;
+public class CommentPresenter extends MvpRxPresenter<CommentContract.View, List<CommentEntity>> {
 
     public CommentPresenter(CommentContract.View shotsView) {
-        mCommentView = shotsView;
-        mCommentView.setPresenter(this);
+        attachView(shotsView);
+        shotsView.setPresenter(this);
     }
 
-    @Override
     public void loadComments(long shotId, String type, int page, final int event) {
 
-        Subscription subscription = mDataManger.getComments(shotId, type, page)
-                .observeOn(mSchedulerProvider.ui())
-                .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<List<CommentEntity>>() {
-                    @Override
-                    public void onCompleted() {
-                        LLog.d("Simon", "onCompleted: 获取评论");
-                    }
+        Observable<List<CommentEntity>> comments = DribbbleDataManger.getInstance().getComments
+                (shotId, type, page);
 
-                    @Override
-                    public void onError(Throwable e) {
-                        LLog.d("Simon", "onCompleted: 获取评论失败\t" + e.getMessage());
-                    }
+        subscribe(comments, new ResultSubscriber<List<CommentEntity>>() {
+            @Override
+            public void onStartRequest() {
+                getView().showLoading(event, "");
+            }
 
-                    @Override
-                    public void onNext(List<CommentEntity> commentEntities) {
-                        LLog.d("Simon", "onCompleted: 获取评论成功");
-                        if (null != commentEntities) {
+            @Override
+            public void onEndRequest() {
+                LLog.d("onCompleted: 获取评论");
+                getView().onCompleted(event);
+            }
 
-                            if (event == DribbbleApi.EVENT_BEGIN) {
-                                if (commentEntities.isEmpty()) {
-                                    mCommentView.onEmpty();
-                                } else {
-                                    mCommentView.showComments(commentEntities);
-                                }
-                            } else if (event == DribbbleApi.EVENT_REFRESH) {
-                                mCommentView.refreshComments(commentEntities);
-                            } else {
-                                mCommentView.moreComments(commentEntities);
-                            }
+            @Override
+            public void onFailed(Throwable e) {
+                LLog.d("onCompleted: 获取评论失败\t" + e.getMessage());
+                getView().onFailed(event, e.getMessage());
+            }
 
+            @Override
+            public void onResult(List<CommentEntity> commentEntities) {
+                LLog.d("onCompleted: 获取评论成功");
+                if (null != commentEntities) {
+
+                    if (event == Api.EVENT_BEGIN) {
+                        if (commentEntities.isEmpty()) {
+                            getView().onEmpty("");
                         } else {
-                            mCommentView.onFailed(0, "获取数据失败");
+                            getView().showComments(commentEntities);
                         }
+                    } else if (event == Api.EVENT_REFRESH) {
+                        getView().refreshComments(commentEntities);
+                    } else {
+                        getView().moreComments(commentEntities);
                     }
-                });
-        addSubscription(subscription);
-    }
 
-    @Override
-    public void subscribe() {
+                } else {
+                    getView().onFailed(0, "获取数据失败");
+                }
+            }
+        });
 
     }
 }

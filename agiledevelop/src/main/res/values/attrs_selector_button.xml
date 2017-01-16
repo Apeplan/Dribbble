@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SelectorButton">
+
+        <!--text color-->
+        <!--设置正常显示的文字颜色-->
+        <attr name="normalTextColor" format="color|reference"/>
+        <!--设置按下状态显示的文字颜色-->
+        <attr name="pressedTextColor" format="color|reference"/>
+        <!--设置不可用时（enable = false）显示的文字颜色-->
+        <attr name="unableTextColor" format="color|reference"/>
+
+        <!--stroke width and color, dash width, dash gap-->
+        <!--设置dash width-->
+        <attr name="strokeDashWidth" format="dimension|reference"/>
+        <!--设置dash-->
+        <attr name="strokeDashGap" format="dimension|reference"/>
+        <!--设置正常显示的边框宽度-->
+        <attr name="normalStrokeWidth" format="dimension|reference"/>
+        <!--设置按下时显示的边框宽度-->
+        <attr name="pressedStrokeWidth" format="dimension|reference"/>
+        <!--设置不可用时（enable = false）显示的边框宽度-->
+        <attr name="unableStrokeWidth" format="dimension|reference"/>
+        <!--设置正常显示的边框颜色-->
+        <attr name="normalStrokeColor" format="color|reference"/>
+        <!--设置按下时显示的边框颜色-->
+        <attr name="pressedStrokeColor" format="color|reference"/>
+        <!--设置不可用时（enable = false）显示的边框颜色-->
+        <attr name="unableStrokeColor" format="color|reference"/>
+
+        <!--background color-->
+        <!--设置正常显示的背景颜色 -->
+        <attr name="normalBackgroundColor" format="color|reference"/>
+        <!--设置按下状态显示的背景颜色-->
+        <attr name="pressedBackgroundColor" format="color|reference"/>
+        <!--设置不可用时（enable = false）背景颜色-->
+        <attr name="unableBackgroundColor" format="color|reference"/>
+
+        <!--background radius-->
+        <!--设置圆角度-->
+        <attr name="radius" format="dimension|reference"/>
+        <!--设置左右为半圆， 不用计算radius-->
+        <attr name="round" format="boolean|reference"/>
+
+        <!--animation duration-->
+        <!--设置背景切换动画时长-->
+        <attr name="animationDuration" format="integer|reference"/>
+
+    </declare-styleable>
+</resources>

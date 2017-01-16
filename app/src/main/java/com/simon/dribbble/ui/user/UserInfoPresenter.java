@@ -1,51 +1,48 @@
 package com.simon.dribbble.ui.user;
 
+import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.ResultSubscriber;
+import com.simon.agiledevelop.log.LLog;
+import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.User;
-import com.simon.dribbble.ui.BasePresenterImpl;
 
-import net.quickrecyclerview.utils.log.LLog;
-
-import rx.Subscriber;
-import rx.Subscription;
+import rx.Observable;
 
 /**
  * Created by Simon Han on 2016/9/17.
  */
 
-public class UserInfoPresenter extends BasePresenterImpl implements UserInfoContract.Presenter {
-
-    private UserInfoContract.View mView;
+public class UserInfoPresenter extends MvpRxPresenter<UserInfoContract.View, User> {
 
     public UserInfoPresenter(UserInfoContract.View view) {
-        mView = view;
+        attachView(view);
+        view.setPresenter(this);
     }
 
-    @Override
-    public void loadUserInfo(long userId) {
-        Subscription subscription = mDataManger.getUsersInfo(userId)
-                .observeOn(mSchedulerProvider.ui())
-                .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<User>() {
-                    @Override
-                    public void onCompleted() {
-                        LLog.d("Simon", "onCompleted: 用户信息请求完成");
-                    }
+    public void loadUserInfo(final int action, long userId) {
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.onFailed(0, e.getMessage());
-                    }
+        Observable<User> usersInfo = DribbbleDataManger.getInstance().getUsersInfo(userId);
+        subscribe(usersInfo, new ResultSubscriber<User>() {
+            @Override
+            public void onStartRequest() {
+                getView().showLoading(action, "");
+            }
 
-                    @Override
-                    public void onNext(User user) {
-                        mView.showUserInfo(user);
-                    }
-                });
-        addSubscription(subscription);
-    }
+            @Override
+            public void onEndRequest() {
+                LLog.d("onCompleted: 用户信息请求完成");
+                getView().onCompleted(action);
+            }
 
-    @Override
-    public void subscribe() {
+            @Override
+            public void onFailed(Throwable e) {
+                getView().onFailed(action, e.getMessage());
+            }
 
+            @Override
+            public void onResult(User user) {
+                getView().showUserInfo(user);
+            }
+        });
     }
 }

@@ -1,18 +1,18 @@
 package com.simon.dribbble.ui.shots;
 
 import android.graphics.Typeface;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.simon.agiledevelop.recycler.RapidViewHolder;
+import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.DribbbleApp;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.ShotEntity;
 import com.simon.dribbble.util.ColorPhrase;
-import com.simon.dribbble.util.ImgLoadHelper;
 import com.simon.dribbble.util.StringUtil;
-
-import net.quickrecyclerview.show.BaseQuickAdapter;
-import net.quickrecyclerview.show.BaseViewHolder;
 
 
 /**
@@ -21,28 +21,30 @@ import net.quickrecyclerview.show.BaseViewHolder;
  * Created on: 2016/2/25 15:50
  */
 
-public class ShotsAdapter extends BaseQuickAdapter<ShotEntity> {
+public class ShotsAdapter extends RapidAdapter<ShotEntity,RapidViewHolder>{
 
+    private ShotClickListener mShotClickListener;
 
     public ShotsAdapter() {
         super(R.layout.item_shot);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ShotEntity shot) {
+    protected void convert(RapidViewHolder helper, final ShotEntity shot) {
         if (null != shot) {
-            long id = shot.getId();
+            final long id = shot.getId();
             String title = shot.getTitle();
             String normal = shot.getImages().getNormal();
             String hidpi = shot.getImages().getHidpi();
 
             String avatar_url = shot.getUser().avatar_url;
-            String name = shot.getUser().name;
+            final String name = shot.getUser().name;
             boolean animated = shot.isAnimated();// 是否是GIF
             ImageView imageView = helper.getView(R.id.imv_shot_pic);
             ImageView avatar = helper.getView(R.id.imv_avatar);
 
-            ImgLoadHelper.loadImage(StringUtil.isEmpty(hidpi) ? normal : hidpi, imageView);
+            ImgLoadHelper.image(StringUtil.isEmpty(hidpi) ? normal : hidpi,R.drawable
+                    .placeholderr, R.drawable.placeholderr, imageView);
             ImgLoadHelper.loadAvatar(avatar_url, avatar);
 
             helper.setVisible(R.id.tv_type, animated);
@@ -63,7 +65,33 @@ public class ShotsAdapter extends BaseQuickAdapter<ShotEntity> {
             helper.setText(R.id.tv_comments_count, shot.getComments_count() + "");
             helper.setText(R.id.tv_likes_count, shot.getLikes_count() + "");
 
+            helper.getView(R.id.rl_userinfo).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != mShotClickListener) {
+                        mShotClickListener.shotClick(shot, 0);
+                    }
+                }
+            });
+
+            helper.getView(R.id.cv_pic).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != mShotClickListener) {
+                        mShotClickListener.shotClick(shot,1);
+                    }
+                }
+            });
+
         }
+    }
+
+    public void setShotClickListener(ShotClickListener listener) {
+        this.mShotClickListener = listener;
+    }
+
+    interface ShotClickListener {
+        void shotClick(ShotEntity shot,int type);
     }
 
 }

@@ -1,16 +1,16 @@
 package com.simon.dribbble.ui.shots;
 
+import com.simon.agiledevelop.ResultSubscriber;
+import com.simon.agiledevelop.log.LLog;
+import com.simon.dribbble.data.Api;
+import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.BucketEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.BasePresenterImpl;
-import com.simon.dribbble.ui.baselist.BaseListContract;
-
-import net.quickrecyclerview.utils.log.LLog;
+import com.simon.dribbble.ui.CommListContract;
+import com.simon.dribbble.ui.CommListPresenter;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.Subscription;
+import rx.Observable;
 
 /**
  * Created by: Simon
@@ -18,51 +18,51 @@ import rx.Subscription;
  * Created on: 2016/9/14 17:30
  */
 
-public class BucketsPresenter extends BasePresenterImpl implements BaseListContract.Presenter {
+public class BucketsPresenter extends CommListPresenter<CommListContract.View, List<BucketEntity>> {
 
-    private BaseListContract.View mView;
-
-    public BucketsPresenter(BaseListContract.View view) {
-        mView = view;
+    public BucketsPresenter(CommListContract.View view) {
+        attachView(view);
+        view.setPresenter(this);
     }
 
     @Override
-    public void loadList(long id, String type, int page, final int event) {
-        Subscription subscription = mDataManger.getBuckets(type, id, page)
-                .observeOn(mSchedulerProvider.ui())
-                .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<List<BucketEntity>>() {
-                    @Override
-                    public void onCompleted() {
-                        mView.onCompleted();
-                        LLog.d("Simon", "onCompleted: 请求Buckets 请求成功");
-                    }
+    public void loadList(final int action, long id, String type, int page) {
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.onFailed(0, e.getMessage());
-                    }
+        Observable<List<BucketEntity>> buckets = DribbbleDataManger.getInstance().getBuckets
+                (type, id, page);
+        subscribe(buckets, new ResultSubscriber<List<BucketEntity>>() {
+            @Override
+            public void onStartRequest() {
+                getView().showLoading(action, "");
+            }
 
-                    @Override
-                    public void onNext(List<BucketEntity> buckets) {
-                        if (event == DribbbleApi.EVENT_BEGIN) {
-                            if (buckets.isEmpty()) {
-                                mView.onEmpty();
-                            } else {
-                                mView.showList(buckets);
-                            }
-                        } else if (event == DribbbleApi.EVENT_REFRESH) {
-                            mView.refreshComments(buckets);
-                        } else {
-                            mView.moreComments(buckets);
-                        }
+            @Override
+            public void onEndRequest() {
+                getView().onCompleted(action);
+                LLog.d("onCompleted: 请求Buckets 请求成功");
+            }
+
+            @Override
+            public void onFailed(Throwable e) {
+                getView().onFailed(action, e.getMessage());
+            }
+
+            @Override
+            public void onResult(List<BucketEntity> bucketEntities) {
+                if (action == Api.EVENT_BEGIN) {
+                    if (bucketEntities.isEmpty()) {
+                        getView().onEmpty("");
+                    } else {
+                        getView().showList(bucketEntities);
                     }
-                });
-        addSubscription(subscription);
+                } else if (action == Api.EVENT_REFRESH) {
+                    getView().refreshComments(bucketEntities);
+                } else {
+                    getView().moreComments(bucketEntities);
+                }
+            }
+        });
+
     }
 
-    @Override
-    public void subscribe() {
-
-    }
 }

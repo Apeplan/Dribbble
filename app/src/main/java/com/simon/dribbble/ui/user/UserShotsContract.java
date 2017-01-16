@@ -1,8 +1,8 @@
 package com.simon.dribbble.ui.user;
 
+import com.simon.agiledevelop.MvpPresenter;
+import com.simon.agiledevelop.MvpView;
 import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.ui.BasePresenter;
-import com.simon.dribbble.ui.BaseView;
 
 import java.util.List;
 
@@ -14,12 +14,8 @@ import java.util.List;
 
 public interface UserShotsContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View extends MvpView<MvpPresenter> {
         void showShots(List<ShotEntity> shots);
     }
 
-
-    interface Presenter extends BasePresenter {
-        void loadShots(int page);
-    }
 }

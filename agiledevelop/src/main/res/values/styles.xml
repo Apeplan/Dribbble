@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Genius.Widget.Loading" parent="">
+        <item name="gBackgroundLineSize">@dimen/g_loading_lineSize</item>
+        <item name="gForegroundLineSize">@dimen/g_loading_lineSize</item>
+
+        <item name="gBackgroundColor">@color/g_default_loading_bg</item>
+        <item name="gForegroundColor">@array/g_default_loading_fg</item>
+
+        <item name="gLineStyle">circle</item>
+        <item name="gAutoRun">true</item>
+    </style>
+
+    <style name="LoadingProgressBar">
+        android:indeterminateDrawable="@drawable/loading_bar1
+    </style>
+
+</resources>

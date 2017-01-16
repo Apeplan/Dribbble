@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.dribbble.ui.BasePresenter;
-import com.simon.dribbble.ui.BaseView;
+import com.simon.agiledevelop.MvpPresenter;
+import com.simon.agiledevelop.MvpView;
 
 /**
  * Created by: Simon
@@ -11,12 +11,9 @@ import com.simon.dribbble.ui.BaseView;
 
 public interface CreateContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View extends MvpView<MvpPresenter> {
         void onSuccess();
     }
 
-    interface Presenter extends BasePresenter {
-        void createShot();
-    }
 
 }

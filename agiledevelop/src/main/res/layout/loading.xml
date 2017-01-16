@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/dialog_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80ffffff"
+    android:gravity="center"
+    android:orientation="vertical">
+
+   <!-- <ProgressBar
+        android:id="@+id/loading_progress"
+        style="@style/loading"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:indeterminate="true"
+        android:indeterminateOnly="false"/>-->
+
+    <com.simon.agiledevelop.state.loading.Loading
+        android:id="@+id/loading_progress"
+        android:layout_width="@dimen/progress_width"
+        android:layout_height="@dimen/progress_width"/>
+
+    <TextView
+        android:id="@+id/loading_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ellipsize="end"
+        android:lineSpacingExtra="5dp"
+        android:maxLines="2"
+        android:text="@string/state_loading_message"
+        android:textColor="#ff999999"
+        android:textSize="14sp"/>
+</LinearLayout>

@@ -1,6 +1,5 @@
 package com.simon.dribbble.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.simon.dribbble.R;
-import com.simon.dribbble.ui.sample.SampleActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,8 +30,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                Intent intent = new Intent(MainActivity.this, SampleActivity.class);
-                startActivity(intent);
+
             }
         });
 

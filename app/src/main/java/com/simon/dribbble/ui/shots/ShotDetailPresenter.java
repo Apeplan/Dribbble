@@ -1,18 +1,12 @@
 package com.simon.dribbble.ui.shots;
 
+import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.ResultSubscriber;
+import com.simon.agiledevelop.log.LLog;
 import com.simon.dribbble.data.DribbbleDataManger;
-import com.simon.dribbble.data.model.CommentEntity;
-import com.simon.dribbble.data.model.LikeEntity;
 import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.util.schedulers.BaseSchedulerProvider;
-import com.simon.dribbble.util.schedulers.SchedulerProvider;
 
-import net.quickrecyclerview.utils.log.LLog;
-
-import rx.Subscriber;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import rx.Observable;
 
 /**
  * Created by: Simon
@@ -20,56 +14,50 @@ import rx.subscriptions.CompositeSubscription;
  * Created on: 2016/8/31 17:46
  */
 
-public class ShotDetailPresenter implements ShotDetailContract.Presenter {
-
-    private ShotDetailContract.View mShotView;
-    private DribbbleDataManger mRemoteDataSource;
-    private final BaseSchedulerProvider mSchedulerProvider;
-    private CompositeSubscription mSubscriptions;
+public class ShotDetailPresenter extends MvpRxPresenter<ShotDetailContract.View, ShotEntity> {
 
     public ShotDetailPresenter(ShotDetailContract.View shotsView) {
-        mShotView = shotsView;
-        mRemoteDataSource = DribbbleDataManger.getInstance(DribbbleApi.Creator.dribbbleApi());
-        mSchedulerProvider = SchedulerProvider.getInstance();
-        mSubscriptions = new CompositeSubscription();
-        mShotView.setPresenter(this);
+        attachView(shotsView);
+        shotsView.setPresenter(this);
     }
 
-    @Override
-    public void loadShot(long id) {
-        mSubscriptions.clear();
+    public void loadShot(final int action, long id) {
 
-        Subscription subscription = mRemoteDataSource.getShot(id)
-                .observeOn(mSchedulerProvider.ui())
-                .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<ShotEntity>() {
-                    @Override
-                    public void onCompleted() {
-                        LLog.d("Simon", "onCompleted: Shot信息 请求完成");
-                    }
+        Observable<ShotEntity> shot = DribbbleDataManger.getInstance().getShot(id);
+        subscribe(shot, new ResultSubscriber<ShotEntity>() {
+            @Override
+            public void onStartRequest() {
+                getView().showLoading(action, "");
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        LLog.d("Simon", "onCompleted: Shot信息 请求失败\t" + e.getMessage());
-                        mShotView.onFailed(0, e.getMessage());
-                    }
+            @Override
+            public void onEndRequest() {
+                LLog.d("onCompleted: Shot信息 请求完成");
+                getView().onCompleted(action);
+            }
 
-                    @Override
-                    public void onNext(ShotEntity shotsEntity) {
-                        LLog.d("Simon", "onCompleted: Shot信息 请求成功");
-                        mShotView.showShot(shotsEntity);
-                    }
-                });
+            @Override
+            public void onFailed(Throwable e) {
+                LLog.d("onCompleted: Shot信息 请求失败\t" + e.getMessage());
+                getView().onFailed(action, e.getMessage());
+            }
 
-        mSubscriptions.add(subscription);
+            @Override
+            public void onResult(ShotEntity shotEntity) {
+                LLog.d("onCompleted: Shot信息 请求成功");
+                getView().showShot(shotEntity);
+            }
+        });
 
     }
 
     public void addLike(long shotId) {
 
-        mShotView.showLoadDia();
+       /* getView().showLoadDia();
 
-        mSubscriptions.clear();
+        Observable<LikeEntity> likeEntity = DribbbleDataManger.getInstance().addLike(shotId);
+
+        subscribe();
 
         Subscription subscription = mRemoteDataSource.addLike(shotId)
                 .observeOn(mSchedulerProvider.ui())
@@ -91,11 +79,11 @@ public class ShotDetailPresenter implements ShotDetailContract.Presenter {
                     }
                 });
 
-        mSubscriptions.add(subscription);
+        mSubscriptions.add(subscription);*/
     }
 
     public void sendComment(long shotId, String content) {
-        mShotView.showLoadDia();
+       /* mShotView.showLoadDia();
 
         mSubscriptions.clear();
 
@@ -120,16 +108,7 @@ public class ShotDetailPresenter implements ShotDetailContract.Presenter {
                         mShotView.hintMsg("评论发表成功");
                     }
                 });
-        mSubscriptions.add(subscription);
+        mSubscriptions.add(subscription);*/
     }
 
-    @Override
-    public void subscribe() {
-
-    }
-
-    @Override
-    public void unsubscribe() {
-        mSubscriptions.clear();
-    }
 }

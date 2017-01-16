@@ -43,7 +43,7 @@
                 android:layout_alignLeft="@id/tv_username"
                 android:layout_below="@id/tv_username"
                 android:gravity="center_vertical"
-                android:drawableLeft="@drawable/ic_location_on_blue_16dp"
+                android:drawableLeft="@drawable/location"
                 android:drawablePadding="@dimen/px_2_dp_6"
                 android:textSize="@dimen/px_2_dp_26"
                 android:text="BeiJing, China"/>

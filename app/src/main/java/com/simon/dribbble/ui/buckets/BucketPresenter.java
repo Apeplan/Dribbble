@@ -1,15 +1,16 @@
 package com.simon.dribbble.ui.buckets;
 
+import com.simon.agiledevelop.ResultSubscriber;
+import com.simon.agiledevelop.log.LLog;
+import com.simon.dribbble.data.Api;
+import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.BucketEntity;
-import com.simon.dribbble.ui.BasePresenterImpl;
-import com.simon.dribbble.ui.baselist.BaseListContract;
-
-import net.quickrecyclerview.utils.log.LLog;
+import com.simon.dribbble.ui.CommListContract;
+import com.simon.dribbble.ui.CommListPresenter;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.Subscription;
+import rx.Observable;
 
 /**
  * Created by: Simon
@@ -17,50 +18,51 @@ import rx.Subscription;
  * Created on: 2016/9/2 14:28
  */
 
-public class BucketPresenter extends BasePresenterImpl implements BaseListContract.Presenter {
+public class BucketPresenter extends CommListPresenter<CommListContract.View, List<BucketEntity>> {
 
-    private BaseListContract.View mBucketsView;
-
-    public BucketPresenter(BaseListContract.View bucketsView) {
-        mBucketsView = bucketsView;
-        mBucketsView.setPresenter(this);
+    public BucketPresenter(CommListContract.View bucketsView) {
+        attachView(bucketsView);
+        bucketsView.setPresenter(this);
     }
 
     @Override
-    public void loadList(long id, String type, int page, int event) {
+    public void loadList(final int action, long id, String type, int page) {
 
-        Subscription subscription = mDataManger.getUserBuckets()
-                .observeOn(mSchedulerProvider.ui())
-                .subscribeOn(mSchedulerProvider.io())
-                .subscribe(new Subscriber<List<BucketEntity>>() {
-                    @Override
-                    public void onCompleted() {
-                        LLog.d("Simon", "onCompleted: 请求 Buckets 执行完成");
-                        mBucketsView.onCompleted();
+        Observable<List<BucketEntity>> userBuckets = DribbbleDataManger.getInstance()
+                .getUserBuckets();
+        subscribe(userBuckets, new ResultSubscriber<List<BucketEntity>>() {
+            @Override
+            public void onStartRequest() {
+                getView().showLoading(action, "");
+            }
+
+            @Override
+            public void onEndRequest() {
+                LLog.d("onCompleted: 请求 Buckets 执行完成");
+                getView().onCompleted(action);
+            }
+
+            @Override
+            public void onFailed(Throwable e) {
+                LLog.d("onCompleted: 请求 Buckets 失败\t" + e.getMessage());
+                getView().onFailed(action, "请求失败");
+            }
+
+            @Override
+            public void onResult(List<BucketEntity> bucketEntities) {
+                if (bucketEntities != null && !bucketEntities.isEmpty()) {
+                    if (action == Api.EVENT_BEGIN) {
+                        getView().showList(bucketEntities);
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        LLog.d("Simon", "onCompleted: 请求 Buckets 失败\t" + e.getMessage());
-                        mBucketsView.onFailed(0, "请求失败");
+                    if (action == Api.EVENT_REFRESH) {
+                        getView().refreshComments(bucketEntities);
                     }
+                } else {
+                    getView().onEmpty("您还没有作品");
+                }
 
-                    @Override
-                    public void onNext(List<BucketEntity> bucketEntities) {
-                        if (bucketEntities.isEmpty()) {
-                            mBucketsView.onEmpty();
-                        } else {
-                            mBucketsView.showList(bucketEntities);
-                        }
-                    }
-                });
-
-        addSubscription(subscription);
-    }
-
-    @Override
-    public void subscribe() {
-
+            }
+        });
     }
 
 }

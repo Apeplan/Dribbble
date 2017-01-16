@@ -5,10 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <net.quickrecyclerview.XRecyclerView
-        android:id="@+id/xrlv_list"
+    <LinearLayout
+        android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
+        android:fitsSystemWindows="true"
+        android:background="@color/grey_main"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/xrlv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
 
 </com.simon.dribbble.widget.statelayout.StateLayout>

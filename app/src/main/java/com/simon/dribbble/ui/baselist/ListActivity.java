@@ -2,11 +2,12 @@ package com.simon.dribbble.ui.baselist;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
+import com.simon.agiledevelop.BaseActivity;
+import com.simon.agiledevelop.BaseFragment;
+import com.simon.agiledevelop.MvpPresenter;
 import com.simon.dribbble.R;
-import com.simon.dribbble.ui.BaseActivity;
-import com.simon.dribbble.ui.BaseFragment;
-import com.simon.dribbble.ui.BasePresenter;
 import com.simon.dribbble.ui.shots.AttachmentFragment;
 import com.simon.dribbble.ui.shots.BucketsFragment;
 import com.simon.dribbble.ui.shots.LikesFragment;
@@ -22,12 +23,17 @@ public class ListActivity extends BaseActivity {
     private BaseFragment mFragment;
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.activity_list_comm;
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected MvpPresenter getPresenter() {
+        return null;
+    }
+
+    @Override
+    protected View getLoadingView() {
         return null;
     }
 

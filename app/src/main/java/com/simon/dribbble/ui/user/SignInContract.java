@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui.user;
 
-import com.simon.dribbble.ui.BasePresenter;
-import com.simon.dribbble.ui.BaseView;
+import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.MvpView;
 
 /**
  * Created by Simon Han on 2016/8/20.
@@ -9,22 +9,11 @@ import com.simon.dribbble.ui.BaseView;
 
 public interface SignInContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View extends MvpView<MvpRxPresenter> {
         /**
          * 登录成功
          */
         void signSuccess();
 
     }
-
-    interface Presenter extends BasePresenter {
-        /**
-         * 返回用户 token
-         *
-         * @param token
-         */
-        void getUserToken(String token);
-
-    }
-
 }

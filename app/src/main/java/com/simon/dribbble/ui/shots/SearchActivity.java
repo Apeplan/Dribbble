@@ -7,13 +7,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.simon.agiledevelop.BaseActivity;
+import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.log.LLog;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.BaseActivity;
+import com.simon.dribbble.data.remote.DribbbleService;
 import com.simon.dribbble.widget.statelayout.StateLayout;
-
-import net.quickrecyclerview.utils.log.LLog;
 
 import java.util.List;
 
@@ -30,13 +30,18 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     private SearchView mSearchView;
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.activity_search;
     }
 
     @Override
     protected SearchPresenter getPresenter() {
         return new SearchPresenter(this);
+    }
+
+    @Override
+    protected View getLoadingView() {
+        return null;
     }
 
     @Override
@@ -63,7 +68,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                LLog.d("Simon Han", "onQueryTextSubmit: " + query);
+                LLog.d("onQueryTextSubmit: " + query);
                 if (!TextUtils.isEmpty(query)) {
                     mStateLayout.showProgressView();
                     search(query);
@@ -73,7 +78,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                LLog.d("Simon Han", "onQueryTextChange: " + newText);
+                LLog.d("onQueryTextChange: " + newText);
                 return false;
             }
         });
@@ -86,12 +91,17 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     public void search(String query) {
         mSearchView.clearFocus();
-        mPresenter.searchShot(query, 1, DribbbleApi.SORT_POPULAR);
+        mPresenter.searchShot(query, 1, DribbbleService.SORT_POPULAR);
     }
 
     @Override
-    public void onEmpty() {
+    public void onEmpty(String msg) {
         mStateLayout.showEmptyView();
+    }
+
+    @Override
+    public void showLoading(int action, String msg) {
+
     }
 
     @Override
@@ -100,12 +110,12 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     }
 
     @Override
-    public void onCompleted() {
+    public void onCompleted(int action) {
 
     }
 
     @Override
-    public void setPresenter(SearchContract.Presenter presenter) {
+    public void setPresenter(MvpRxPresenter presenter) {
 
     }
 
@@ -113,7 +123,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     public void showSearch(List<ShotEntity> shots) {
         mStateLayout.showContentView();
         if (null != mShotsAdapter) {
-            mShotsAdapter.addData(shots);
+            mShotsAdapter.appendData(shots);
         }
     }
 }

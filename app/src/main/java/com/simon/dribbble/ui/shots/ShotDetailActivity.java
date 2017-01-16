@@ -18,17 +18,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.simon.agiledevelop.BaseActivity;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.ImgLoadHelper;
+import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.dribbble.R;
+import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.ShotEntity;
 import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.listener.TextWatcherImpl;
-import com.simon.dribbble.ui.BaseActivity;
 import com.simon.dribbble.ui.baselist.ListActivity;
 import com.simon.dribbble.util.DateTimeUtil;
 import com.simon.dribbble.util.DialogHelp;
-import com.simon.dribbble.util.ImgLoadHelper;
 import com.simon.dribbble.util.StringUtil;
-import com.simon.dribbble.util.ToastHelper;
 import com.simon.dribbble.widget.TagGroup;
 import com.simon.dribbble.widget.loadingdia.SpotsDialog;
 import com.simon.dribbble.widget.statelayout.StateLayout;
@@ -76,12 +78,17 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
 
 
     @Override
-    protected int getLayout() {
+    protected int getLayoutId() {
         return R.layout.activity_shot_detail;
     }
 
     @Override
     protected ShotDetailPresenter getPresenter() {
+        return null;
+    }
+
+    @Override
+    protected View getLoadingView() {
         return null;
     }
 
@@ -147,8 +154,7 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
         Bundle bundle = getBundle();
         if (null != bundle) {
             mShotId = bundle.getLong("shotId");
-            mStateLayout.showProgressView();
-            mPresenter.loadShot(mShotId);
+            mPresenter.loadShot(Api.EVENT_BEGIN, mShotId);
         }
     }
 
@@ -197,6 +203,9 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
 
     @Override
     public void showShot(ShotEntity shot) {
+
+        hideDialog();
+
         mShot = shot;
         mStateLayout.showContentView();
         mTitle = shot.getTitle();
@@ -244,33 +253,20 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
             mLl_tags.setVisibility(View.GONE);
         }
 
-        ImgLoadHelper.loadImage(mImgUrl, mDetailPic);
+        ImgLoadHelper.image(mImgUrl, mDetailPic);
 
     }
 
     @Override
-    public void hintMsg(String msg) {
-        if (null != mLoadingDialog && mLoadingDialog.isShowing()) {
-            mLoadingDialog.dismiss();
-        }
-
-        ToastHelper.shortToast(msg);
+    public void onEmpty(String msg) {
+        mStateLayout.showEmptyView();
     }
 
     @Override
-    public void showLoadDia() {
-        if (mLoadingDialog == null) {
-            mLoadingDialog = DialogHelp.getLoadingDialog(this, "请您耐心等待...");
+    public void showLoading(int action, String msg) {
+        if (Api.EVENT_BEGIN == action) {
+            showDialog();
         }
-
-        if (!mLoadingDialog.isShowing()) {
-            mLoadingDialog.show();
-        }
-    }
-
-    @Override
-    public void onEmpty() {
-
     }
 
     @Override
@@ -279,12 +275,12 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
     }
 
     @Override
-    public void onCompleted() {
+    public void onCompleted(int action) {
 
     }
 
     @Override
-    public void setPresenter(ShotDetailContract.Presenter presenter) {
+    public void setPresenter(ShotDetailPresenter presenter) {
 
     }
 
@@ -301,7 +297,7 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
             shareMsg("ShotDetailActivity", mTitle, "", mImgUrl);
             return true;
         } else if (id == R.id.action_add) {
-            ToastHelper.shortToast(item.getTitle());
+            ToastHelper.showLongToast(App.INSTANCE, item.getTitle());
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -350,9 +346,24 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
         return "image/jpeg";
     }
 
+    private void showDialog() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = DialogHelp.getLoadingDialog(this, "正在加载...");
+        }
+        if (!mLoadingDialog.isShowing()) {
+            mLoadingDialog.show();
+        }
+    }
+
+    public void hideDialog() {
+        if (null != mLoadingDialog && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
+    }
+
     @Override
     public void onBackPressed() {
-        mPresenter.unsubscribe();
+        mPresenter.detachView(false);
         if (null != mLoadingDialog) {
             mLoadingDialog.dismiss();
             mLoadingDialog = null;

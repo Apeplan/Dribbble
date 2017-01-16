@@ -3,13 +3,10 @@ package com.simon.dribbble.ui.user;
 import android.os.Bundle;
 import android.view.View;
 
-import com.simon.dribbble.data.model.ShotEntity;
-import com.simon.dribbble.data.remote.DribbbleApi;
-import com.simon.dribbble.ui.baselist.BaseListContract;
-import com.simon.dribbble.ui.baselist.BaseListFragment;
+import com.simon.dribbble.data.Api;
+import com.simon.dribbble.ui.CommListFragment;
+import com.simon.dribbble.ui.CommListPresenter;
 import com.simon.dribbble.ui.shots.ShotsAdapter;
-
-import net.quickrecyclerview.show.BaseQuickAdapter;
 
 /**
  * Created by: Simon
@@ -17,8 +14,7 @@ import net.quickrecyclerview.show.BaseQuickAdapter;
  * Created on: 2016/9/12 18:10
  */
 
-public class UserShotsFragment extends BaseListFragment<ShotEntity> {
-
+public class UserShotsFragment extends CommListFragment<UserShotsPresenter, ShotsAdapter> {
     private int mPage = 1;
 
     public static UserShotsFragment newInstance() {
@@ -29,29 +25,41 @@ public class UserShotsFragment extends BaseListFragment<ShotEntity> {
     }
 
     @Override
-    protected BaseListContract.Presenter getPresenter() {
+    protected UserShotsPresenter getPresenter() {
         return new UserShotsPresenter(this);
     }
 
     @Override
     protected void initEventAndData() {
         super.initEventAndData();
-        mPresenter.loadList(0, "", mPage, DribbbleApi.EVENT_BEGIN);
+        mPresenter.loadList(Api.EVENT_BEGIN, 0, "", mPage);
     }
 
-    @Override
-    protected BaseQuickAdapter<ShotEntity> getListAdapter() {
-        return new ShotsAdapter();
-    }
 
-    @Override
     protected void itemClick(View view, int position) {
 
     }
 
-
     @Override
-    public void setPresenter(BaseListContract.Presenter presenter) {
+    public void setPresenter(CommListPresenter presenter) {
 
     }
+
+    @Override
+    public void refreshData() {
+        mPage = 1;
+        mPresenter.loadList(Api.EVENT_REFRESH, 0, "", mPage);
+    }
+
+    @Override
+    public void moreData() {
+        mPage++;
+        mPresenter.loadList(Api.EVENT_MORE, 0, "", mPage);
+    }
+
+    @Override
+    protected ShotsAdapter getListAdapter() {
+        return new ShotsAdapter();
+    }
+
 }

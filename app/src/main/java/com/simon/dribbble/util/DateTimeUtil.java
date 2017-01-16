@@ -2,7 +2,7 @@ package com.simon.dribbble.util;
 
 import android.text.TextUtils;
 
-import net.quickrecyclerview.utils.log.LLog;
+import com.simon.agiledevelop.log.LLog;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -546,7 +546,7 @@ public class DateTimeUtil {
         try {
             return dateFormater.parse(sdate);
         } catch (ParseException e) {
-            LLog.d("hanzhanxi", "exception:  " + e.getMessage());
+            LLog.d("exception:  " + e.getMessage());
             return null;
         }
     }
