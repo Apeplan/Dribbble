@@ -44,13 +44,13 @@ public class FollowersAdapter extends RapidAdapter<FollowersEntity,RapidViewHold
             CharSequence shot_count = ColorPhrase.from(follower.shots_count + "  <作品>")
                     .withSeparator("<>")
                     .innerColor(0xFF808080)
-                    .outerColor(0xFF0000FF)
+                    .outerColor(0xFF333333)
                     .format();
 
             CharSequence follower_count = ColorPhrase.from(follower.followers_count + "  <粉丝>")
                     .withSeparator("<>")
                     .innerColor(0xFF808080)
-                    .outerColor(0xFF0000FF)
+                    .outerColor(0xFF333333)
                     .format();
 
             TextView view = helper.getView(R.id.tv_location);

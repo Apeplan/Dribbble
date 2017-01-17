@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
 
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#51404A</color>
+    <color name="colorPrimaryDark">#51404A</color>
+    <color name="colorAccent">#51404A</color>
+    <color name="c1">#948B8B</color>
+    <color name="c2">#D49C88</color>
+    <color name="c3">#C7BBA6</color>
 
     <color name="white">#FFFFFF</color>
     <color name="red">#FFFF0000</color>
@@ -11,9 +17,8 @@
     <color name="black">#000000</color>
     <color name="blue">#f00f</color>
     <color name="gray_main">#757575</color>
-    <color name="grey_main">#E7E7E7</color>
-
-
+    <color name="grey_main">#D5DEE5</color>
+    <color name="white_main">#FDFAF5</color>
 
     <color name="orange_500">#FF9800</color>
     <color name="grey_300">#E0E0E0</color>
@@ -31,158 +36,5 @@
     <color name="color_666666">#666666</color>
     <color name="color_888888">#888888</color>
     <color name="color_999999">#999999</color>
-
-    <!--UI Red(红)为主色-->
-    <color name="red_500">#F44336</color>
-    <color name="red_700">#D32F2F</color>
-
-    <color name="red_50">#FFEBEE</color>
-    <color name="red_100">#FFCDD2</color>
-    <color name="red_200">#EF9A9A</color>
-    <color name="red_300">#E57373</color>
-    <color name="red_400">#EF5350</color>
-    <color name="red_600">#E53935</color>
-    <color name="red_800">#C62828</color>
-    <color name="red_900">#B71C1C</color>
-    <color name="red_A100">#FF8A80</color>
-    <color name="red_A200">#FF5252</color>
-    <color name="red_A400">#FF1744</color>
-    <color name="red_A700">#D50000</color>
-
-    <!--UI Pink(粉红)为主色-->
-    <color name="pink_500">#E91E63</color>
-    <color name="pink_700">#C2185B</color>
-
-    <color name="pink_50">#FCE4EC</color>
-    <color name="pink_100">#F8BBD0</color>
-    <color name="pink_200">#F48FB1</color>
-    <color name="pink_300">#F06292</color>
-    <color name="pink_400">#EC407A</color>
-    <color name="pink_600">#D81B60</color>
-    <color name="pink_800">#AD1457</color>
-    <color name="pink_900">#880E4F</color>
-    <color name="pink_A100">#FF80AB</color>
-    <color name="pink_A200">#FF4081</color>
-    <color name="pink_A400">#F50057</color>
-    <color name="pink_A700">#C51162</color>
-
-    <!--UI Purple(紫)为主色-->
-    <color name="purple_500">#9C27B0</color>
-    <color name="purple_700">#7B1FA2</color>
-
-    <color name="purple_50">#F3E5F5</color>
-    <color name="purple_100">#E1BEE7</color>
-    <color name="purple_200">#CE93D8</color>
-    <color name="purple_300">#BA68C8</color>
-    <color name="purple_400">#AB47BC</color>
-    <color name="purple_600">#8E24AA</color>
-    <color name="purple_800">#6A1B9A</color>
-    <color name="purple_900">#4A148C</color>
-    <color name="purple_A100">#EA80FC</color>
-    <color name="purple_A200">#E040FB</color>
-    <color name="purple_A400">#D500F9</color>
-    <color name="purple_A700">#AA00FF</color>
-
-    <!--UI Deep Purple(深紫)为主色-->
-    <color name="deep_purple_500">#673AB7</color>
-    <color name="deep_purple_700">#512DA8</color>
-
-    <color name="deep_purple_50">#EDE7F6</color>
-    <color name="deep_purple_100">#D1C4E9</color>
-    <color name="deep_purple_200">#B39DDB</color>
-    <color name="deep_purple_300">#9575CD</color>
-    <color name="deep_purple_400">#7E57C2</color>
-    <color name="deep_purple_600">#5E35B1</color>
-    <color name="deep_purple_800">#4527A0</color>
-    <color name="deep_purple_900">#311B92</color>
-    <color name="deep_purple_A100">#B388FF</color>
-    <color name="deep_purple_A200">#7C4DFF</color>
-    <color name="deep_purple_A400">#651FFF</color>
-    <color name="deep_purple_A700">#6200EA</color>
-
-    <!--UI Indigo(靛蓝)为主色-->
-    <color name="indigo_500">#3F51B5</color>
-    <color name="indigo_700">#303F9F</color>
-
-    <color name="indigo_50">#E8EAF6</color>
-    <color name="indigo_100">#C5CAE9</color>
-    <color name="indigo_200">#9FA8DA</color>
-    <color name="indigo_300">#7986CB</color>
-    <color name="indigo_400">#5C6BC0</color>
-    <color name="indigo_600">#3949AB</color>
-    <color name="indigo_800">#283593</color>
-    <color name="indigo_900">#1A237E</color>
-    <color name="indigo_A100">#8C9EFF</color>
-    <color name="indigo_A200">#536DFE</color>
-    <color name="indigo_A400">#3D5AFE</color>
-    <color name="indigo_A700">#304FFE</color>
-
-    <!--UI Blue(蓝)为主色-->
-    <color name="blue_500">#2196F3</color>
-    <color name="blue_700">#1976D2</color>
-
-    <color name="blue_50">#E3F2FD</color>
-    <color name="blue_100">#BBDEFB</color>
-    <color name="blue_200">#90CAF9</color>
-    <color name="blue_300">#64B5F6</color>
-    <color name="blue_400">#42A5F5</color>
-    <color name="blue_600">#1E88E5</color>
-    <color name="blue_800">#1565C0</color>
-    <color name="blue_900">#0D47A1</color>
-    <color name="blue_A100">#82B1FF</color>
-    <color name="blue_A200">#448AFF</color>
-    <color name="blue_A400">#2979FF</color>
-    <color name="blue_A700">#2962FF</color>
-
-    <!--UI Light Blue(亮蓝)为主色-->
-    <color name="light_blue_500">#03A9F4</color>
-    <color name="light_blue_700">#0288D1</color>
-
-    <color name="light_blue_50">#E1F5FE</color>
-    <color name="light_blue_100">#B3E5FC</color>
-    <color name="light_blue_200">#81D4FA</color>
-    <color name="light_blue_300">#4FC3F7</color>
-    <color name="light_blue_400">#29B6F6</color>
-    <color name="light_blue_600">#039BE5</color>
-    <color name="light_blue_800">#0277BD</color>
-    <color name="light_blue_900">#01579B</color>
-    <color name="light_blue_A100">#80D8FF</color>
-    <color name="light_blue_A200">#40C4FF</color>
-    <color name="light_blue_A400">#00B0FF</color>
-    <color name="light_blue_A700">#0091EA</color>
-
-    <!--UI Cyan(青蓝)为主色-->
-    <color name="cyan_500">#00BCD4</color>
-    <color name="cyan_700">#0097A7</color>
-
-    <color name="cyan_50">#E0F7FA</color>
-    <color name="cyan_100">#B2EBF2</color>
-    <color name="cyan_200">#80DEEA</color>
-    <color name="cyan_300">#4DD0E1</color>
-    <color name="cyan_400">#26C6DA</color>
-    <color name="cyan_600">#00ACC1</color>
-    <color name="cyan_800">#00838F</color>
-    <color name="cyan_900">#006064</color>
-    <color name="cyan_A100">#84FFFF</color>
-    <color name="cyan_A200">#18FFFF</color>
-    <color name="cyan_A400">#00E5FF</color>
-    <color name="cyan_A700">#00B8D4</color>
-
-    <!--UI Teal(青)为主色-->
-    <color name="teal_500">#009688</color>
-    <color name="teal_700">#00796B</color>
-
-    <color name="teal_50">#E0F2F1</color>
-    <color name="teal_100">#B2DFDB</color>
-    <color name="teal_200">#80CBC4</color>
-    <color name="teal_300">#4DB6AC</color>
-    <color name="teal_400">#26A69A</color>
-    <color name="teal_600">#00897B</color>
-    <color name="teal_800">#00695C</color>
-    <color name="teal_900">#004D40</color>
-    <color name="teal_A100">#A7FFEB</color>
-    <color name="teal_A200">#64FFDA</color>
-    <color name="teal_A400">#1DE9B6</color>
-    <color name="teal_A700">#00BFA5</color>
 
 </resources>

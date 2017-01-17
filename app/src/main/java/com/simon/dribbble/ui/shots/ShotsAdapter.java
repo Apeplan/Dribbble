@@ -44,7 +44,7 @@ public class ShotsAdapter extends RapidAdapter<ShotEntity,RapidViewHolder>{
             ImageView avatar = helper.getView(R.id.imv_avatar);
 
             ImgLoadHelper.image(StringUtil.isEmpty(hidpi) ? normal : hidpi,R.drawable
-                    .placeholderr, R.drawable.placeholderr, imageView);
+                    .placeholder_pic, R.drawable.placeholder_pic, imageView);
             ImgLoadHelper.loadAvatar(avatar_url, avatar);
 
             helper.setVisible(R.id.tv_type, animated);

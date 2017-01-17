@@ -44,8 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:tint="#fff"
-        app:backgroundTint="@color/blue_500"
+        android:tint="@color/white_main"
+        app:backgroundTint="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_action_create"
         app:layout_behavior="com.simon.dribbble.widget.navigationbar.behavior.BehaviorScrollZoomFab"/>
 

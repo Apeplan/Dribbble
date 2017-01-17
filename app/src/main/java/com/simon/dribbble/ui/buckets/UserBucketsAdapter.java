@@ -51,7 +51,7 @@ public class UserBucketsAdapter extends RapidAdapter<BucketEntity,RapidViewHolde
             CharSequence format = ColorPhrase.from(shots_count + "  <作品>")
                     .withSeparator("<>")
                     .innerColor(0xFF808080)
-                    .outerColor(0xFF0000FF)
+                    .outerColor(0xFF333333)
                     .format();
 
             helper.setText(R.id.tv_shots_count, format);

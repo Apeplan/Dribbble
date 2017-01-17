@@ -1,6 +1,7 @@
 package com.simon.dribbble.ui.shots;
 
 import android.content.res.ColorStateList;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +20,7 @@ import com.simon.dribbble.util.ColorPhrase;
  * Created on: 2016/9/14 15:15
  */
 
-public class LikesAdapter extends RapidAdapter<LikeEntity,RapidViewHolder> {
+public class LikesAdapter extends RapidAdapter<LikeEntity, RapidViewHolder> {
     public LikesAdapter() {
         super(R.layout.item_user);
     }
@@ -35,7 +36,8 @@ public class LikesAdapter extends RapidAdapter<LikeEntity,RapidViewHolder> {
             ImgLoadHelper.loadAvatar(avatar_url, avatar);
 
             helper.setText(R.id.tv_username, follower.name);
-            helper.setText(R.id.tv_location, follower.location);
+            String loca = TextUtils.isEmpty(follower.location) ? "Unknown" : follower.location;
+            helper.setText(R.id.tv_location, loca);
 
             CharSequence shot_count = ColorPhrase.from(follower.shots_count + "  <作品>")
                     .withSeparator("<>")

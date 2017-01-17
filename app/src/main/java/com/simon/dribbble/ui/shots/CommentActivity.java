@@ -92,7 +92,6 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
         mAdapter.openAnimation(RapidAdapter.SCALEIN);
         mAdapter.setLoadMoreEnable(true);
         mAdapter.setOnLoadMoreListener(this);
-
         mPresenter = new CommentPresenter(this);
     }
 

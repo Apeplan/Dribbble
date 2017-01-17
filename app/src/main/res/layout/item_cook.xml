@@ -11,8 +11,8 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="2dp"
+    card_view:cardCornerRadius="@dimen/px_2_dp_10"
+    card_view:cardElevation="@dimen/px_2_dp_10"
     card_view:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -48,8 +48,8 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:lines="5"
                 android:ellipsize="end"
+                android:lines="5"
                 android:textColor="#666666"
                 android:textSize="12sp"
                 tools:text="美食描述"/>

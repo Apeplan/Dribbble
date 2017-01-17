@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/px_2_dp_10"
-            android:src="@drawable/placeholder"/>
+            android:src="@drawable/placeholder_pic"/>
 
         <TextView
             android:layout_width="wrap_content"

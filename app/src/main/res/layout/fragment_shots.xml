@@ -23,7 +23,7 @@
                 android:id="@+id/xrv_shots"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="vertical"/>
+                android:scrollbars="none"/>
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
