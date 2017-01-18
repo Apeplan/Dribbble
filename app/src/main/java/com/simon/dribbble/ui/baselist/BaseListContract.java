@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui.baselist;
 
-import com.simon.agiledevelop.MvpRxPresenter;
-import com.simon.agiledevelop.MvpView;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
+import com.simon.agiledevelop.mvpframe.MvpView;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface BaseListContract {
 
-    interface View extends MvpView<MvpRxPresenter> {
+    interface View extends MvpView<RxPresenter> {
         void showList(List lists);
 
         void refreshComments(List lists);

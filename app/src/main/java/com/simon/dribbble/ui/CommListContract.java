@@ -1,6 +1,6 @@
 package com.simon.dribbble.ui;
 
-import com.simon.agiledevelop.MvpView;
+import com.simon.agiledevelop.mvpframe.MvpView;
 
 import java.util.List;
 

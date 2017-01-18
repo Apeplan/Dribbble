@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 
 import com.simon.agiledevelop.R;
 import com.simon.agiledevelop.log.LLog;
-import com.simon.agiledevelop.recycler.RapidViewHolder;
+import com.simon.agiledevelop.recycler.RecycledViewHolder;
 import com.simon.agiledevelop.recycler.animation.AlphaInAnimation;
 import com.simon.agiledevelop.recycler.animation.BaseAnimation;
 import com.simon.agiledevelop.recycler.animation.ScaleInAnimation;
@@ -41,7 +41,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  * @email hanzx1024@gmail.com
  */
 
-public abstract class RapidAdapter<T, H extends RapidViewHolder> extends RecyclerView
+public abstract class RecycledAdapter<T, H extends RecycledViewHolder> extends RecyclerView
         .Adapter<H> {
 
     public static final int TYPE_HEADER = 0xBFFD0D8; // 头部标识
@@ -94,15 +94,15 @@ public abstract class RapidAdapter<T, H extends RapidViewHolder> extends Recycle
 //    private LayoutInflater mInflater;
 
 
-    public RapidAdapter(List<T> data) {
+    public RecycledAdapter(List<T> data) {
         this(0, data);
     }
 
-    public RapidAdapter(int layoutId) {
+    public RecycledAdapter(int layoutId) {
         this(layoutId, null);
     }
 
-    public RapidAdapter(int layoutId, List<T> data) {
+    public RecycledAdapter(int layoutId, List<T> data) {
         mData = data == null ? new ArrayList<T>() : data;
         if (layoutId != 0) {
             mLayoutId = layoutId;
@@ -133,7 +133,7 @@ public abstract class RapidAdapter<T, H extends RapidViewHolder> extends Recycle
     }
 
     @Override
-    public void onBindViewHolder(RapidViewHolder holder, int position) {
+    public void onBindViewHolder(RecycledViewHolder holder, int position) {
         int viewType = holder.getItemViewType();
 
         switch (viewType) {
@@ -178,7 +178,7 @@ public abstract class RapidAdapter<T, H extends RapidViewHolder> extends Recycle
         }
     }
 
-    protected void setFullSpan(RapidViewHolder holder) {
+    protected void setFullSpan(RecycledViewHolder holder) {
         ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
         if (layoutParams instanceof StaggeredGridLayoutManager.LayoutParams) {
             StaggeredGridLayoutManager.LayoutParams slp = (StaggeredGridLayoutManager
@@ -245,7 +245,7 @@ public abstract class RapidAdapter<T, H extends RapidViewHolder> extends Recycle
     }
 
     protected H createBaseViewHolder(View view) {
-        return (H) new RapidViewHolder(view);
+        return (H) new RecycledViewHolder(view);
     }
 
     protected View getItemView(int layoutResId, ViewGroup parent) {
@@ -450,7 +450,7 @@ public abstract class RapidAdapter<T, H extends RapidViewHolder> extends Recycle
         this.notifyItemChanged(getItemCount());
     }
 
-    private void addLoadMore(RapidViewHolder holder) {
+    private void addLoadMore(RecycledViewHolder holder) {
         if (mLoadingMoreEnable && mLoading_state == STATE_COMPLETE) {
             mLoading_state = STATE_LOADING;
             mLoadMoreListener.onLoadMore();
@@ -664,7 +664,7 @@ public abstract class RapidAdapter<T, H extends RapidViewHolder> extends Recycle
 
     }
 
-    protected abstract void convert(RapidViewHolder helper, T item);
+    protected abstract void convert(RecycledViewHolder holder, T item);
 
     public void setOnLoadMoreListener(LoadMoreListener onLoadMoreListener) {
         this.mLoadMoreListener = onLoadMoreListener;

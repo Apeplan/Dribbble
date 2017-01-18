@@ -1,6 +1,6 @@
 package com.simon.dribbble.ui.user;
 
-import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.log.LLog;
 import com.simon.dribbble.data.DribbbleDataManger;
@@ -13,7 +13,7 @@ import rx.Observable;
  * Created by Simon Han on 2016/8/20.
  */
 
-public class SignPresenter extends MvpRxPresenter<SignInContract.View, User> {
+public class SignPresenter extends RxPresenter<SignInContract.View, User> {
 
 
     public SignPresenter(SignInContract.View view) {

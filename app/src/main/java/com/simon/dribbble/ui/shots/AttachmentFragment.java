@@ -7,9 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.simon.agiledevelop.BaseFragment;
-import com.simon.agiledevelop.MvpRxPresenter;
-import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.mvpframe.BaseFragment;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
+import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
 import com.simon.agiledevelop.recycler.listeners.OnItemClickListener;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.Api;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 public class AttachmentFragment extends BaseFragment<AttachPresenter> implements BaseListContract
-        .View, SwipeRefreshLayout.OnRefreshListener, RapidAdapter.LoadMoreListener {
+        .View, SwipeRefreshLayout.OnRefreshListener, RecycledAdapter.LoadMoreListener {
     private StateLayout mStateLayout;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefreshLayout;
@@ -67,14 +67,14 @@ public class AttachmentFragment extends BaseFragment<AttachPresenter> implements
         mRefreshLayout.setOnRefreshListener(this);
         if (mAdapter == null) {
             mAdapter = new AttachAdapter();
-            mAdapter.openAnimation(RapidAdapter.SCALEIN);
+            mAdapter.openAnimation(RecycledAdapter.SCALEIN);
             mAdapter.setLoadMoreEnable(true);
             mAdapter.setOnLoadMoreListener(this);
         }
 
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
-            protected void onItemClick(RapidAdapter adapter, RecyclerView recyclerView, View
+            protected void onItemClick(RecycledAdapter adapter, RecyclerView recyclerView, View
                     view, int position) {
                 itemClick(view, position);
             }
@@ -128,7 +128,7 @@ public class AttachmentFragment extends BaseFragment<AttachPresenter> implements
     }
 
     @Override
-    public void setPresenter(MvpRxPresenter presenter) {
+    public void setPresenter(RxPresenter presenter) {
 
     }
 

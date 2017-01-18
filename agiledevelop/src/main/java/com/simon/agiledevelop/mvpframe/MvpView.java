@@ -1,4 +1,4 @@
-package com.simon.agiledevelop;
+package com.simon.agiledevelop.mvpframe;
 
 /**
  * describe: All View must extends

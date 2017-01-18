@@ -1,4 +1,4 @@
-package com.simon.agiledevelop;
+package com.simon.agiledevelop.mvpframe;
 
 import android.support.annotation.Nullable;
 
@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference;
  * @email hanzx1024@gmail.com
  */
 
-public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
+public class BasePresenter<V extends MvpView> implements Presenter<V> {
 
     private WeakReference<V> viewRef;
 

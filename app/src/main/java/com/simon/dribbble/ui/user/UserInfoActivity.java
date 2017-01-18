@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.simon.agiledevelop.BaseActivity;
-import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.mvpframe.BaseActivity;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.Api;
@@ -155,7 +155,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     }
 
     @Override
-    public void setPresenter(MvpRxPresenter presenter) {
+    public void setPresenter(RxPresenter presenter) {
 
     }
 

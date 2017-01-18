@@ -10,8 +10,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
-import com.simon.agiledevelop.BaseActivity;
-import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.mvpframe.BaseActivity;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.dribbble.R;
@@ -91,7 +91,7 @@ public class SignInActivity extends BaseActivity<SignPresenter> implements SignI
     }
 
     @Override
-    public void setPresenter(MvpRxPresenter presenter) {
+    public void setPresenter(RxPresenter presenter) {
 
     }
 

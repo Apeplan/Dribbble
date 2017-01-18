@@ -21,7 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.simon.agiledevelop.BaseActivity;
+import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.crop.Crop;

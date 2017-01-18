@@ -13,9 +13,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.simon.agiledevelop.BaseActivity;
-import com.simon.agiledevelop.MvpRxPresenter;
-import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.mvpframe.BaseActivity;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
+import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
 import com.simon.agiledevelop.recycler.listeners.OnItemClickListener;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ResHelper;
@@ -37,7 +37,7 @@ import java.util.List;
  */
 
 public class CommentActivity extends BaseActivity<CommentPresenter> implements CommentContract
-        .View, SwipeRefreshLayout.OnRefreshListener, RapidAdapter.LoadMoreListener {
+        .View, SwipeRefreshLayout.OnRefreshListener, RecycledAdapter.LoadMoreListener {
 
     private String[] mCommOption;
 
@@ -89,7 +89,7 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
         mRecyclerView.setLayoutManager(rlm);
 
         mAdapter = new CommentAdapter();
-        mAdapter.openAnimation(RapidAdapter.SCALEIN);
+        mAdapter.openAnimation(RecycledAdapter.SCALEIN);
         mAdapter.setLoadMoreEnable(true);
         mAdapter.setOnLoadMoreListener(this);
         mPresenter = new CommentPresenter(this);
@@ -102,7 +102,7 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
 
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
-            protected void onItemClick(RapidAdapter adapter, RecyclerView recyclerView, View
+            protected void onItemClick(RecycledAdapter adapter, RecyclerView recyclerView, View
                     view, int position) {
                 AlertDialog.Builder dia_comm = DialogHelp.getSelectDialog(CommentActivity.this,
                         "评论选项", mCommOption, new DialogInterface.OnClickListener() {
@@ -201,7 +201,7 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
     }
 
     @Override
-    public void setPresenter(MvpRxPresenter presenter) {
+    public void setPresenter(RxPresenter presenter) {
 
     }
 

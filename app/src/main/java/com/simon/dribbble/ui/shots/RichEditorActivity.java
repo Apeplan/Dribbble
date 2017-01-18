@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.simon.agiledevelop.BaseActivity;
-import com.simon.agiledevelop.MvpPresenter;
+import com.simon.agiledevelop.mvpframe.BaseActivity;
+import com.simon.agiledevelop.mvpframe.Presenter;
 import com.simon.dribbble.R;
 import com.simon.dribbble.widget.richeditor.RichEditor;
 
@@ -40,7 +40,7 @@ public class RichEditorActivity extends BaseActivity {
     }
 
     @Override
-    protected MvpPresenter getPresenter() {
+    protected Presenter getPresenter() {
         return null;
     }
 

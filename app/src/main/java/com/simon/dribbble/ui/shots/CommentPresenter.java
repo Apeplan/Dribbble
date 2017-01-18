@@ -1,6 +1,6 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.log.LLog;
 import com.simon.dribbble.data.Api;
@@ -17,7 +17,7 @@ import rx.Observable;
  * Created on: 2016/9/1 17:12
  */
 
-public class CommentPresenter extends MvpRxPresenter<CommentContract.View, List<CommentEntity>> {
+public class CommentPresenter extends RxPresenter<CommentContract.View, List<CommentEntity>> {
 
     public CommentPresenter(CommentContract.View shotsView) {
         attachView(shotsView);

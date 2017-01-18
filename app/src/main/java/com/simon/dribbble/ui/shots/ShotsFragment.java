@@ -11,9 +11,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.simon.agiledevelop.BaseFragment;
+import com.simon.agiledevelop.mvpframe.BaseFragment;
 import com.simon.agiledevelop.log.LLog;
-import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.dribbble.R;
@@ -29,7 +29,7 @@ import java.util.List;
 
 
 public class ShotsFragment extends BaseFragment<ShotsPresenter> implements ShotsContract.View,
-        RapidAdapter.LoadMoreListener, ShotsAdapter.ShotClickListener {
+        RecycledAdapter.LoadMoreListener, ShotsAdapter.ShotClickListener {
 
     private int mPageNo = 1;
     private StateLayout mStateLayout;
@@ -89,11 +89,17 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
         mRecyclerView = (RecyclerView) view.findViewById(R.id.xrv_shots);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setRecycleChildrenOnDetach(true);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
+//        RecyclerView可以设置自己所需要的ViewHolder数量，
+//        只有超过这个数量的detached ViewHolder才会丢进ViewPool中与别的RecyclerView共享。默认是2
+//        mRecyclerView.setItemViewCacheSize(5);
         if (mAdapter == null) {
             mAdapter = new ShotsAdapter();
-            mAdapter.openAnimation(RapidAdapter.SCALEIN);
+            mRecyclerView.setRecycledViewPool(mAdapter.getPool());
+
+            mAdapter.openAnimation(RecycledAdapter.SCALEIN);
             mAdapter.setLoadMoreEnable(true);
             mAdapter.setOnLoadMoreListener(this);
             mAdapter.setShotClickListener(this);

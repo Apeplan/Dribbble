@@ -1,6 +1,6 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.agiledevelop.MvpView;
+import com.simon.agiledevelop.mvpframe.MvpView;
 import com.simon.dribbble.data.model.ShotEntity;
 
 /**

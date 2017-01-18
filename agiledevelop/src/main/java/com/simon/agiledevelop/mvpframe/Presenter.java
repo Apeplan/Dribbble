@@ -1,4 +1,4 @@
-package com.simon.agiledevelop;
+package com.simon.agiledevelop.mvpframe;
 
 /**
  * describe:
@@ -8,7 +8,7 @@ package com.simon.agiledevelop;
  * @email hanzx1024@gmail.com
  */
 
-public interface MvpPresenter<V extends MvpView> {
+public interface Presenter<V extends MvpView> {
     /**
      * Set or attach the view to this presenter
      */

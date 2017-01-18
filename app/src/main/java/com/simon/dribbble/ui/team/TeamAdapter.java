@@ -1,9 +1,10 @@
 package com.simon.dribbble.ui.team;
 
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
-import com.simon.agiledevelop.recycler.RapidViewHolder;
-import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.recycler.RecycledViewHolder;
+import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
 import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.TeamEntity;
@@ -15,13 +16,15 @@ import com.simon.dribbble.util.ColorPhrase;
  * Created on: 2016/9/13 10:51
  */
 
-public class TeamAdapter extends RapidAdapter<TeamEntity,RapidViewHolder> {
+public class TeamAdapter extends RecycledAdapter<TeamEntity,RecycledViewHolder> {
+    private RecyclerView.RecycledViewPool mPool = new RecyclerView.RecycledViewPool();
+
     public TeamAdapter() {
         super(R.layout.item_team);
     }
 
     @Override
-    protected void convert(RapidViewHolder helper, TeamEntity item) {
+    protected void convert(RecycledViewHolder helper, TeamEntity item) {
         if (null != item) {
             String avatar_url = item.getAvatar_url();
             ImgLoadHelper.loadAvatar(avatar_url, (ImageView) helper.getView(R.id.imv_avatar));
@@ -45,5 +48,9 @@ public class TeamAdapter extends RapidAdapter<TeamEntity,RapidViewHolder> {
             helper.setText(R.id.tv_shots_count, shot_count);
             helper.setText(R.id.tv_follower_count, follower_count);
         }
+    }
+
+    public RecyclerView.RecycledViewPool getPool() {
+        return mPool;
     }
 }

@@ -7,8 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.simon.agiledevelop.BaseActivity;
-import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.mvpframe.BaseActivity;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.log.LLog;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.ShotEntity;
@@ -115,7 +115,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     }
 
     @Override
-    public void setPresenter(MvpRxPresenter presenter) {
+    public void setPresenter(RxPresenter presenter) {
 
     }
 

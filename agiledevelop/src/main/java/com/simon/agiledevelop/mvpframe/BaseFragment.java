@@ -1,4 +1,4 @@
-package com.simon.agiledevelop;
+package com.simon.agiledevelop.mvpframe;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,12 +15,12 @@ import com.simon.agiledevelop.state.StateViewHelperController;
 /**
  * describe: Base Fragment, With no special requirements, all fragment must extends
  *
- * @param <T> {@link MvpPresenter} subclass
+ * @param <T> {@link Presenter} subclass
  * @author Simon Han
  * @date 2016.10.20
  * @email hanzx1024@gmail.com
  */
-public abstract class BaseFragment<T extends MvpPresenter> extends Fragment implements View
+public abstract class BaseFragment<T extends Presenter> extends Fragment implements View
         .OnClickListener {
     protected T mPresenter;
     private StateViewHelperController mStateController;

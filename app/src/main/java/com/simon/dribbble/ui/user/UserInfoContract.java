@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui.user;
 
-import com.simon.agiledevelop.MvpRxPresenter;
-import com.simon.agiledevelop.MvpView;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
+import com.simon.agiledevelop.mvpframe.MvpView;
 import com.simon.dribbble.data.model.User;
 
 /**
@@ -10,7 +10,7 @@ import com.simon.dribbble.data.model.User;
 
 public interface UserInfoContract {
 
-    interface View extends MvpView<MvpRxPresenter> {
+    interface View extends MvpView<RxPresenter> {
         void showUserInfo(User user);
     }
 

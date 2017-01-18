@@ -1,4 +1,4 @@
-package com.simon.agiledevelop;
+package com.simon.agiledevelop.mvpframe;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.simon.agiledevelop.R;
 import com.simon.agiledevelop.state.StateViewHelperController;
 import com.simon.agiledevelop.utils.PreferencesHelper;
 
@@ -18,12 +19,12 @@ import com.simon.agiledevelop.utils.PreferencesHelper;
 /**
  * describe: Base Activity, With no special requirements, all activity must extends
  *
- * @param <P> {@link MvpPresenter} subclass
+ * @param <P> {@link Presenter} subclass
  * @author Simon Han
  * @date 2016.10.20
  * @email hanzx1024@gmail.com
  */
-public abstract class BaseActivity<P extends MvpPresenter> extends AppCompatActivity
+public abstract class BaseActivity<P extends Presenter> extends AppCompatActivity
         implements View.OnClickListener, BaseFragment.OnFragmentInteractionListener {
 
 

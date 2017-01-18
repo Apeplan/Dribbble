@@ -1,5 +1,6 @@
-package com.simon.agiledevelop;
+package com.simon.agiledevelop.mvpframe;
 
+import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.utils.schedulers.AndroidSchedulerTransformer;
 import com.simon.agiledevelop.utils.schedulers.SchedulerProvider;
 
@@ -14,7 +15,7 @@ import rx.functions.Action0;
  * @email hanzx1024@gmail.com
  */
 
-public abstract class MvpRxPresenter<V extends MvpView, M> extends MvpBasePresenter<V> {
+public abstract class RxPresenter<V extends MvpView, M> extends BasePresenter<V> {
 
     protected ResultSubscriber<M> subscriber;
 

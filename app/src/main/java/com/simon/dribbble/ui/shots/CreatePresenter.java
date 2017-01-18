@@ -1,6 +1,6 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
 
 /**
  * Created by: Simon
@@ -8,6 +8,6 @@ import com.simon.agiledevelop.MvpRxPresenter;
  * Created on: 2016/9/6 17:53
  */
 
-public class CreatePresenter extends MvpRxPresenter {
+public class CreatePresenter extends RxPresenter {
 
 }

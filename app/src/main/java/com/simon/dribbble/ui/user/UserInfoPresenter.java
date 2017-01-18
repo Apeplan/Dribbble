@@ -1,6 +1,6 @@
 package com.simon.dribbble.ui.user;
 
-import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.log.LLog;
 import com.simon.dribbble.data.DribbbleDataManger;
@@ -12,7 +12,7 @@ import rx.Observable;
  * Created by Simon Han on 2016/9/17.
  */
 
-public class UserInfoPresenter extends MvpRxPresenter<UserInfoContract.View, User> {
+public class UserInfoPresenter extends RxPresenter<UserInfoContract.View, User> {
 
     public UserInfoPresenter(UserInfoContract.View view) {
         attachView(view);

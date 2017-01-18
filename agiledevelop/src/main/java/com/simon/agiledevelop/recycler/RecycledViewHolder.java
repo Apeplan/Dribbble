@@ -32,7 +32,7 @@ import java.util.LinkedHashSet;
  * @email hanzx1024@gmail.com
  */
 
-public class RapidViewHolder extends RecyclerView.ViewHolder {
+public class RecycledViewHolder extends RecyclerView.ViewHolder {
 
     private SparseArray<View> mView;
     private View convertView;
@@ -40,7 +40,7 @@ public class RapidViewHolder extends RecyclerView.ViewHolder {
     private final LinkedHashSet<Integer> itemChildLongClickViewIds;
     Object associatedObject;
 
-    public RapidViewHolder(View itemView) {
+    public RecycledViewHolder(View itemView) {
         super(itemView);
         convertView = itemView;
         mView = new SparseArray<>();
@@ -55,32 +55,32 @@ public class RapidViewHolder extends RecyclerView.ViewHolder {
      * @param sequence
      * @return
      */
-    public RapidViewHolder setText(int viewId, CharSequence sequence) {
+    public RecycledViewHolder setText(int viewId, CharSequence sequence) {
         TextView textView = getView(viewId);
         textView.setText(sequence);
         return this;
     }
 
-    public RapidViewHolder setText(int viewId, @StringRes int strId) {
+    public RecycledViewHolder setText(int viewId, @StringRes int strId) {
         TextView textView = getView(viewId);
         textView.setText(strId);
         return this;
     }
 
-    public RapidViewHolder setTextColor(int viewId, int textColor) {
+    public RecycledViewHolder setTextColor(int viewId, int textColor) {
         TextView textView = getView(viewId);
         textView.setTextColor(textColor);
         return this;
     }
 
-    public RapidViewHolder setTypeface(int viewId, Typeface typeface) {
+    public RecycledViewHolder setTypeface(int viewId, Typeface typeface) {
         TextView textView = getView(viewId);
         textView.setTypeface(typeface);
         textView.setPaintFlags(textView.getPaintFlags() | Paint.SUBPIXEL_TEXT_FLAG);
         return this;
     }
 
-    public RapidViewHolder setTypeface(Typeface typeface, int... viewIds) {
+    public RecycledViewHolder setTypeface(Typeface typeface, int... viewIds) {
         for (int viewId : viewIds) {
             TextView textView = getView(viewId);
             textView.setTypeface(typeface);
@@ -95,7 +95,7 @@ public class RapidViewHolder extends RecyclerView.ViewHolder {
      * @param viewId
      * @return
      */
-    public RapidViewHolder linksIntoTextView(int viewId) {
+    public RecycledViewHolder linksIntoTextView(int viewId) {
         TextView textView = getView(viewId);
         Linkify.addLinks(textView, Linkify.ALL);
         return this;
@@ -108,19 +108,19 @@ public class RapidViewHolder extends RecyclerView.ViewHolder {
      * @param color
      * @return
      */
-    public RapidViewHolder setBackgroundColor(int viewId, int color) {
+    public RecycledViewHolder setBackgroundColor(int viewId, int color) {
         View view = getView(viewId);
         view.setBackgroundColor(color);
         return this;
     }
 
-    public RapidViewHolder setBackgroundRes(int viewId, @DrawableRes int imageResId) {
+    public RecycledViewHolder setBackgroundRes(int viewId, @DrawableRes int imageResId) {
         View view = getView(viewId);
         view.setBackgroundResource(imageResId);
         return this;
     }
 
-    public RapidViewHolder setAlpha(int viewId, float value) {
+    public RecycledViewHolder setAlpha(int viewId, float value) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             getView(viewId).setAlpha(value);
         } else {
@@ -132,7 +132,7 @@ public class RapidViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public RapidViewHolder setVisible(int viewId, boolean visible) {
+    public RecycledViewHolder setVisible(int viewId, boolean visible) {
         View view = getView(viewId);
         view.setVisibility(visible ? View.VISIBLE : View.GONE);
         return this;
@@ -145,19 +145,19 @@ public class RapidViewHolder extends RecyclerView.ViewHolder {
      * @param resId
      * @return
      */
-    public RapidViewHolder setImageResource(int viewId, @DrawableRes int resId) {
+    public RecycledViewHolder setImageResource(int viewId, @DrawableRes int resId) {
         ImageView imageView = getView(viewId);
         imageView.setImageResource(resId);
         return this;
     }
 
-    public RapidViewHolder setImageBitmap(int viewId, Bitmap bitmap) {
+    public RecycledViewHolder setImageBitmap(int viewId, Bitmap bitmap) {
         ImageView imageView = getView(viewId);
         imageView.setImageBitmap(bitmap);
         return this;
     }
 
-    public RapidViewHolder setImageDrawable(int viewId, Drawable drawable) {
+    public RecycledViewHolder setImageDrawable(int viewId, Drawable drawable) {
         ImageView imageView = getView(viewId);
         imageView.setImageDrawable(drawable);
         return this;
@@ -170,32 +170,32 @@ public class RapidViewHolder extends RecyclerView.ViewHolder {
      * @param progress
      * @return
      */
-    public RapidViewHolder setProgress(int viewId, int progress) {
+    public RecycledViewHolder setProgress(int viewId, int progress) {
         ProgressBar view = getView(viewId);
         view.setProgress(progress);
         return this;
     }
 
-    public RapidViewHolder setProgress(int viewId, int progress, int max) {
+    public RecycledViewHolder setProgress(int viewId, int progress, int max) {
         ProgressBar view = getView(viewId);
         view.setMax(max);
         view.setProgress(progress);
         return this;
     }
 
-    public RapidViewHolder setMax(int viewId, int max) {
+    public RecycledViewHolder setMax(int viewId, int max) {
         ProgressBar view = getView(viewId);
         view.setMax(max);
         return this;
     }
 
-    public RapidViewHolder setRating(int viewId, float rating) {
+    public RecycledViewHolder setRating(int viewId, float rating) {
         RatingBar view = getView(viewId);
         view.setRating(rating);
         return this;
     }
 
-    public RapidViewHolder setRating(int viewId, float rating, int max) {
+    public RecycledViewHolder setRating(int viewId, float rating, int max) {
         RatingBar view = getView(viewId);
         view.setMax(max);
         view.setRating(rating);
@@ -203,7 +203,7 @@ public class RapidViewHolder extends RecyclerView.ViewHolder {
     }
 
     @Deprecated
-    public RapidViewHolder setOnClickListener(int viewId, View.OnClickListener listener) {
+    public RecycledViewHolder setOnClickListener(int viewId, View.OnClickListener listener) {
         View view = getView(viewId);
         view.setOnClickListener(listener);
         return this;
@@ -215,7 +215,7 @@ public class RapidViewHolder extends RecyclerView.ViewHolder {
      * @param viewId add the child view id   can support childview click
      * @return
      */
-    public RapidViewHolder addOnClickListener(int viewId) {
+    public RecycledViewHolder addOnClickListener(int viewId) {
         childClickViewIds.add(viewId);
         return this;
     }
@@ -226,64 +226,64 @@ public class RapidViewHolder extends RecyclerView.ViewHolder {
      * @param viewId
      * @return
      */
-    public RapidViewHolder addOnLongClickListener(int viewId) {
+    public RecycledViewHolder addOnLongClickListener(int viewId) {
         itemChildLongClickViewIds.add(viewId);
         return this;
     }
 
-    public RapidViewHolder setOnTouchListener(int viewId, View.OnTouchListener listener) {
+    public RecycledViewHolder setOnTouchListener(int viewId, View.OnTouchListener listener) {
         View view = getView(viewId);
         view.setOnTouchListener(listener);
         return this;
     }
 
-    public RapidViewHolder setOnLongClickListener(int viewId, View.OnLongClickListener listener) {
+    public RecycledViewHolder setOnLongClickListener(int viewId, View.OnLongClickListener listener) {
         View view = getView(viewId);
         view.setOnLongClickListener(listener);
         return this;
     }
 
-    public RapidViewHolder setOnItemClickListener(int viewId, AdapterView.OnItemClickListener
+    public RecycledViewHolder setOnItemClickListener(int viewId, AdapterView.OnItemClickListener
             listener) {
         AdapterView view = getView(viewId);
         view.setOnItemClickListener(listener);
         return this;
     }
 
-    public RapidViewHolder setOnItemLongClickListener(int viewId, AdapterView.OnItemLongClickListener
+    public RecycledViewHolder setOnItemLongClickListener(int viewId, AdapterView.OnItemLongClickListener
             listener) {
         AdapterView view = getView(viewId);
         view.setOnItemLongClickListener(listener);
         return this;
     }
 
-    public RapidViewHolder setOnItemSelectedClickListener(int viewId, AdapterView
+    public RecycledViewHolder setOnItemSelectedClickListener(int viewId, AdapterView
             .OnItemSelectedListener listener) {
         AdapterView view = getView(viewId);
         view.setOnItemSelectedListener(listener);
         return this;
     }
 
-    public RapidViewHolder setOnCheckedChangeListener(int viewId, CompoundButton
+    public RecycledViewHolder setOnCheckedChangeListener(int viewId, CompoundButton
             .OnCheckedChangeListener listener) {
         CompoundButton view = getView(viewId);
         view.setOnCheckedChangeListener(listener);
         return this;
     }
 
-    public RapidViewHolder setTag(int viewId, Object tag) {
+    public RecycledViewHolder setTag(int viewId, Object tag) {
         View view = getView(viewId);
         view.setTag(tag);
         return this;
     }
 
-    public RapidViewHolder setTag(int viewId, int key, Object tag) {
+    public RecycledViewHolder setTag(int viewId, int key, Object tag) {
         View view = getView(viewId);
         view.setTag(key, tag);
         return this;
     }
 
-    public RapidViewHolder setChecked(int viewId, boolean checked) {
+    public RecycledViewHolder setChecked(int viewId, boolean checked) {
         View view = getView(viewId);
         // View unable cast to Checkable
         if (view instanceof CompoundButton) {
@@ -294,7 +294,7 @@ public class RapidViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public RapidViewHolder setAdapter(int viewId, Adapter adapter) {
+    public RecycledViewHolder setAdapter(int viewId, Adapter adapter) {
         AdapterView view = getView(viewId);
         view.setAdapter(adapter);
         return this;

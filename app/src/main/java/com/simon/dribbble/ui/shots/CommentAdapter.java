@@ -3,8 +3,8 @@ package com.simon.dribbble.ui.shots;
 import android.text.Html;
 import android.widget.ImageView;
 
-import com.simon.agiledevelop.recycler.RapidViewHolder;
-import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.recycler.RecycledViewHolder;
+import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
 import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.CommentEntity;
@@ -18,14 +18,14 @@ import com.simon.dribbble.util.StringUtil;
  * Created on: 2016/9/1 13:56
  */
 
-public class CommentAdapter extends RapidAdapter<CommentEntity,RapidViewHolder> {
+public class CommentAdapter extends RecycledAdapter<CommentEntity,RecycledViewHolder> {
 
     public CommentAdapter() {
         super(R.layout.item_comment);
     }
 
     @Override
-    protected void convert(RapidViewHolder helper, CommentEntity item) {
+    protected void convert(RecycledViewHolder helper, CommentEntity item) {
         if (null != item) {
             User user = item.getUser();
             String avatar_url = user.avatar_url;

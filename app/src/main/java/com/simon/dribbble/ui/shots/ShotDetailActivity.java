@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.simon.agiledevelop.BaseActivity;
+import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.agiledevelop.utils.ToastHelper;

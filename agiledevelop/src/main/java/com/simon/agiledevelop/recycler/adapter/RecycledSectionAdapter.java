@@ -2,7 +2,7 @@ package com.simon.agiledevelop.recycler.adapter;
 
 import android.view.ViewGroup;
 
-import com.simon.agiledevelop.recycler.RapidViewHolder;
+import com.simon.agiledevelop.recycler.RecycledViewHolder;
 import com.simon.agiledevelop.recycler.entity.SectionEntity;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  * @param <T> extends SectionEntity
  */
 
-public abstract class RapidSectionAdapter<T extends SectionEntity> extends RapidAdapter {
+public abstract class RecycledSectionAdapter<T extends SectionEntity> extends RecycledAdapter {
 
 
     protected int mSectionHeadResId;
@@ -30,15 +30,15 @@ public abstract class RapidSectionAdapter<T extends SectionEntity> extends Rapid
      * @param layoutResId      The layout resource id of each item.
      * @param data             A new list is created out of this one to avoid mutable list
      */
-    public RapidSectionAdapter(int layoutResId, int sectionHeadResId, List<T> data) {
+    public RecycledSectionAdapter(int layoutResId, int sectionHeadResId, List<T> data) {
         super(layoutResId, data);
         this.mSectionHeadResId = sectionHeadResId;
     }
 
     @Override
-    protected RapidViewHolder onCreateDefViewHolder(ViewGroup parent, int viewType) {
+    protected RecycledViewHolder onCreateDefViewHolder(ViewGroup parent, int viewType) {
         if (viewType == SECTION_HEADER_VIEW)
-            return new RapidViewHolder(getItemView(mSectionHeadResId, parent));
+            return new RecycledViewHolder(getItemView(mSectionHeadResId, parent));
 
         return super.onCreateDefViewHolder(parent, viewType);
     }
@@ -48,7 +48,7 @@ public abstract class RapidSectionAdapter<T extends SectionEntity> extends Rapid
      * @param item   The item that needs to be displayed.
      */
     @Override
-    protected void convert(RapidViewHolder holder, Object item) {
+    protected void convert(RecycledViewHolder holder, Object item) {
         switch (holder.getItemViewType()) {
             case SECTION_HEADER_VIEW:
                 setFullSpan(holder);
@@ -60,9 +60,9 @@ public abstract class RapidSectionAdapter<T extends SectionEntity> extends Rapid
         }
     }
 
-    protected abstract void convertHead(RapidViewHolder helper, T item);
+    protected abstract void convertHead(RecycledViewHolder helper, T item);
 
-    protected abstract void convert(RapidViewHolder helper, T item);
+    protected abstract void convert(RecycledViewHolder helper, T item);
 
 
 }

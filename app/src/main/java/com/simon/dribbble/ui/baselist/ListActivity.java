@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.simon.agiledevelop.BaseActivity;
-import com.simon.agiledevelop.BaseFragment;
-import com.simon.agiledevelop.MvpPresenter;
+import com.simon.agiledevelop.mvpframe.BaseActivity;
+import com.simon.agiledevelop.mvpframe.BaseFragment;
+import com.simon.agiledevelop.mvpframe.Presenter;
 import com.simon.dribbble.R;
 import com.simon.dribbble.ui.shots.AttachmentFragment;
 import com.simon.dribbble.ui.shots.BucketsFragment;
@@ -28,7 +28,7 @@ public class ListActivity extends BaseActivity {
     }
 
     @Override
-    protected MvpPresenter getPresenter() {
+    protected Presenter getPresenter() {
         return null;
     }
 

@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui;
 
-import com.simon.agiledevelop.MvpRxPresenter;
-import com.simon.agiledevelop.MvpView;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
+import com.simon.agiledevelop.mvpframe.MvpView;
 
 /**
  * describe:
@@ -11,6 +11,6 @@ import com.simon.agiledevelop.MvpView;
  * @email hanzx1024@gmail.com
  */
 
-public abstract class CommListPresenter<V extends MvpView, M> extends MvpRxPresenter<V, M> {
+public abstract class CommListPresenter<V extends MvpView, M> extends RxPresenter<V, M> {
     public abstract void loadList(int action, long id, String type, int page);
 }

@@ -1,6 +1,6 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.log.LLog;
 import com.simon.dribbble.data.Api;
@@ -18,7 +18,7 @@ import rx.Observable;
  * Created on: 2016/9/14 16:20
  */
 
-public class AttachPresenter extends MvpRxPresenter<BaseListContract.View, List<AttachmentEntity>> {
+public class AttachPresenter extends RxPresenter<BaseListContract.View, List<AttachmentEntity>> {
 
     public AttachPresenter(BaseListContract.View view) {
         attachView(view);

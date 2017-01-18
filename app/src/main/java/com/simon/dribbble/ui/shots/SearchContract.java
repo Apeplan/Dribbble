@@ -1,7 +1,7 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.agiledevelop.MvpRxPresenter;
-import com.simon.agiledevelop.MvpView;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
+import com.simon.agiledevelop.mvpframe.MvpView;
 import com.simon.dribbble.data.model.ShotEntity;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface SearchContract {
 
-    interface View extends MvpView<MvpRxPresenter> {
+    interface View extends MvpView<RxPresenter> {
         void showSearch(List<ShotEntity> shots);
     }
 }

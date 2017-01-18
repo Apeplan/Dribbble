@@ -1,9 +1,10 @@
 package com.simon.dribbble.ui.buckets;
 
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
-import com.simon.agiledevelop.recycler.RapidViewHolder;
-import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.recycler.RecycledViewHolder;
+import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
 import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.BucketEntity;
@@ -18,14 +19,16 @@ import com.simon.dribbble.util.StringUtil;
  * Created on: 2016/9/2 15:57
  */
 
-public class UserBucketsAdapter extends RapidAdapter<BucketEntity,RapidViewHolder> {
+public class UserBucketsAdapter extends RecycledAdapter<BucketEntity,RecycledViewHolder> {
+
+    private RecyclerView.RecycledViewPool mPool = new RecyclerView.RecycledViewPool();
 
     public UserBucketsAdapter() {
         super(R.layout.item_user_buckets);
     }
 
     @Override
-    protected void convert(RapidViewHolder helper, BucketEntity item) {
+    protected void convert(RecycledViewHolder helper, BucketEntity item) {
         if (null != item) {
             User user = item.getUser();
             if (null != user) {
@@ -63,5 +66,9 @@ public class UserBucketsAdapter extends RapidAdapter<BucketEntity,RapidViewHolde
                 helper.setText(R.id.tv_buckets_desc, description);
             }
         }
+    }
+
+    public RecyclerView.RecycledViewPool getPool() {
+        return mPool;
     }
 }

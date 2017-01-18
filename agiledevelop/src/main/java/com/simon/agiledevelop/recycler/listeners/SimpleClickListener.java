@@ -6,8 +6,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.simon.agiledevelop.recycler.RapidViewHolder;
-import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.recycler.RecycledViewHolder;
+import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -24,7 +24,7 @@ public abstract class SimpleClickListener implements RecyclerView.OnItemTouchLis
 
     private GestureDetectorCompat mDetectorCompat;
     private RecyclerView mRecyclerView;
-    private RapidAdapter mBaseAdapter;
+    private RecycledAdapter mBaseAdapter;
     private View mPressedView = null;
 
     private boolean mIsShowPress = false;
@@ -36,7 +36,7 @@ public abstract class SimpleClickListener implements RecyclerView.OnItemTouchLis
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         if (mRecyclerView == null) {
             mRecyclerView = rv;
-            mBaseAdapter = (RapidAdapter) mRecyclerView.getAdapter();
+            mBaseAdapter = (RecycledAdapter) mRecyclerView.getAdapter();
             mDetectorCompat = new GestureDetectorCompat(mRecyclerView.getContext(), new
                     ItemTouchHelperGestureDetectorListener(mRecyclerView));
         }
@@ -94,7 +94,7 @@ public abstract class SimpleClickListener implements RecyclerView.OnItemTouchLis
             if (mIsPrepressed && mPressedView != null) {
                 mPressedView.setPressed(true);
                 final View pressedView = mPressedView;
-                RapidViewHolder bvh = (RapidViewHolder) mRv.getChildViewHolder(pressedView);
+                RecycledViewHolder bvh = (RecycledViewHolder) mRv.getChildViewHolder(pressedView);
                 // 判断是不是头、尾、加载更多
                 if (isHeaderOrFooterPosition(bvh.getLayoutPosition())) {
                     return false;
@@ -123,7 +123,7 @@ public abstract class SimpleClickListener implements RecyclerView.OnItemTouchLis
         public void onLongPress(MotionEvent e) {
             boolean isLongClick = false;
             if (mIsPrepressed && mPressedView != null) {
-                RapidViewHolder bvh = (RapidViewHolder) mRv.getChildViewHolder
+                RecycledViewHolder bvh = (RecycledViewHolder) mRv.getChildViewHolder
                         (mPressedView);
                 int position = bvh.getLayoutPosition() - mBaseAdapter.getHeaderLayoutCount();
 
@@ -176,18 +176,18 @@ public abstract class SimpleClickListener implements RecyclerView.OnItemTouchLis
         }
     }
 
-    protected abstract void onItemLongClick(RapidAdapter adapter, RecyclerView recyclerView,
+    protected abstract void onItemLongClick(RecycledAdapter adapter, RecyclerView recyclerView,
                                             View
             view, int position);
 
-    protected abstract void onItemChildLongClick(RapidAdapter adapter, RecyclerView
+    protected abstract void onItemChildLongClick(RecycledAdapter adapter, RecyclerView
             recyclerView,
                                                  View view, int position);
 
-    protected abstract void onItemClick(RapidAdapter adapter, RecyclerView recyclerView, View
+    protected abstract void onItemClick(RecycledAdapter adapter, RecyclerView recyclerView, View
             view, int position);
 
-    protected abstract void onItemChildClick(RapidAdapter adapter, RecyclerView recyclerView,
+    protected abstract void onItemChildClick(RecycledAdapter adapter, RecyclerView recyclerView,
                                              View view, int position);
 
     /**
@@ -225,8 +225,8 @@ public abstract class SimpleClickListener implements RecyclerView.OnItemTouchLis
          *  have a headview and EMPTY_VIEW FOOTER_VIEW LOADING_VIEW
          */
         int type = mBaseAdapter.getItemViewType(position);
-        return (type == RapidAdapter.TYPE_HEADER || type == RapidAdapter.TYPE_FOOTER ||
+        return (type == RecycledAdapter.TYPE_HEADER || type == RecycledAdapter.TYPE_FOOTER ||
                 type ==
-                RapidAdapter.TYPE_LOADING);
+                RecycledAdapter.TYPE_LOADING);
     }
 }

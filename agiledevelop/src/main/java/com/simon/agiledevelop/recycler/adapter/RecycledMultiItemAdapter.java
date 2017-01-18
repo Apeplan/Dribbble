@@ -4,7 +4,7 @@ import android.support.annotation.LayoutRes;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-import com.simon.agiledevelop.recycler.RapidViewHolder;
+import com.simon.agiledevelop.recycler.RecycledViewHolder;
 import com.simon.agiledevelop.recycler.entity.MultiItemEntity;
 
 import java.util.List;
@@ -19,8 +19,8 @@ import java.util.List;
  * @email hanzx1024@gmail.com
  */
 
-public abstract class RapidMultiItemAdapter<T extends MultiItemEntity, H extends
-        RapidViewHolder> extends RapidAdapter<T, H> {
+public abstract class RecycledMultiItemAdapter<T extends MultiItemEntity, H extends
+        RecycledViewHolder> extends RecycledAdapter<T, H> {
 
     /**
      * layouts indexed with their types
@@ -35,7 +35,7 @@ public abstract class RapidMultiItemAdapter<T extends MultiItemEntity, H extends
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public RapidMultiItemAdapter(List<T> data) {
+    public RecycledMultiItemAdapter(List<T> data) {
         super(data);
     }
 

@@ -6,9 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.simon.agiledevelop.BaseFragment;
+import com.simon.agiledevelop.mvpframe.BaseFragment;
 import com.simon.agiledevelop.log.LLog;
-import com.simon.agiledevelop.recycler.adapter.RapidAdapter;
+import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
 import com.simon.agiledevelop.recycler.listeners.OnItemClickListener;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.Api;
@@ -26,7 +26,7 @@ import java.util.List;
  * @email hanzx1024@gmail.com
  */
 
-public abstract class CommListFragment<P extends CommListPresenter, A extends RapidAdapter> extends
+public abstract class CommListFragment<P extends CommListPresenter, A extends RecycledAdapter> extends
         BaseFragment<P> implements CommListContract.View {
 
     private StateLayout mStateLayout;
@@ -50,11 +50,13 @@ public abstract class CommListFragment<P extends CommListPresenter, A extends Ra
         mStateLayout = (StateLayout) view.findViewById(R.id.stateLayout_list);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.xrlv_list);
         LinearLayoutManager rlm = new LinearLayoutManager(getActivity());
+        rlm.setRecycleChildrenOnDetach(true);
         mRecyclerView.setLayoutManager(rlm);
 
         if (mAdapter == null) {
             mAdapter = getListAdapter();
-            mAdapter.openAnimation(RapidAdapter.SCALEIN);
+//            mRecyclerView.setRecycledViewPool(mAdapter.g);
+            mAdapter.openAnimation(RecycledAdapter.SCALEIN);
             mAdapter.setLoadMoreEnable(isLoadMoreEnabled());
         }
 
@@ -78,7 +80,7 @@ public abstract class CommListFragment<P extends CommListPresenter, A extends Ra
 
 
         if (isLoadMoreEnabled()) {
-            mAdapter.setOnLoadMoreListener(new RapidAdapter.LoadMoreListener() {
+            mAdapter.setOnLoadMoreListener(new RecycledAdapter.LoadMoreListener() {
                 @Override
                 public void onLoadMore() {
                     moreData();
@@ -88,7 +90,7 @@ public abstract class CommListFragment<P extends CommListPresenter, A extends Ra
 
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
-            protected void onItemClick(RapidAdapter adapter, RecyclerView recyclerView, View
+            protected void onItemClick(RecycledAdapter adapter, RecyclerView recyclerView, View
                     view, int position) {
                 itemClick(view, position);
             }

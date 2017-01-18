@@ -1,6 +1,6 @@
 package com.simon.dribbble.ui.shots;
 
-import com.simon.agiledevelop.MvpRxPresenter;
+import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.log.LLog;
 import com.simon.dribbble.data.DribbbleDataManger;
@@ -17,7 +17,7 @@ import rx.Observable;
  * Created on: 2016/9/12 11:48
  */
 
-public class SearchPresenter extends MvpRxPresenter<SearchContract.View, List<ShotEntity>> {
+public class SearchPresenter extends RxPresenter<SearchContract.View, List<ShotEntity>> {
 
     public SearchPresenter(SearchContract.View view) {
         attachView(view);
