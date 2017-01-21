@@ -67,6 +67,10 @@ public class ShotsAdapter extends RecycledAdapter<ShotEntity, RecycledViewHolder
 
             ImgLoadHelper.image(StringUtil.isEmpty(hidpi) ? normal : hidpi, R.drawable
                     .placeholder_pic, R.drawable.placeholder_pic, imageView);
+
+//            Picasso.with(App.INSTANCE).load(StringUtil.isEmpty(hidpi) ? normal : hidpi)
+//                    .placeholder(R.drawable.placeholder_pic).into(imageView);
+
             ImgLoadHelper.loadAvatar(avatar_url, avatar);
 
             holder.setVisible(R.id.tv_type, animated);
