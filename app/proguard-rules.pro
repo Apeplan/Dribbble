@@ -116,18 +116,80 @@
     public static <fields>;
 }
 
+-keep class com.simon.dribbble.data.model.** { *; }
+
 #避免混淆泛型 如果混淆报错建议关掉
 #-keepattributes Signature
 
 #######################     常用第三方模块的混淆选项         ###################################
 #gson
 #如果用用到Gson解析包的，直接添加下面这几行就能成功混淆，不然会报错。
--keepattributes Signature
-# Gson specific classes
+##---------------Begin: proguard configuration for Gson ----------
 -keep class sun.misc.Unsafe { *; }
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.** { *; }
--keep class com.google.gson.stream.** { *; }
 # 如果使用了Gson之类的工具要使被它解析的JavaBean类即实体类不被混淆。
 -keep class com.matrix.app.entity.json.** { *; }
 -keep class com.matrix.appsdk.network.model.** { *; }
+
+-keep public class com.google.gson.**
+-keep public class com.google.gson.** {public private protected *;}
+
+# java.lang.RuntimeException: Missing type parameter.
+-dontobfuscate
+
+-keep public class com.project.mocha_patient.login.SignResponseData { private *; }
+
+-keep class com.google.gson.stream.** { *; }
+-keep class com.google.gson.examples.android.model.** { *; }
+-keep class com.google.android.gms.** { *; }
+# Explicitly preserve all serialization members. The Serializable interface
+# is only a marker interface, so it wouldn't save them.
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+
+-keep public class * implements java.io.Serializable {*;}
+
+##---------------End: proguard configuration for Gson ----------
+
+#================= Glide ==================================
+#-keepnames class com.jdyg.widget.glide.GlideConfiguration
+    # or more generally:
+    #-keep public class * implements com.bumptech.glide.module.GlideModule
+    -keep public class * implements com.bumptech.glide.module.GlideModule
+    -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+      **[] $VALUES;
+      public *;
+    }
+
+#================== Okhttp =====================================
+-dontwarn com.squareup.okhttp.**
+
+-keep class com.squareup.okhttp.** { *;}
+
+-dontwarn okio.**
+
+#Retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+#RxJava RxAndroid
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+   long producerIndex;
+   long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}

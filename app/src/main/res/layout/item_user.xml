@@ -11,7 +11,9 @@
     android:layout_marginTop="@dimen/px_2_dp_16"
     app:cardBackgroundColor="@color/white_main"
     app:cardCornerRadius="@dimen/px_2_dp_10"
-    app:cardElevation="@dimen/px_2_dp_10">
+    app:cardElevation="@dimen/px_2_dp_10"
+    app:contentPaddingBottom="@dimen/px_2_dp_10"
+    app:contentPaddingTop="@dimen/px_2_dp_10">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,8 +24,8 @@
 
         <ImageView
             android:id="@+id/imv_avatar"
-            android:layout_width="@dimen/px_2_dp_80"
-            android:layout_height="@dimen/px_2_dp_80"
+            android:layout_width="@dimen/px_2_dp_100"
+            android:layout_height="@dimen/px_2_dp_100"
             android:src="@drawable/person_image_empty"/>
 
         <RelativeLayout
@@ -45,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/tv_username"
                 android:layout_below="@id/tv_username"
+                android:layout_marginTop="@dimen/px_2_dp_20"
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="@dimen/px_2_dp_6"
                 android:gravity="center_vertical"
@@ -56,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_location"
+                android:layout_marginTop="@dimen/px_2_dp_10"
                 android:gravity="center"
                 tools:text="3 作品"/>
 
@@ -63,7 +67,7 @@
                 android:id="@+id/tv_follower_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_location"
+                android:layout_alignTop="@id/tv_shots_count"
                 android:layout_marginLeft="@dimen/px_2_dp_20"
                 android:layout_toRightOf="@id/tv_shots_count"
                 android:gravity="center"

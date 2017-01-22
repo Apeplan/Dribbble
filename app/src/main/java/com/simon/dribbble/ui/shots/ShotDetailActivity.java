@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ImgLoadHelper;
+import com.simon.agiledevelop.utils.ScreenHelper;
 import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.Api;
@@ -253,7 +254,10 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
             mLl_tags.setVisibility(View.GONE);
         }
 
-        ImgLoadHelper.image(mImgUrl, mDetailPic);
+        int width = ScreenHelper.getScreenWidth(App.INSTANCE);
+        int height = width * 3 / 4;
+
+        ImgLoadHelper.imageW_H(mImgUrl, mDetailPic, width, height, R.drawable.dribbble_p);
 
     }
 
@@ -297,7 +301,7 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
             shareMsg("ShotDetailActivity", mTitle, "", mImgUrl);
             return true;
         } else if (id == R.id.action_add) {
-            ToastHelper.showLongToast(App.INSTANCE, item.getTitle());
+            ToastHelper.showLongToast(App.INSTANCE, item.getTitle() + "正在开发中");
             return true;
         } else {
             return super.onOptionsItemSelected(item);

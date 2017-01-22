@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools"
+           xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -79,7 +80,6 @@
     </style>
 
 
-
     <style name="user_info_tv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -102,6 +102,16 @@
         <!--<item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>-->
         <!--<item name="android:drawablePadding">@dimen/activity_horizontal_margin</item>-->
         <!--<item name="android:drawablePadding">@dimen/px_2_dp_10</item>-->
+    </style>
+
+    <style name="Setting_item">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">@dimen/px_dp_20</item>
+        <item name="android:paddingLeft">@dimen/px_dp_10</item>
+        <item name="android:paddingTop">@dimen/px_dp_20</item>
+        <item name="android:textColor">@color/color_666666</item>
+        <item name="android:textSize">@dimen/px_dp_32</item>
     </style>
 
 </resources>

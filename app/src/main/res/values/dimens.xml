@@ -33,5 +33,7 @@
     <dimen name="px_2_dp_28">14.0dp</dimen>
     <dimen name="px_2_dp_30">15.0dp</dimen>
     <dimen name="px_2_dp_40">20.0dp</dimen>
+    <dimen name="px_2_dp_60">30.0dp</dimen>
     <dimen name="px_2_dp_80">40.0dp</dimen>
+    <dimen name="px_2_dp_100">50.0dp</dimen>
 </resources>

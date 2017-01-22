@@ -3,11 +3,11 @@ package com.simon.dribbble.ui.user;
 import android.os.Bundle;
 import android.view.View;
 
-import com.simon.agiledevelop.utils.App;
-import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.dribbble.data.Api;
+import com.simon.dribbble.data.model.ShotEntity;
 import com.simon.dribbble.ui.CommListFragment;
 import com.simon.dribbble.ui.CommListPresenter;
+import com.simon.dribbble.ui.shots.ShotDetailActivity;
 import com.simon.dribbble.ui.shots.ShotsAdapter;
 
 /**
@@ -34,7 +34,10 @@ public class UserLikesFragment extends CommListFragment<LikeShotsPresenter, Shot
     }
 
     protected void itemClick(View view, int position) {
-        ToastHelper.showLongToast(App.INSTANCE, "点击事件  " + position);
+        ShotEntity shot = mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putLong("shotId", shot.getId());
+        startIntent(ShotDetailActivity.class, bundle);
     }
 
     @Override

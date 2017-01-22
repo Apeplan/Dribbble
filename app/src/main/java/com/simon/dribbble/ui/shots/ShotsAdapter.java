@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.simon.agiledevelop.recycler.RecycledViewHolder;
 import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
+import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ImgLoadHelper;
+import com.simon.agiledevelop.utils.ScreenHelper;
 import com.simon.dribbble.DribbbleApp;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.ShotEntity;
@@ -62,14 +64,16 @@ public class ShotsAdapter extends RecycledAdapter<ShotEntity, RecycledViewHolder
             String avatar_url = shot.getUser().avatar_url;
             final String name = shot.getUser().name;
             boolean animated = shot.isAnimated();// 是否是GIF
+
+
             ImageView imageView = holder.getView(R.id.imv_shot_pic);
             ImageView avatar = holder.getView(R.id.imv_avatar);
 
-            ImgLoadHelper.image(StringUtil.isEmpty(hidpi) ? normal : hidpi, R.drawable
-                    .placeholder_pic, R.drawable.placeholder_pic, imageView);
+            int width = ScreenHelper.getScreenWidth(App.INSTANCE);
+            int height = width * 3 / 4;
 
-//            Picasso.with(App.INSTANCE).load(StringUtil.isEmpty(hidpi) ? normal : hidpi)
-//                    .placeholder(R.drawable.placeholder_pic).into(imageView);
+            ImgLoadHelper.imageW_H(StringUtil.isEmpty(hidpi) ? normal : hidpi,imageView,width,
+                    height, R.drawable.dribbble_p);
 
             ImgLoadHelper.loadAvatar(avatar_url, avatar);
 

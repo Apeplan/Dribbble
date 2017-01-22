@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/px_2_dp_16"
     android:layout_marginRight="@dimen/px_2_dp_16"
+    app:contentPadding="@dimen/px_2_dp_20"
     android:layout_marginTop="@dimen/px_2_dp_16"
     app:cardCornerRadius="@dimen/px_2_dp_10"
     app:cardElevation="@dimen/px_2_dp_10">
@@ -14,7 +15,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/px_2_dp_10"
         android:orientation="horizontal">
 
         <ImageView
@@ -44,13 +44,14 @@
                 android:layout_below="@id/tv_buckets_title"
                 android:textColor="@color/color_666666"
                 android:textSize="12sp"
+                android:layout_marginTop="@dimen/px_dp_20"
                 tools:text="Create at 2016-08-31"/>
 
             <TextView
                 android:id="@+id/tv_shots_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_buckets_title"
+                android:layout_alignTop="@id/tv_buckets_create_time"
                 android:layout_marginLeft="@dimen/px_2_dp_30"
                 android:layout_toRightOf="@id/tv_buckets_create_time"
                 android:textColor="@color/color_666666"

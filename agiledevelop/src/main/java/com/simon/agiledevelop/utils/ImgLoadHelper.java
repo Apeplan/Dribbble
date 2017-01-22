@@ -107,7 +107,6 @@ public class ImgLoadHelper {
                 .load(url)
                 .placeholder(placeholder)
                 .error(error)
-                .override(800,600)
                 .crossFade()
                 .centerCrop()
                 .into(imageView);
@@ -208,12 +207,25 @@ public class ImgLoadHelper {
      * @param height 高度
      */
     public static void imageW_H(String url, ImageView view, int width, int height) {
+        imageW_H(url,view,width,height,DEF_PLACEHOLDER);
+    }
+
+    /**
+     * 加载图片，并指定宽高
+     *
+     * @param url    加载图片资源（网络地址或者本地地址）
+     * @param view   图片容器 Image View
+     * @param width  宽度
+     * @param height 高度
+     */
+    public static void imageW_H(String url, ImageView view, int width, int height, int
+            placeholderResId) {
         DrawableTypeRequest<String> request = Glide.with(mContext).load(url);
         if (width > 0 && height > 0) {
             request.override(width, height);
         }
-        if (DEF_PLACEHOLDER != -1) {
-            request.placeholder(DEF_PLACEHOLDER);
+        if (placeholderResId != -1) {
+            request.placeholder(placeholderResId);
         }
         request.crossFade()//淡入淡出
                 .centerCrop() // 缩放图片让图片充满整个ImageView的边框，然后裁掉超出的部分
@@ -244,8 +256,8 @@ public class ImgLoadHelper {
     /**
      * 高斯模糊图片处理
      *
-     * @param url         圆形图片（网络地址或者本地地址）
-     * @param view        图片容器 Image Vew
+     * @param url  圆形图片（网络地址或者本地地址）
+     * @param view 图片容器 Image Vew
      */
 
     public static void imageBlur(String url, ImageView view) {

@@ -38,8 +38,8 @@
 
                 <ImageView
                     android:id="@+id/imv_avatar"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
                     android:layout_marginRight="@dimen/px_dp_30"
                     android:src="@drawable/person_image_empty"/>
 
@@ -48,7 +48,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="@dimen/px_2_dp_10"
                     android:layout_toEndOf="@+id/imv_avatar"
                     android:layout_toRightOf="@+id/imv_avatar"
                     android:paddingLeft="@dimen/px_2_dp_6"
@@ -70,7 +69,7 @@
                     style="@style/user_info_tv"
                     android:layout_alignLeft="@id/tv_usertype"
                     android:layout_below="@id/tv_usertype"
-                    android:layout_marginTop="@dimen/px_2_dp_16"
+                    android:layout_marginTop="@dimen/px_2_dp_20"
                     android:drawableLeft="@drawable/location"
                     android:text="Simon Han"/>
 

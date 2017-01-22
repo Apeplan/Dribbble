@@ -47,6 +47,8 @@ public class DribbbleApp extends Application {
 
         mInstance = this;
         mPreferencesHelper = new PreferencesHelper(this);
+
+        UncaughtException.getInstance().init(this);
     }
 
     public static synchronized DribbbleApp context() {

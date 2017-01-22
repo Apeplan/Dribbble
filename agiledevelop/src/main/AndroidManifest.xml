@@ -8,9 +8,9 @@
                  android:supportsRtl="true"
     >
 
-        <meta-data
-            android:name="com.simon.agiledevelop.glide.GlideConfiguration"
-            android:value="GlideModule"/>
+        <!--<meta-data-->
+            <!--android:name="com.simon.agiledevelop.glide.GlideConfiguration"-->
+            <!--android:value="GlideModule"/>-->
 
     </application>
 

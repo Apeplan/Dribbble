@@ -11,16 +11,52 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+    //配置keystore签名
+    signingConfigs {
         release {
-            minifyEnabled false
+            storeFile file("drib.jks")
+            storePassword "920410"
+            keyAlias "设计"
+            keyPassword "920410"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
+
+        release {
+            signingConfig signingConfigs.release
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            minifyEnabled true
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk') && variant.buildType.name == "release") {
+                        def fileName = "Dribbble${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.getParent(), fileName)
+                    }
+                }
+            }
+        }
+    }
+
+    productFlavors {
+        google {
+            manifestPlaceholders.put("UMENG_CHANNEL", 'google');
         }
     }
 }
 
 dependencies {
-//    final SUPPORT_LIBRARY_VERSION = '24.2.1'
+    //    final SUPPORT_LIBRARY_VERSION = '24.2.1'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -31,14 +67,13 @@ dependencies {
     //    为"单Activity ＋ 多Fragment","多模块Activity + 多Fragment"架构而生，帮你大大简化使用过程，轻松解决各种复杂嵌套等问题，修复了官方Fragment库中存在的一些BUG。
     //    compile 'me.yokeyword:fragmentation:0.7.9'
     //    compile 'com.getbase:floatingactionbutton:1.10.1'
-    compile "com.android.support:cardview-v7:24.2.1"
-    compile "com.android.support:support-v4:24.2.1"
-    compile "com.android.support:appcompat-v7:24.2.1"
+    compile 'com.android.support:cardview-v7:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
     compile 'org.jsoup:jsoup:1.9.2'
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
-
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     //    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
@@ -46,5 +81,4 @@ dependencies {
     compile('com.squareup.sqlbrite:sqlbrite:1.1.1') {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
-    compile 'com.squareup.picasso:picasso:2.5.2'
 }
