@@ -13,6 +13,7 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.mvpframe.Presenter;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.agiledevelop.utils.ToastHelper;
@@ -40,6 +41,9 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
     private boolean mIsToolBarHidden;
     private boolean mIsStatusBarHidden;
 
+    private String mShotImg;
+    private String mTitle;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_detai_bigpic;
@@ -51,7 +55,7 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
     }
 
     @Override
-    protected View getLoadingView() {
+    protected StateView getLoadingView() {
         return null;
     }
 
@@ -101,7 +105,7 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setCommonBackToolBack(mToolbar, "大图");
 
@@ -119,11 +123,11 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
         setPhotoViewClickEvent();
         Bundle bundle = getBundle();
         if (null != bundle) {
-            String shotImg = bundle.getString("shotImg");
-            String title = bundle.getString("title");
-            mToolbar.setTitle(title);
-            if (!StringUtil.isEmpty(shotImg)) {
-                ImgLoadHelper.image(shotImg, mPhotoView);
+            mShotImg = bundle.getString("shotImg");
+            mTitle = bundle.getString("title");
+            mToolbar.setTitle(mTitle);
+            if (!StringUtil.isEmpty(mShotImg)) {
+                ImgLoadHelper.image(mShotImg, mPhotoView);
             }
         }
     }
@@ -155,24 +159,15 @@ public class DetailBigPicActivity extends BaseActivity implements PullBackLayout
 //                startAsyncTask();
                 return true;
             case R.id.action_save:
-                ToastHelper.showLongToast(App.INSTANCE,getString(R.string.toast_def_hint));
+                savePic();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-   /* void startAsyncTask() {
-        // This async task is an anonymous class and therefore has a hidden reference to the outer
-        // class MainActivity. If the activity gets destroyed before the task finishes (e.g. rotation),
-        // the activity instance will leak.
-        new AsyncTask<Void, Void, Void>() {
-            @Override protected Void doInBackground(Void... params) {
-                // Do some slow work in background
-                SystemClock.sleep(20000);
-                return null;
-            }
-        }.execute();
-    }*/
+    private void savePic() {
+        ToastHelper.showLongToast(App.INSTANCE,getString(R.string.toast_def_hint));
+    }
 
     @Override
     public void onPullStart() {

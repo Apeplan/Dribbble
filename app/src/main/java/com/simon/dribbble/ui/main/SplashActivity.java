@@ -1,9 +1,9 @@
 package com.simon.dribbble.ui.main;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.mvpframe.Presenter;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.dribbble.R;
 
 public class SplashActivity extends BaseActivity {
@@ -36,12 +37,12 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    protected View getLoadingView() {
+    protected StateView getLoadingView() {
         return null;
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
 
     }
 

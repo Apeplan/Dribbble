@@ -34,13 +34,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.simon.dribbble.widget.statelayout.StateLayout
-        android:id="@+id/progress_loading"
-
+    <com.simon.agiledevelop.state.StateView
+        android:id="@+id/stateView_loading"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="true"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,5 +51,5 @@
                 android:layout_height="match_parent"/>
 
         </LinearLayout>
-    </com.simon.dribbble.widget.statelayout.StateLayout>
+    </com.simon.agiledevelop.state.StateView>
 </LinearLayout>

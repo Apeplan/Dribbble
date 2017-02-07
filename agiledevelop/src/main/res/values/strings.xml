@@ -13,10 +13,14 @@
     <string name="cube_ptr_hours_ago">&#160;小时之前</string>
 
     <string name="state_loading_message">正在加载...</string>
-    <string name="state_error_msg">啊呜~网络不给力啊,\n刷新下试试吧</string>
+    <string name="state_error_msg">啊呜~网络不给力啊</string>
     <string name="state_empty_msg">没有更多内容了</string>
-    <string name="state_network_exception">啊呜~请求出错了,\n刷新下试试吧</string>
+    <string name="state_network_exception">啊呜~请求出错了</string>
     <string name="state_again">重新加载</string>
+    <string name="state_retry">轻触屏幕重试</string>
+    <string name="state_empty">暂时没有数据</string>
+    <string name="state_unauth">你还没有登录</string>
+    <string name="state_auth">去登录</string>
 
     <!--公共-->
     <string name="comm_footer_more">加载更多</string>

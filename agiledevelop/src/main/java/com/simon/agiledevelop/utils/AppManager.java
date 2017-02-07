@@ -17,7 +17,7 @@ import java.util.Stack;
 public class AppManager {
 
     private static Stack<Activity> activityStack;
-    private static AppManager instance;
+    private static AppManager mInstance;
 
     private AppManager() {
     }
@@ -25,11 +25,11 @@ public class AppManager {
     /**
      * 单一实例
      */
-    public static AppManager getAppManager() {
-        if (instance == null) {
-            instance = new AppManager();
+    public static AppManager instance() {
+        if (mInstance == null) {
+            mInstance = new AppManager();
         }
-        return instance;
+        return mInstance;
     }
 
     /**
@@ -45,7 +45,7 @@ public class AppManager {
     /**
      * 获取当前Activity（堆栈中最后一个压入的）
      */
-    public Activity currentActivity() {
+    public Activity getCurrentActivity() {
         Activity activity = activityStack.lastElement();
         return activity;
     }
@@ -65,7 +65,6 @@ public class AppManager {
         if (activity != null) {
             activityStack.remove(activity);
             activity.finish();
-            activity = null;
         }
     }
 
@@ -84,12 +83,20 @@ public class AppManager {
      * 结束所有Activity
      */
     public void finishAllActivity() {
-        for (int i = 0, size = activityStack.size(); i < size; i++) {
-            if (null != activityStack.get(i)) {
-                activityStack.get(i).finish();
-            }
+        for (Activity activity : activityStack) {
+            activity.finish();
         }
         activityStack.clear();
+    }
+
+    /**
+     * 是否在栈中
+     */
+    public boolean isExist(Class<?> cls) {
+        for (Activity activity : activityStack) {
+            return activity.getClass().equals(cls);
+        }
+        return false;
     }
 
     /**

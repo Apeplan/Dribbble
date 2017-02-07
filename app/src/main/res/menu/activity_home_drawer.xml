@@ -32,10 +32,10 @@
             android:icon="@drawable/ic_drawer_favorite_normal"
             android:title="@string/favorite"/>
 
-        <item
+       <!-- <item
             android:id="@+id/nav_dl"
             android:icon="@drawable/ic_drawer_dl_normal"
-            android:title="@string/download_image"/>
+            android:title="@string/download_image"/>-->
 
         <item
             android:id="@+id/nav_settings"

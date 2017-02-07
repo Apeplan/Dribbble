@@ -43,7 +43,7 @@ public class RxBus {
      * @return
      */
     public RxBus OnEvent(Observable<?> mObservable, Action1<Object> mAction1) {
-        mObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(mAction1);
+        mObservable.observeOn(AndroidSchedulers.mainThread()).subscribe();
         return $();
     }
 

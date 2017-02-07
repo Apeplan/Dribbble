@@ -2,11 +2,11 @@ package com.simon.dribbble.ui.baselist;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.mvpframe.BaseFragment;
 import com.simon.agiledevelop.mvpframe.Presenter;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.dribbble.R;
 import com.simon.dribbble.ui.shots.AttachmentFragment;
 import com.simon.dribbble.ui.shots.BucketsFragment;
@@ -33,12 +33,12 @@ public class ListActivity extends BaseActivity {
     }
 
     @Override
-    protected View getLoadingView() {
+    protected StateView getLoadingView() {
         return null;
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        toolbar.setTitle("列表数据");
 //        setSupportActionBar(toolbar);

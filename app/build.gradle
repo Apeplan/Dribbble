@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion rootProject.ext.compileSdk
+    buildToolsVersion rootProject.ext.buildTools
     defaultConfig {
         applicationId "com.simon.dribbble"
-        minSdkVersion 14
-        targetSdkVersion 24
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -40,7 +40,7 @@ android {
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk') && variant.buildType.name == "release") {
-                        def fileName = "Dribbble${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+                        def fileName = "Dribbble_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
                         output.outputFile = new File(outputFile.getParent(), fileName)
                     }
                 }
@@ -81,4 +81,5 @@ dependencies {
     compile('com.squareup.sqlbrite:sqlbrite:1.1.1') {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
+
 }

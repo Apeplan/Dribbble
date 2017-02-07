@@ -2,6 +2,7 @@ package com.simon.dribbble.ui.shots;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 
 import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.mvpframe.Presenter;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.dribbble.R;
 import com.simon.dribbble.widget.richeditor.RichEditor;
 
@@ -45,12 +47,12 @@ public class RichEditorActivity extends BaseActivity {
     }
 
     @Override
-    protected View getLoadingView() {
+    protected StateView getLoadingView() {
         return null;
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setCommonBackToolBack(toolbar, "编辑评论");
 

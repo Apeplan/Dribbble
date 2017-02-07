@@ -1,5 +1,5 @@
-<com.simon.dribbble.widget.statelayout.StateLayout
-    android:id="@+id/progress_loading"
+<com.simon.agiledevelop.state.StateView
+    android:id="@+id/stateView_loading"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -25,4 +25,4 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
-</com.simon.dribbble.widget.statelayout.StateLayout>
+</com.simon.agiledevelop.state.StateView>

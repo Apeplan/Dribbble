@@ -7,11 +7,13 @@
     <string name="action_settings">设置</string>
     <string name="loading">正在加载...</string>
     <string name="try_again">重新加载</string>
-    <string name="not_data">暂无数据</string>
+    <string name="not_data">暂无还没有数据</string>
 
     <string name="error">出错了</string>
     <string name="retry">轻触屏幕重试</string>
     <string name="empty">啥也没有</string>
+    <string name="unauth">你还没有登录</string>
+    <string name="auth">去登录</string>
 
     <!-- <string name="dribbble">Dribbble</string>
     <string name="following">Following</string>
@@ -136,5 +138,8 @@
     <!-- content authorities -->
     <string name="share_authority" translatable="false">com.simon.dribbble.ui.shots.shareprovider
     </string>
+    <string name="about_dribbble_1">What are you working on? Dribbble is a community of designers answering that question each day. Web designers, graphic designers, illustrators, icon artists, typographers, logo designers, and other creative types share small screenshots (shots) that show their work, process, and current projects.</string>
+    <string name="about_dribbble_2">Dribbble is a place to show and tell, promote, discover, and explore design.</string>
+    <string name="about_dribbble_3">Founded in 2009, Dribbble began as a side project and is now a Tiny, bootstrapped and profitable company helping the world’s design talent share their creations and get hired. Dribbble has become a go-to resource for discovering and connecting with designers around the globe.</string>
 
 </resources>

@@ -22,11 +22,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.simon.dribbble.widget.statelayout.StateLayout
-        android:id="@+id/stateLayout_comments"
+    <com.simon.agiledevelop.state.StateView
+        android:id="@+id/stateView_comments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/grey_main"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -41,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         </android.support.v4.widget.SwipeRefreshLayout>
-    </com.simon.dribbble.widget.statelayout.StateLayout>
+    </com.simon.agiledevelop.state.StateView>
 
     <LinearLayout
         android:layout_width="match_parent"

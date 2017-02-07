@@ -1,6 +1,7 @@
 package com.simon.dribbble.ui.main;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.mvpframe.Presenter;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.GlobalConstant;
 import com.simon.dribbble.R;
@@ -59,12 +61,12 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Override
-    protected View getLoadingView() {
+    protected StateView getLoadingView() {
         return null;
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
@@ -106,6 +108,12 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void initEventAndData() {
+        mImv_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIntent(AvatarActivity.class);
+            }
+        });
 
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,9 +159,11 @@ public class HomeActivity extends BaseActivity {
                 } else if (itemId == R.id.nav_favorite) {
                     mToolbar.setTitle("我的" + item.getTitle());
                     fragment = UserLikesFragment.newInstance();
-                } else if (itemId == R.id.nav_dl) {
-                    mToolbar.setTitle("我的" + item.getTitle());
-                } else if (itemId == R.id.nav_settings) {
+                }
+//                else if (itemId == R.id.nav_dl) {
+//                    mToolbar.setTitle("我的" + item.getTitle());
+//                }
+                else if (itemId == R.id.nav_settings) {
                     startIntent(SettingsActivity.class);
                 }
                 if (null != fragment) {

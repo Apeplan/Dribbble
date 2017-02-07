@@ -1,5 +1,6 @@
 package com.simon.dribbble.ui.shots;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -7,13 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.simon.agiledevelop.log.LLog;
 import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.mvpframe.RxPresenter;
-import com.simon.agiledevelop.log.LLog;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.model.ShotEntity;
 import com.simon.dribbble.data.remote.DribbbleService;
-import com.simon.dribbble.widget.statelayout.StateLayout;
 
 import java.util.List;
 
@@ -26,7 +27,6 @@ import java.util.List;
 public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchContract.View {
 
     private ShotsAdapter mShotsAdapter;
-    private StateLayout mStateLayout;
     private SearchView mSearchView;
 
     @Override
@@ -40,17 +40,16 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     }
 
     @Override
-    protected View getLoadingView() {
-        return null;
+    protected StateView getLoadingView() {
+        return (StateView) findViewById(R.id.stateView_loading);
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setCommonBackToolBack(toolbar, "搜索");
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        mStateLayout = (StateLayout) findViewById(R.id.progress_loading);
         mSearchView = (SearchView) findViewById(R.id.search_view);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rlv_search);
@@ -70,7 +69,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             public boolean onQueryTextSubmit(String query) {
                 LLog.d("onQueryTextSubmit: " + query);
                 if (!TextUtils.isEmpty(query)) {
-                    mStateLayout.showProgressView();
+                    showLoading("正在搜索...");
+                    showLoading(0, "");
                     search(query);
                 }
                 return true;
@@ -95,18 +95,18 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     }
 
     @Override
-    public void onEmpty(String msg) {
-        mStateLayout.showEmptyView();
-    }
-
-    @Override
     public void showLoading(int action, String msg) {
 
     }
 
     @Override
+    public void onEmpty(String msg) {
+        showEmtry(msg, null);
+    }
+
+    @Override
     public void onFailed(int action, String msg) {
-        mStateLayout.showErrorView();
+        showError(msg, null);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     public void showSearch(List<ShotEntity> shots) {
-        mStateLayout.showContentView();
+        showContent();
         if (null != mShotsAdapter) {
             mShotsAdapter.appendData(shots);
         }

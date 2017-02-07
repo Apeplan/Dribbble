@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.mvpframe.RxPresenter;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.User;
 import com.simon.dribbble.util.DialogHelp;
 import com.simon.dribbble.widget.loadingdia.SpotsDialog;
-import com.simon.dribbble.widget.statelayout.StateLayout;
 
 /**
  * Created by Simon Han on 2016/9/17.
@@ -37,7 +37,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     private TextView mTv_user_followers;
     private TextView mTv_user_followings;
     private TextView mTv_user_likes;
-    private StateLayout mStateLayout;
 
     private SpotsDialog mLoadingDialog;
     private TextView mUserType;
@@ -53,17 +52,15 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     }
 
     @Override
-    protected View getLoadingView() {
-        return null;
+    protected StateView getLoadingView() {
+        return (StateView) findViewById(R.id.stateView_userinfo);
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         String name = getBundle().getString("name");
         setCommonBackToolBack(toolbar, name);
-
-        mStateLayout = (StateLayout) findViewById(R.id.stateLayout_userinfo);
 
         mImv_avatar = (ImageView) findViewById(R.id.imv_avatar);
         mTv_username = (TextView) findViewById(R.id.tv_username);
@@ -90,7 +87,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
 
     @Override
     public void showUserInfo(User user) {
-        mStateLayout.showContentView();
+        showContent();
         hideDialog();
 
         ImgLoadHelper.loadAvatar(user.avatar_url, mImv_avatar);
@@ -132,7 +129,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
 
     @Override
     public void onEmpty(String msg) {
-        mStateLayout.showContentView();
+        showEmtry(msg, null);
         hideDialog();
     }
 
@@ -145,7 +142,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
 
     @Override
     public void onFailed(int action, String msg) {
-        mStateLayout.showContentView();
+        showError(msg, null);
         hideDialog();
     }
 

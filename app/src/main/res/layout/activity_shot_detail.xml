@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.simon.dribbble.widget.statelayout.StateLayout
-    android:id="@+id/stateLayout_detail"
+<com.simon.agiledevelop.state.StateView
+    android:id="@+id/stateView_detail"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -255,4 +255,4 @@
             app:layout_anchorGravity="bottom|end"/>
 
     </android.support.design.widget.CoordinatorLayout>
-</com.simon.dribbble.widget.statelayout.StateLayout>
+</com.simon.agiledevelop.state.StateView>

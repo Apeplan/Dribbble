@@ -35,9 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.main.HomeActivity"></activity>
-
+        <activity android:name=".ui.main.HomeActivity"/>
         <activity
             android:name=".ui.user.SignInActivity"
             android:launchMode="singleTop"
@@ -79,6 +77,10 @@
             android:name=".ui.user.UserInfoActivity"
             android:label="@string/title_activity_settings"/>
         <activity android:name=".ui.shots.SheetActivity">
+        </activity>
+        <activity android:name=".ui.main.AvatarActivity">
+        </activity>
+        <activity android:name=".ui.AboutActivity">
         </activity>
     </application>
 

@@ -3,6 +3,7 @@ package com.simon.dribbble.ui.user;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.mvpframe.RxPresenter;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.dribbble.R;
@@ -32,7 +34,7 @@ public class SignInActivity extends BaseActivity<SignPresenter> implements SignI
     private WebView mWebView;
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         mLoading = (LinearLayout) findViewById(R.id.ll_signin_loading);
         mWebView = (WebView) findViewById(R.id.wv_signin);
         mWebView.getSettings().setJavaScriptEnabled(true);//支持javascript
@@ -57,7 +59,7 @@ public class SignInActivity extends BaseActivity<SignPresenter> implements SignI
     }
 
     @Override
-    protected View getLoadingView() {
+    protected StateView getLoadingView() {
         return null;
     }
 

@@ -11,9 +11,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.simon.agiledevelop.mvpframe.BaseFragment;
 import com.simon.agiledevelop.log.LLog;
+import com.simon.agiledevelop.mvpframe.BaseFragment;
 import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.dribbble.R;
@@ -23,7 +24,6 @@ import com.simon.dribbble.data.remote.DribbbleService;
 import com.simon.dribbble.ui.user.UserInfoActivity;
 import com.simon.dribbble.util.DialogHelp;
 import com.simon.dribbble.widget.loadingdia.SpotsDialog;
-import com.simon.dribbble.widget.statelayout.StateLayout;
 
 import java.util.List;
 
@@ -32,7 +32,6 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
         RecycledAdapter.LoadMoreListener, ShotsAdapter.ShotClickListener {
 
     private int mPageNo = 1;
-    private StateLayout mStateLayout;
     private RecyclerView mRecyclerView;
     private ShotsAdapter mAdapter;
     private ShotsPresenter mPresenter;
@@ -66,8 +65,8 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
     }
 
     @Override
-    protected View getLoadingView() {
-        return null;
+    protected StateView getLoadingView(View view) {
+        return (StateView) view.findViewById(R.id.stateView_loading);
     }
 
     @Override
@@ -83,8 +82,6 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
                 request(Api.EVENT_REFRESH, false);
             }
         });
-
-        mStateLayout = (StateLayout) view.findViewById(R.id.progress_loading);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.xrv_shots);
 
@@ -247,7 +244,7 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
 
     @Override
     public void renderShotsList(List<ShotEntity> shotsList) {
-        mStateLayout.showContentView();
+        showContent();
         if (null != mLoadingDialog && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
         }
@@ -277,7 +274,7 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
 
     @Override
     public void onEmpty(String msg) {
-        mStateLayout.showEmptyView();
+        showEmtry(msg, null);
     }
 
     @Override

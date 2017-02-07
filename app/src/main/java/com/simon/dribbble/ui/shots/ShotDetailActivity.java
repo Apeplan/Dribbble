@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.simon.agiledevelop.mvpframe.BaseActivity;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ImgLoadHelper;
 import com.simon.agiledevelop.utils.ScreenHelper;
@@ -34,7 +35,6 @@ import com.simon.dribbble.util.DialogHelp;
 import com.simon.dribbble.util.StringUtil;
 import com.simon.dribbble.widget.TagGroup;
 import com.simon.dribbble.widget.loadingdia.SpotsDialog;
-import com.simon.dribbble.widget.statelayout.StateLayout;
 
 import java.io.File;
 
@@ -48,7 +48,6 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
         ShotDetailContract.View {
 
     private Toolbar mToolbar;
-    private StateLayout mStateLayout;
     private ImageView mDetailPic;// 详情大图
     private ImageView mImv_avatar;// 头像
     private TextView mTv_author;// 创建者
@@ -89,12 +88,12 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
     }
 
     @Override
-    protected View getLoadingView() {
-        return null;
+    protected StateView getLoadingView() {
+        return (StateView) findViewById(R.id.stateView_detail);
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -105,7 +104,6 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
             }
         });
 
-        mStateLayout = (StateLayout) findViewById(R.id.stateLayout_detail);
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         mDetailPic = (ImageView) findViewById(R.id.imv_detail_pic);
         mImv_avatar = (ImageView) findViewById(R.id.imv_avatar);
@@ -208,7 +206,7 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
         hideDialog();
 
         mShot = shot;
-        mStateLayout.showContentView();
+        showContent();
         mTitle = shot.getTitle();
         mCollapsingToolbarLayout.setTitle(mTitle);
         String normal = shot.getImages().getNormal();
@@ -263,7 +261,7 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
 
     @Override
     public void onEmpty(String msg) {
-        mStateLayout.showEmptyView();
+        showEmtry(msg, null);
     }
 
     @Override
@@ -275,7 +273,7 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
 
     @Override
     public void onFailed(int flag, String msg) {
-        mStateLayout.showErrorView();
+        showError(msg, null);
     }
 
     @Override

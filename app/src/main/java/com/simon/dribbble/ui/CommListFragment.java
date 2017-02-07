@@ -6,15 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.simon.agiledevelop.mvpframe.BaseFragment;
 import com.simon.agiledevelop.log.LLog;
+import com.simon.agiledevelop.mvpframe.BaseFragment;
 import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
 import com.simon.agiledevelop.recycler.listeners.OnItemClickListener;
+import com.simon.agiledevelop.state.StateView;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.Api;
 import com.simon.dribbble.util.DialogHelp;
 import com.simon.dribbble.widget.loadingdia.SpotsDialog;
-import com.simon.dribbble.widget.statelayout.StateLayout;
 
 import java.util.List;
 
@@ -26,10 +28,9 @@ import java.util.List;
  * @email hanzx1024@gmail.com
  */
 
-public abstract class CommListFragment<P extends CommListPresenter, A extends RecycledAdapter> extends
-        BaseFragment<P> implements CommListContract.View {
+public abstract class CommListFragment<P extends CommListPresenter, A extends RecycledAdapter>
+        extends BaseFragment<P> implements CommListContract.View {
 
-    private StateLayout mStateLayout;
     private SwipeRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
     private SpotsDialog mLoadingDialog;
@@ -47,7 +48,6 @@ public abstract class CommListFragment<P extends CommListPresenter, A extends Re
         mRefreshLayout.setColorSchemeResources(R.color.purple_500, R.color.blue_500, R.color
                 .orange_500, R.color.pink_500);
 
-        mStateLayout = (StateLayout) view.findViewById(R.id.stateLayout_list);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.xrlv_list);
         LinearLayoutManager rlm = new LinearLayoutManager(getActivity());
         rlm.setRecycleChildrenOnDetach(true);
@@ -63,8 +63,8 @@ public abstract class CommListFragment<P extends CommListPresenter, A extends Re
     }
 
     @Override
-    protected View getLoadingView() {
-        return null;
+    protected StateView getLoadingView(View view) {
+        return (StateView) view.findViewById(R.id.stateView_list);
     }
 
     @Override
@@ -100,7 +100,7 @@ public abstract class CommListFragment<P extends CommListPresenter, A extends Re
     @Override
     public void showList(List lists) {
         LLog.d("加载数据: " + lists.size());
-        mStateLayout.showContentView();
+        showContent();
         hideDialog();
 
         mAdapter.setNewData(lists);
@@ -114,7 +114,7 @@ public abstract class CommListFragment<P extends CommListPresenter, A extends Re
         if (!lists.isEmpty()) {
             mAdapter.setNewData(lists);
         } else {
-            mStateLayout.showEmptyView();
+            ToastHelper.showLongToast(App.INSTANCE, "刷新失败");
         }
     }
 
@@ -140,14 +140,19 @@ public abstract class CommListFragment<P extends CommListPresenter, A extends Re
     public void onEmpty(String msg) {
         hideDialog();
 
-        mStateLayout.showEmptyView();
+        showEmtry(msg, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastHelper.showLongToast(App.INSTANCE, "都说没有数据了，还点~");
+            }
+        });
     }
 
     @Override
     public void onFailed(int action, String msg) {
         hideDialog();
 
-        mStateLayout.showErrorView();
+        showError(msg, null);
     }
 
     @Override

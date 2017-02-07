@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StateView">
+        <attr name="loadingView_id" format="reference" />
+        <attr name="errorView_id" format="reference" />
+        <attr name="emptyView_id" format="reference" />
+        <attr name="unauthView_id" format="reference" />
+        <attr name="error_drawable" format="reference" />
+        <attr name="empty_drawable" format="reference" />
+        <attr name="unauth_drawable" format="reference" />
+
+        <attr name="viewState" format="enum">
+            <enum name="content" value="0" />
+            <enum name="loading" value="1" />
+            <enum name="error" value="2" />
+            <enum name="empty" value="3" />
+            <enum name="unauth" value="4" />
+        </attr>
+    </declare-styleable>
+</resources>

@@ -12,6 +12,9 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.util.Locale;
 
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
+import static android.os.Environment.getExternalStoragePublicDirectory;
+
 /**
  * describe: Help class for SDCard
  *
@@ -72,6 +75,16 @@ public class SDCardHelper {
     public static String getSDCardPath() {
         if (!isSDCardEnable()) return "sdcard unable!";
         return Environment.getExternalStorageDirectory().getPath() + File.separator;
+    }
+
+    /**
+     * 获取SD卡下载路径（Download）
+     *
+     * @return Download 路径
+     */
+    public static String getDownloadPath() {
+        if (!isSDCardEnable()) return "sdcard unable!";
+        return getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).getPath();
     }
 
     /**

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.simon.agiledevelop.mvpframe.BaseActivity;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.crop.Crop;
@@ -56,12 +58,12 @@ public class CreateShotActivity extends BaseActivity<CreatePresenter> {
     }
 
     @Override
-    protected View getLoadingView() {
+    protected StateView getLoadingView() {
         return null;
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setCommonBackToolBack(toolbar, "创建作品");
 

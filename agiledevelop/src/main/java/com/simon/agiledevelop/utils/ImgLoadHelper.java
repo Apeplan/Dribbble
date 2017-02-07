@@ -108,7 +108,6 @@ public class ImgLoadHelper {
                 .placeholder(placeholder)
                 .error(error)
                 .crossFade()
-                .centerCrop()
                 .into(imageView);
     }
 

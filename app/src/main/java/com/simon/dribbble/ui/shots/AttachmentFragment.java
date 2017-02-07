@@ -11,12 +11,14 @@ import com.simon.agiledevelop.mvpframe.BaseFragment;
 import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
 import com.simon.agiledevelop.recycler.listeners.OnItemClickListener;
+import com.simon.agiledevelop.state.StateView;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.ToastHelper;
 import com.simon.dribbble.R;
 import com.simon.dribbble.data.Api;
 import com.simon.dribbble.ui.baselist.BaseListContract;
 import com.simon.dribbble.util.DialogHelp;
 import com.simon.dribbble.widget.loadingdia.SpotsDialog;
-import com.simon.dribbble.widget.statelayout.StateLayout;
 
 import java.util.List;
 
@@ -28,7 +30,6 @@ import java.util.List;
 
 public class AttachmentFragment extends BaseFragment<AttachPresenter> implements BaseListContract
         .View, SwipeRefreshLayout.OnRefreshListener, RecycledAdapter.LoadMoreListener {
-    private StateLayout mStateLayout;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefreshLayout;
     private AttachAdapter mAdapter;
@@ -60,7 +61,6 @@ public class AttachmentFragment extends BaseFragment<AttachPresenter> implements
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         mRefreshLayout.setColorSchemeResources(R.color.purple_500, R.color.blue_500, R.color
                 .orange_500, R.color.pink_500);
-        mStateLayout = (StateLayout) view.findViewById(R.id.stateLayout_list);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.xrlv_list);
         LinearLayoutManager rlm = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(rlm);
@@ -99,8 +99,8 @@ public class AttachmentFragment extends BaseFragment<AttachPresenter> implements
     }
 
     @Override
-    protected View getLoadingView() {
-        return null;
+    protected StateView getLoadingView(View view) {
+        return (StateView) view.findViewById(R.id.stateView_list);
     }
 
     @Override
@@ -113,13 +113,13 @@ public class AttachmentFragment extends BaseFragment<AttachPresenter> implements
     @Override
     public void onEmpty(String msg) {
         hideDialog();
-        mStateLayout.showEmptyView();
+        showEmtry(msg, null);
     }
 
     @Override
     public void onFailed(int action, String msg) {
         hideDialog();
-        mStateLayout.showErrorView();
+        showError(msg, null);
     }
 
     @Override
@@ -134,8 +134,8 @@ public class AttachmentFragment extends BaseFragment<AttachPresenter> implements
 
     @Override
     public void showList(List lists) {
-        mStateLayout.showContentView();
         hideDialog();
+        showContent();
 
         mAdapter.setNewData(lists);
         mRecyclerView.setAdapter(mAdapter);
@@ -147,7 +147,7 @@ public class AttachmentFragment extends BaseFragment<AttachPresenter> implements
         if (!lists.isEmpty()) {
             mAdapter.setNewData(lists);
         } else {
-            mStateLayout.showEmptyView();
+            ToastHelper.showLongToast(App.INSTANCE, "刷新失败");
         }
     }
 

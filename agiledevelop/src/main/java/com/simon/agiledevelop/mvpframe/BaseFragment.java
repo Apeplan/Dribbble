@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.simon.agiledevelop.state.StateViewHelperController;
+import com.simon.agiledevelop.R;
+import com.simon.agiledevelop.state.StateView;
 
 /**
  * describe: Base Fragment, With no special requirements, all fragment must extends
@@ -23,12 +25,12 @@ import com.simon.agiledevelop.state.StateViewHelperController;
 public abstract class BaseFragment<T extends Presenter> extends Fragment implements View
         .OnClickListener {
     protected T mPresenter;
-    private StateViewHelperController mStateController;
     protected OnFragmentInteractionListener mListener;
 
     protected View rootView;
     private boolean isViewPrepared; // 标识fragment视图已经初始化完毕
     private boolean hasFetchData; // 标识已经触发过懒加载数据
+    private StateView mStateView;
 
    /* @Override
     public void onAttach(Activity activity) {
@@ -74,7 +76,7 @@ public abstract class BaseFragment<T extends Presenter> extends Fragment impleme
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter = getPresenter();
-        mStateController = new StateViewHelperController(getLoadingView());
+        mStateView = getLoadingView(view);
 
         isViewPrepared = true;
         lazyFetchDataIfPrepared();
@@ -110,7 +112,7 @@ public abstract class BaseFragment<T extends Presenter> extends Fragment impleme
      *
      * @return
      */
-    protected abstract View getLoadingView();
+    protected abstract StateView getLoadingView(View view);
 
     /**
      * 初始化事件，和数据
@@ -179,84 +181,88 @@ public abstract class BaseFragment<T extends Presenter> extends Fragment impleme
     /**
      * 显示正在加载页面
      *
-     * @param toggle  true 显示加载页面，false 重置为原来的页面
      * @param message
      */
-    public void showLoading(boolean toggle, String message) {
-        if (null == mStateController) {
+    public void showLoading(String message) {
+        if (null == mStateView) {
             throw new IllegalArgumentException("You must return a right target view for loading");
         }
-
-        if (toggle) {
-            mStateController.showStateLoading(message);
-        } else {
-            mStateController.restore();
+        if (!TextUtils.isEmpty(message)) {
+            mStateView.setTitle(message);
         }
+        mStateView.setState(StateView.STATE_LOADING);
     }
 
     /**
-     * 隐藏加在页面
+     * 显示内容页面
      */
-    public void hideLoading() {
-        if (null == mStateController) {
+    public void showContent() {
+        if (null == mStateView) {
             throw new IllegalArgumentException("You must return a right target view for loading");
         }
-        mStateController.restore();
+
+        mStateView.setState(StateView.STATE_CONTENT);
     }
+
 
     /**
      * 显示空数据页面
      *
-     * @param toggle          true 显示空页面，false 重置为原来的页面
      * @param message         提示信息
      * @param onClickListener 是否支持重新加载
      */
-    public void showEmtry(boolean toggle, String message, View.OnClickListener onClickListener) {
-        if (null == mStateController) {
+    public void showEmtry(String message, View.OnClickListener onClickListener) {
+        if (null == mStateView) {
             throw new IllegalArgumentException("You must return a right target view for loading");
         }
 
-        if (toggle) {
-            mStateController.showStateEmpty(message, onClickListener);
-        } else {
-            mStateController.restore();
+        mStateView.setState(StateView.STATE_EMPTY);
+        if (!TextUtils.isEmpty(message)) {
+            mStateView.setTitle(message);
+        }
+        if (null != onClickListener) {
+            mStateView.setOnClickListener(onClickListener);
         }
     }
 
     /**
      * 显示错误页面
      *
-     * @param toggle          true 显示错误页面，false 重置为原来的页面
      * @param error           提示信息
      * @param onClickListener 是否支持重新加载
      */
-    public void showError(boolean toggle, String error, View.OnClickListener onClickListener) {
-        if (null == mStateController) {
+    public void showError(String error, View.OnClickListener onClickListener) {
+        if (null == mStateView) {
             throw new IllegalArgumentException("You must return a right target view for loading");
         }
 
-        if (toggle) {
-            mStateController.showStateError(error, onClickListener);
-        } else {
-            mStateController.restore();
+        mStateView.setState(StateView.STATE_ERROR);
+        if (!TextUtils.isEmpty(error)) {
+            mStateView.setTitle(error);
+        }
+        if (null != onClickListener) {
+            mStateView.setOnClickListener(onClickListener);
         }
     }
 
     /**
      * 显示网络错误页面
      *
-     * @param toggle          true 显示网络错误页面，false 重置为原来的页面
+     * @param error
      * @param onClickListener 是否支持重新加载
      */
-    public void showNetworkError(boolean toggle, View.OnClickListener onClickListener) {
-        if (null == mStateController) {
+    public void showNetworkError(String error, View.OnClickListener onClickListener) {
+        if (null == mStateView) {
             throw new IllegalArgumentException("You must return a right target view for loading");
         }
 
-        if (toggle) {
-            mStateController.showStateNetworkError(onClickListener);
-        } else {
-            mStateController.restore();
+        mStateView.setState(StateView.STATE_ERROR);
+        if (!TextUtils.isEmpty(error)) {
+            mStateView.setTitle(error);
+        }
+        mStateView.setIcon(R.drawable.state_net_error);
+        if (null != onClickListener) {
+            mStateView.setOnClickListener(onClickListener);
         }
     }
 

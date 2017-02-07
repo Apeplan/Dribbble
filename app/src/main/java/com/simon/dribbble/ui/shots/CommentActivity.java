@@ -17,6 +17,7 @@ import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
 import com.simon.agiledevelop.recycler.listeners.OnItemClickListener;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ResHelper;
 import com.simon.agiledevelop.utils.ToastHelper;
@@ -26,7 +27,6 @@ import com.simon.dribbble.data.model.CommentEntity;
 import com.simon.dribbble.listener.TextWatcherImpl;
 import com.simon.dribbble.util.DialogHelp;
 import com.simon.dribbble.widget.loadingdia.SpotsDialog;
-import com.simon.dribbble.widget.statelayout.StateLayout;
 
 import java.util.List;
 
@@ -44,7 +44,6 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
     private RecyclerView mRecyclerView;
     private CommentPresenter mPresenter;
     private int mPageNo = 1;
-    private StateLayout mStateLayout;
     private CommentAdapter mAdapter;
     private long mShotId;
     private EditText mEdit_comment;
@@ -64,20 +63,18 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
     }
 
     @Override
-    protected View getLoadingView() {
-        return null;
+    protected StateView getLoadingView() {
+        return (StateView) findViewById(R.id.stateView_comments);
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setCommonBackToolBack(toolbar, "评论");
 
         mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         mRefreshLayout.setColorSchemeResources(R.color.purple_500, R.color.blue_500, R.color
                 .orange_500, R.color.pink_500);
-
-        mStateLayout = (StateLayout) findViewById(R.id.stateLayout_comments);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.xrv_comment);
 
@@ -152,7 +149,7 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
 
     @Override
     public void showComments(List<CommentEntity> comments) {
-        mStateLayout.showContentView();
+        showContent();
         hideDialog();
 
         mAdapter.setNewData(comments);
@@ -180,7 +177,7 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
 
     @Override
     public void onEmpty(String msg) {
-        mStateLayout.showEmptyView();
+        showEmtry(msg, null);
     }
 
     @Override
@@ -192,7 +189,7 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
 
     @Override
     public void onFailed(int action, String msg) {
-        mStateLayout.showErrorView();
+        showError(msg, null);
     }
 
     @Override

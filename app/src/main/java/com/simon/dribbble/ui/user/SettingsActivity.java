@@ -1,13 +1,17 @@
 package com.simon.dribbble.ui.user;
 
 
+import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.simon.agiledevelop.mvpframe.BaseActivity;
 import com.simon.agiledevelop.mvpframe.Presenter;
+import com.simon.agiledevelop.state.StateView;
 import com.simon.dribbble.R;
+import com.simon.dribbble.ui.AboutActivity;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -22,6 +26,8 @@ import com.simon.dribbble.R;
  */
 public class SettingsActivity extends BaseActivity {
 
+    private CardView mAbout;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_settings;
@@ -33,18 +39,35 @@ public class SettingsActivity extends BaseActivity {
     }
 
     @Override
-    protected View getLoadingView() {
+    protected StateView getLoadingView() {
         return null;
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setCommonBackToolBack(toolbar,"设置");
+        setCommonBackToolBack(toolbar, "设置");
+
+        mAbout = (CardView) findViewById(R.id.cv_about);
     }
 
     @Override
     protected void initEventAndData() {
+        mAbout.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        int id = v.getId();
+        switch (id) {
+            case R.id.cv_about:
+                startIntent(AboutActivity.class);
+                break;
+
+            default:
+
+                break;
+        }
     }
 }
