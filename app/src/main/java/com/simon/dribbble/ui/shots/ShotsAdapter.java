@@ -3,7 +3,6 @@ package com.simon.dribbble.ui.shots;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,8 +25,6 @@ import com.simon.dribbble.util.StringUtil;
  */
 
 public class ShotsAdapter extends RecycledAdapter<ShotEntity, RecycledViewHolder> {
-
-    private ShotClickListener mShotClickListener;
 
     private RecyclerView.RecycledViewPool mPool = new RecyclerView.RecycledViewPool() {
         @Override
@@ -95,24 +92,6 @@ public class ShotsAdapter extends RecycledAdapter<ShotEntity, RecycledViewHolder
             holder.setText(R.id.tv_comments_count, shot.getComments_count() + "");
             holder.setText(R.id.tv_likes_count, shot.getLikes_count() + "");
 
-            holder.getView(R.id.rl_userinfo).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (null != mShotClickListener) {
-                        mShotClickListener.shotClick(shot, 0);
-                    }
-                }
-            });
-
-            holder.getView(R.id.cv_pic).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (null != mShotClickListener) {
-                        mShotClickListener.shotClick(shot, 1);
-                    }
-                }
-            });
-
         }
     }
 
@@ -120,14 +99,6 @@ public class ShotsAdapter extends RecycledAdapter<ShotEntity, RecycledViewHolder
 //        RecycledViewPool可以自主控制需要缓存的ViewHolder数量
 //        mPool.setMaxRecycledViews(itemViewType, number);
         return mPool;
-    }
-
-    public void setShotClickListener(ShotClickListener listener) {
-        this.mShotClickListener = listener;
-    }
-
-    interface ShotClickListener {
-        void shotClick(ShotEntity shot, int type);
     }
 
 }

@@ -14,6 +14,7 @@ import android.view.View;
 import com.simon.agiledevelop.log.LLog;
 import com.simon.agiledevelop.mvpframe.BaseFragment;
 import com.simon.agiledevelop.recycler.adapter.RecycledAdapter;
+import com.simon.agiledevelop.recycler.listeners.OnItemClickListener;
 import com.simon.agiledevelop.state.StateView;
 import com.simon.agiledevelop.utils.App;
 import com.simon.agiledevelop.utils.ToastHelper;
@@ -21,7 +22,6 @@ import com.simon.dribbble.R;
 import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.model.ShotEntity;
 import com.simon.dribbble.data.remote.DribbbleService;
-import com.simon.dribbble.ui.user.UserInfoActivity;
 import com.simon.dribbble.util.DialogHelp;
 import com.simon.dribbble.widget.loadingdia.SpotsDialog;
 
@@ -29,7 +29,7 @@ import java.util.List;
 
 
 public class ShotsFragment extends BaseFragment<ShotsPresenter> implements ShotsContract.View,
-        RecycledAdapter.LoadMoreListener, ShotsAdapter.ShotClickListener {
+        RecycledAdapter.LoadMoreListener {
 
     private int mPageNo = 1;
     private RecyclerView mRecyclerView;
@@ -99,7 +99,6 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
             mAdapter.openAnimation(RecycledAdapter.SCALEIN);
             mAdapter.setLoadMoreEnable(true);
             mAdapter.setOnLoadMoreListener(this);
-            mAdapter.setShotClickListener(this);
         }
 
         mPresenter = new ShotsPresenter(this);
@@ -107,16 +106,16 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
 
     @Override
     protected void initEventAndData() {
-//        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
-//            @Override
-//            protected void onItemClick(RapidAdapter adapter, RecyclerView recyclerView, View
-//                    view, int position) {
-//                ShotEntity shots = mAdapter.getItem(position);
-//                Bundle bundle = new Bundle();
-//                bundle.putLong("shotId", shots.getId());
-//                startIntent(ShotDetailActivity.class, bundle);
-//            }
-//        });
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            protected void onItemClick(RecycledAdapter adapter, RecyclerView recyclerView, View
+                    view, int position) {
+                ShotEntity shots = mAdapter.getItem(position);
+                Bundle bundle = new Bundle();
+                bundle.putLong("shotId", shots.getId());
+                startIntent(ShotDetailActivity.class, bundle);
+            }
+        });
 
         mPageNo = 1;
         request(Api.EVENT_BEGIN, false);
@@ -218,22 +217,6 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
             showDialog();
         }
         mPresenter.loadShotsList(mPageNo, list, timeframe, sort, event);
-    }
-
-    @Override
-    public void shotClick(ShotEntity shot, int type) {
-        if (type == 0) {
-            long id = shot.getUser().id;
-            String name = shot.getUser().name;
-            Bundle bundle = new Bundle();
-            bundle.putString("name", name);
-            bundle.putLong("userId", id);
-            startIntent(UserInfoActivity.class, bundle);
-        } else {
-            Bundle bundle = new Bundle();
-            bundle.putLong("shotId", shot.getId());
-            startIntent(ShotDetailActivity.class, bundle);
-        }
     }
 
     @Override
