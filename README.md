@@ -26,6 +26,7 @@
 ![enter description here][7]
 
 ###项目初衷
+学习使用RxJava 链式编程、Material Design设计规范、MVP 项目架构模式。
 MVP模式是MVC模式的改良。MVP打破了MVC中View原来对于Model的依赖，进一步减弱了耦合性，详细介绍，请自行google、百度，很多大牛已经介绍的很详细了，我就不在这班门弄斧了。
 关于Rxjava可以参考[给 Android 开发者的 RxJava 详解](http://gank.io/post/560e15be2dca930e00da1083)。
 
