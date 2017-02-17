@@ -3,6 +3,10 @@ package com.simon.dribbble.ui.shots;
 import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.log.LLog;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.NetHelper;
+import com.simon.agiledevelop.utils.ResHelper;
+import com.simon.dribbble.R;
 import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.ShotEntity;
@@ -28,6 +32,10 @@ public class ShotsPresenter extends RxPresenter<ShotsContract.View, List<ShotEnt
     public void loadShotsList(int page, @DribbbleService.ShotType String list, @DribbbleService
             .ShotTimeframe String timeframe, @DribbbleService.ShotSort String sort, final int
                                       action) {
+        if (!NetHelper.isNetworkConnected(App.INSTANCE)) {
+            getView().onFailed(action, ResHelper.getStrByResid(R.string.network_exception));
+            return;
+        }
 
         Observable<List<ShotEntity>> shotsList = DribbbleDataManger.getInstance().getShotsList
                 (page, list, timeframe, sort);
@@ -35,7 +43,7 @@ public class ShotsPresenter extends RxPresenter<ShotsContract.View, List<ShotEnt
         subscribe(shotsList, new ResultSubscriber<List<ShotEntity>>() {
             @Override
             public void onStartRequest() {
-                getView().showLoading(action,"");
+                getView().showLoading(action, "");
             }
 
             @Override

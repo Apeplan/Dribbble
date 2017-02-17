@@ -95,6 +95,7 @@ public class AttachmentFragment extends BaseFragment<AttachPresenter> implements
 
 
     protected void itemClick(View view, int position) {
+        // TODO item click
 
     }
 
@@ -117,9 +118,18 @@ public class AttachmentFragment extends BaseFragment<AttachPresenter> implements
     }
 
     @Override
-    public void onFailed(int action, String msg) {
+    public void onFailed(final int action, String msg) {
         hideDialog();
-        showError(msg, null);
+        if (Api.EVENT_BEGIN == action && msg.contains("网络")) {
+            showNetworkError(msg, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPresenter.loadList(mShotId, mPage, action);
+                }
+            });
+        }else {
+            showError(msg, null);
+        }
     }
 
     @Override

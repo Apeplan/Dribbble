@@ -149,10 +149,19 @@ public abstract class CommListFragment<P extends CommListPresenter, A extends Re
     }
 
     @Override
-    public void onFailed(int action, String msg) {
+    public void onFailed(final int action, String msg) {
         hideDialog();
-
-        showError(msg, null);
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retry(action);
+            }
+        };
+        if (Api.EVENT_BEGIN == action && msg.contains("网络")) {
+            showNetworkError(msg, onClickListener);
+        } else {
+            showError(msg, onClickListener);
+        }
     }
 
     @Override
@@ -202,8 +211,12 @@ public abstract class CommListFragment<P extends CommListPresenter, A extends Re
 
     }
 
+    protected void retry(int action) {
+
+    }
 
     protected abstract A getListAdapter();
 
     protected abstract void itemClick(View view, int position);
+
 }

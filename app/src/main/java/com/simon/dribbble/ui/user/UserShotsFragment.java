@@ -62,4 +62,9 @@ public class UserShotsFragment extends CommListFragment<UserShotsPresenter, Shot
         return new ShotsAdapter();
     }
 
+    @Override
+    protected void retry(int action) {
+        super.retry(action);
+        mPresenter.loadList(action, 0, "", mPage);
+    }
 }

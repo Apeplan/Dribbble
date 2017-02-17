@@ -58,4 +58,10 @@ public class TeamFragment extends CommListFragment<TeamPresenter, TeamAdapter> {
         mPageNo++;
         mPresenter.loadList(Api.EVENT_MORE, 0, "", mPageNo);
     }
+
+    @Override
+    protected void retry(int action) {
+        super.retry(action);
+        mPresenter.loadList(action, 0, "", mPageNo);
+    }
 }

@@ -14,7 +14,7 @@ import com.simon.dribbble.ui.buckets.UserBucketsAdapter;
  * Created on: 2016/9/14 17:29
  */
 
-public class BucketsFragment extends CommListFragment<BucketsPresenter,UserBucketsAdapter> {
+public class BucketsFragment extends CommListFragment<BucketsPresenter, UserBucketsAdapter> {
 
     private int mPage = 1;
     private long mShotId;
@@ -68,5 +68,11 @@ public class BucketsFragment extends CommListFragment<BucketsPresenter,UserBucke
     @Override
     public void setPresenter(CommListPresenter presenter) {
 
+    }
+
+    @Override
+    protected void retry(int action) {
+        super.retry(action);
+        mPresenter.loadList(action, mShotId, "shots", mPage);
     }
 }

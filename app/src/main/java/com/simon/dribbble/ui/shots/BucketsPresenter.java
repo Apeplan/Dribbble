@@ -2,6 +2,10 @@ package com.simon.dribbble.ui.shots;
 
 import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.log.LLog;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.NetHelper;
+import com.simon.agiledevelop.utils.ResHelper;
+import com.simon.dribbble.R;
 import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.BucketEntity;
@@ -27,6 +31,11 @@ public class BucketsPresenter extends CommListPresenter<CommListContract.View, L
 
     @Override
     public void loadList(final int action, long id, String type, int page) {
+
+        if (!NetHelper.isNetworkConnected(App.INSTANCE)) {
+            getView().onFailed(action, ResHelper.getStrByResid(R.string.network_exception));
+            return;
+        }
 
         Observable<List<BucketEntity>> buckets = DribbbleDataManger.getInstance().getBuckets
                 (type, id, page);

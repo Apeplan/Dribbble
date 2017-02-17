@@ -3,6 +3,10 @@ package com.simon.dribbble.ui.user;
 import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.log.LLog;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.NetHelper;
+import com.simon.agiledevelop.utils.ResHelper;
+import com.simon.dribbble.R;
 import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.User;
 
@@ -20,6 +24,11 @@ public class UserInfoPresenter extends RxPresenter<UserInfoContract.View, User> 
     }
 
     public void loadUserInfo(final int action, long userId) {
+
+        if (!NetHelper.isNetworkConnected(App.INSTANCE)) {
+            getView().onFailed(action, ResHelper.getStrByResid(R.string.network_exception));
+            return;
+        }
 
         Observable<User> usersInfo = DribbbleDataManger.getInstance().getUsersInfo(userId);
         subscribe(usersInfo, new ResultSubscriber<User>() {

@@ -272,8 +272,18 @@ public class ShotDetailActivity extends BaseActivity<ShotDetailPresenter> implem
     }
 
     @Override
-    public void onFailed(int flag, String msg) {
-        showError(msg, null);
+    public void onFailed(final int flag, String msg) {
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.loadShot(flag, mShotId);
+            }
+        };
+        if (Api.EVENT_BEGIN == flag && msg.contains("网络")) {
+            showNetworkError(msg, onClickListener);
+        } else {
+            showError(msg, onClickListener);
+        }
     }
 
     @Override

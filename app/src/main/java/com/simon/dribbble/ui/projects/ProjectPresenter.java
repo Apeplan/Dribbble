@@ -2,6 +2,10 @@ package com.simon.dribbble.ui.projects;
 
 import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.log.LLog;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.NetHelper;
+import com.simon.agiledevelop.utils.ResHelper;
+import com.simon.dribbble.R;
 import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.ProjectEntity;
 import com.simon.dribbble.ui.CommListContract;
@@ -27,6 +31,11 @@ public class ProjectPresenter extends CommListPresenter<CommListContract.View,
 
     @Override
     public void loadList(final int action, long id, String type, int page) {
+
+        if (!NetHelper.isNetworkConnected(App.INSTANCE)) {
+            getView().onFailed(action, ResHelper.getStrByResid(R.string.network_exception));
+            return;
+        }
 
         Observable<List<ProjectEntity>> userProjects = DribbbleDataManger.getInstance()
                 .getUserProjects();

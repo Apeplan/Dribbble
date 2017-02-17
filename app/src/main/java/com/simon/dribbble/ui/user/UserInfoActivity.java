@@ -40,6 +40,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
 
     private SpotsDialog mLoadingDialog;
     private TextView mUserType;
+    private long mUserId;
 
     @Override
     protected int getLayoutId() {
@@ -80,8 +81,8 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     protected void initEventAndData() {
         Bundle bundle = getBundle();
         if (null != bundle) {
-            long userId = bundle.getLong("userId");
-            mPresenter.loadUserInfo(Api.EVENT_BEGIN, userId);
+            mUserId = bundle.getLong("userId");
+            mPresenter.loadUserInfo(Api.EVENT_BEGIN, mUserId);
         }
     }
 
@@ -142,8 +143,18 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
 
     @Override
     public void onFailed(int action, String msg) {
-        showError(msg, null);
         hideDialog();
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.loadUserInfo(Api.EVENT_BEGIN,mUserId);
+            }
+        };
+        if (Api.EVENT_BEGIN == action && msg.contains("网络")) {
+            showNetworkError(msg,onClickListener);
+        }else {
+        showError(msg,onClickListener);
+        }
     }
 
     @Override

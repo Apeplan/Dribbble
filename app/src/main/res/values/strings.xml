@@ -8,6 +8,7 @@
     <string name="loading">正在加载...</string>
     <string name="try_again">重新加载</string>
     <string name="not_data">暂无还没有数据</string>
+    <string name="network_exception">请检查您的网络</string>
 
     <string name="error">出错了</string>
     <string name="retry">轻触屏幕重试</string>

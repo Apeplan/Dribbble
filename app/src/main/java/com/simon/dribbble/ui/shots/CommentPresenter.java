@@ -3,6 +3,10 @@ package com.simon.dribbble.ui.shots;
 import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.log.LLog;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.NetHelper;
+import com.simon.agiledevelop.utils.ResHelper;
+import com.simon.dribbble.R;
 import com.simon.dribbble.data.Api;
 import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.CommentEntity;
@@ -10,6 +14,8 @@ import com.simon.dribbble.data.model.CommentEntity;
 import java.util.List;
 
 import rx.Observable;
+
+import static android.R.attr.action;
 
 /**
  * Created by: Simon
@@ -25,6 +31,11 @@ public class CommentPresenter extends RxPresenter<CommentContract.View, List<Com
     }
 
     public void loadComments(long shotId, String type, int page, final int event) {
+
+        if (!NetHelper.isNetworkConnected(App.INSTANCE)) {
+            getView().onFailed(event, ResHelper.getStrByResid(R.string.network_exception));
+            return;
+        }
 
         Observable<List<CommentEntity>> comments = DribbbleDataManger.getInstance().getComments
                 (shotId, type, page);

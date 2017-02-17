@@ -268,8 +268,17 @@ public class ShotsFragment extends BaseFragment<ShotsPresenter> implements Shots
     }
 
     @Override
-    public void onFailed(int event, String msg) {
-        ToastHelper.showLongToast(App.INSTANCE, msg);
+    public void onFailed(final int event, String msg) {
+        if (Api.EVENT_BEGIN == event && msg.contains("网络")) {
+            showNetworkError(msg, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    request(event, true);
+                }
+            });
+        } else {
+            ToastHelper.showLongToast(App.INSTANCE, msg);
+        }
     }
 
     @Override

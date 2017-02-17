@@ -188,8 +188,17 @@ public class CommentActivity extends BaseActivity<CommentPresenter> implements C
     }
 
     @Override
-    public void onFailed(int action, String msg) {
-        showError(msg, null);
+    public void onFailed(final int action, String msg) {
+        if (Api.EVENT_BEGIN == action && msg.contains("网络")) {
+            showNetworkError(msg, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPresenter.loadComments(mShotId, "comments", mPageNo, action);
+                }
+            });
+        }else {
+            showError(msg, null);
+        }
     }
 
     @Override

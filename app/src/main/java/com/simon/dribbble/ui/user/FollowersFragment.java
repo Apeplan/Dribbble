@@ -58,4 +58,10 @@ public class FollowersFragment extends CommListFragment<FollowersPresenter, Foll
     protected boolean isLoadMoreEnabled() {
         return false;
     }
+
+    @Override
+    protected void retry(int action) {
+        super.retry(action);
+        mPresenter.loadList(action, 0, "", mPageNo);
+    }
 }

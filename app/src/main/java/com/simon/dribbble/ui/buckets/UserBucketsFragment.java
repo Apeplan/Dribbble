@@ -72,4 +72,10 @@ public class UserBucketsFragment extends CommListFragment<BucketPresenter, UserB
     protected boolean isLoadMoreEnabled() {
         return false;
     }
+
+    @Override
+    protected void retry(int action) {
+        super.retry(action);
+        mPresenter.loadList(action, Api.USER_ID, "", 0);
+    }
 }

@@ -3,6 +3,10 @@ package com.simon.dribbble.ui.shots;
 import com.simon.agiledevelop.mvpframe.RxPresenter;
 import com.simon.agiledevelop.ResultSubscriber;
 import com.simon.agiledevelop.log.LLog;
+import com.simon.agiledevelop.utils.App;
+import com.simon.agiledevelop.utils.NetHelper;
+import com.simon.agiledevelop.utils.ResHelper;
+import com.simon.dribbble.R;
 import com.simon.dribbble.data.DribbbleDataManger;
 import com.simon.dribbble.data.model.ShotEntity;
 
@@ -22,6 +26,11 @@ public class ShotDetailPresenter extends RxPresenter<ShotDetailContract.View, Sh
     }
 
     public void loadShot(final int action, long id) {
+
+        if (!NetHelper.isNetworkConnected(App.INSTANCE)) {
+            getView().onFailed(action, ResHelper.getStrByResid(R.string.network_exception));
+            return;
+        }
 
         Observable<ShotEntity> shot = DribbbleDataManger.getInstance().getShot(id);
         subscribe(shot, new ResultSubscriber<ShotEntity>() {
